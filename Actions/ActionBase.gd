@@ -35,7 +35,7 @@ func test(b):
 ## does this really do anything?
 ## I can set variables before I add child!
 func init_act(args):
-	if args.has("start_position"):
+	if args.has("start_position") && typeof(args.start_position) == 5:
 		global_position = args.start_position
 	if args.has("target"):
 		velocity = args.target
