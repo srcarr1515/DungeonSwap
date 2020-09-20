@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/ActiveSkillBtn.gd" type="Script" id=2]
+
+[node name="ActiveSkillBtn" type="TextureButton" groups=[
+"skill_button",
+]]
+anchor_right = 0.2
+anchor_bottom = 0.356
+margin_bottom = -0.0800018
+rect_min_size = Vector2( 36, 36 )
+expand = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClockWipe" type="TextureProgress" parent="."]
+modulate = Color( 0.239216, 0.239216, 0.239216, 0.784314 )
+anchor_right = 1.01563
+anchor_bottom = 1.01563
+size_flags_horizontal = 2
+size_flags_vertical = 2
+fill_mode = 5
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+[connection signal="pressed" from="." to="." method="_on_ActiveSkillBtn_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Cooldown_Timer_timeout"]

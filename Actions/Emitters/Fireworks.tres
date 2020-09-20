@@ -1,0 +1,32 @@
+[gd_resource type="ParticlesMaterial" load_steps=5 format=2]
+
+[sub_resource type="Curve" id=1]
+min_value = -200.0
+max_value = 400.0
+_data = [ Vector2( 0, 400 ), 0.0, 0.0, 0, 0, Vector2( 0.151899, 82.2727 ), -963.208, -963.208, 0, 0, Vector2( 1, -135.909 ), 393.974, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+min_value = -1.0
+max_value = 3.0
+_data = [ Vector2( 0.0126582, 1.71364 ), 0.0, -1.58495, 0, 0, Vector2( 0.5, 1.67727 ), -18.96, -18.96, 0, 0, Vector2( 0.968354, 3 ), 37.7045, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 80.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+linear_accel_random = 0.2
+linear_accel_curve = SubResource( 2 )
+scale_curve = SubResource( 4 )

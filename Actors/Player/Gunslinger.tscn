@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Actors/Player_Char.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/Player/gunslinger-sheet.png" type="Texture" id=2]
+[ext_resource path="res://Actions/Components/ActionPoint.gd" type="Script" id=3]
+[ext_resource path="res://Actions/Bullet.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 12.0
+height = 112.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 16 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="Animation" id=4]
+resource_name = "attack"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 3, 5, 6, 7, 8, 10, 13, 15, 16, 17, 19, 21, 35, 36, 37, 38 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("ActionPoint")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ {
+"target": Vector2( -5, 0 )
+} ],
+"method": "SpawnAction"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+length = 2.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "walk"
+length = 1.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58 ]
+}
+
+[node name="Player_Char" instance=ExtResource( 1 )]
+position = Vector2( 0, -20 )
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+offset = Vector2( 19.663, 0 )
+vframes = 6
+hframes = 10
+frame = 1
+
+[node name="CollisionShape2D" parent="DetectionZone" index="0"]
+position = Vector2( 60, 4 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="left_anchor" parent="DetectionZone" index="1"]
+position = Vector2( -60, 4 )
+
+[node name="right_anchor" parent="DetectionZone" index="2"]
+position = Vector2( 64.5171, 4.24391 )
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = false
+position = Vector2( -8, 4 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+visible = false
+position = Vector2( -8, 4 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
+
+[node name="AnimationPlayer" parent="." index="7"]
+anims/attack = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/walk = SubResource( 6 )
+
+[node name="ActionPoint" type="Position2D" parent="." index="9"]
+position = Vector2( 10.001, -5.57656 )
+script = ExtResource( 3 )
+Action = ExtResource( 4 )
+
+[editable path="DetectionZone"]
+
+[editable path="HurtBox"]
+
+[editable path="HitBox"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Hboxes/HurtBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Actors/Player_Char.gd" type="Script" id=2]
+[ext_resource path="res://Actors/Components/FSM.gd" type="Script" id=3]
+[ext_resource path="res://Actors/Components/DetectionZone.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Actors/Components/Stats.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Hboxes/HitBox.tscn" type="PackedScene" id=6]
+
+[node name="Player_Char" type="KinematicBody2D" groups=[
+"player_char",
+"targetable",
+]]
+collision_layer = 2
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="DetectionZone" parent="." instance=ExtResource( 4 )]
+collision_mask = 16
+
+[node name="left_anchor" type="Position2D" parent="DetectionZone"]
+
+[node name="right_anchor" type="Position2D" parent="DetectionZone"]
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.387428, 5.61763 )
+
+[node name="HurtBox" parent="." instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 4
+
+[node name="HitBox" parent="." instance=ExtResource( 6 )]
+collision_layer = 8
+collision_mask = 8
+
+[node name="Stats" parent="." instance=ExtResource( 5 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="FSM" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[editable path="DetectionZone"]
+
+[editable path="HurtBox"]
+
+[editable path="HitBox"]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Actions/ActionBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Actions/Components/Fade.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actions/Components/Trail.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
+
+[node name="Bullet" instance=ExtResource( 1 )]
+collision_mask = 16
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="ActiveCollision" parent="." index="2"]
+destroy_on_collision = true
+
+[node name="CollisionShape2D" parent="ActiveCollision" index="0"]
+shape = SubResource( 1 )
+
+[node name="Fade" parent="." index="3" instance=ExtResource( 3 )]
+start_fade = 0.5
+fade_time = 1.5
+destroy_after_fade = true
+
+[node name="Trail" parent="." index="4" instance=ExtResource( 4 )]
+width = 2.0
+default_color = Color( 0.431373, 0.45098, 0.517647, 1 )
+trail_length = 100
+inherit_alpha = true
+
+[editable path="ActiveCollision"]

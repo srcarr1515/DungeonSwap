@@ -1,0 +1,164 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/ActiveSkillBtn.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/ActiveSkillDock.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/ActiveSkillDock.gd" type="Script" id=3]
+[ext_resource path="res://UI/UI.gd" type="Script" id=4]
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="char_slot_1" type="Control" parent="." groups=[
+"ui_char_slot",
+]]
+anchor_left = 0.121875
+anchor_top = 0.777778
+anchor_right = 0.134375
+anchor_bottom = 0.8
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="char_slot_2" type="Control" parent="." groups=[
+"ui_char_slot",
+]]
+anchor_left = 0.309375
+anchor_top = 0.777778
+anchor_right = 0.321875
+anchor_bottom = 0.8
+margin_right = -7.62939e-06
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="char_slot_3" type="Control" parent="." groups=[
+"ui_char_slot",
+]]
+anchor_left = 0.678125
+anchor_top = 0.777778
+anchor_right = 0.690625
+anchor_bottom = 0.8
+margin_left = 1.52588e-05
+margin_right = -1.52588e-05
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ActiveSkillDock" parent="." groups=[
+"skill_dock",
+] instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 38.5599
+margin_top = 78.3823
+margin_right = 154.56
+margin_bottom = 118.382
+rect_min_size = Vector2( 58, 20 )
+rect_scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 3 )
+
+[node name="ActiveSkillBtn" parent="ActiveSkillDock" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 36.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 36, 40 )
+cooldown = 30.0
+
+[node name="ActiveSkillBtn2" parent="ActiveSkillDock" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_right = 76.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillBtn3" parent="ActiveSkillDock" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_right = 116.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillDock2" parent="." groups=[
+"skill_dock",
+] instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 99.0
+margin_top = 140.0
+margin_right = 215.0
+margin_bottom = 180.0
+script = ExtResource( 3 )
+is_active = true
+
+[node name="ActiveSkillBtn" parent="ActiveSkillDock2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 36.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillBtn2" parent="ActiveSkillDock2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_right = 76.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillBtn3" parent="ActiveSkillDock2" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_right = 116.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillDock3" parent="." groups=[
+"skill_dock",
+] instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 217.0
+margin_top = 140.0
+margin_right = 333.0
+margin_bottom = 180.0
+rect_scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 3 )
+
+[node name="ActiveSkillBtn" parent="ActiveSkillDock3" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 36.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillBtn2" parent="ActiveSkillDock3" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_right = 76.0
+margin_bottom = 40.0
+cooldown = 30.0
+
+[node name="ActiveSkillBtn3" parent="ActiveSkillDock3" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_right = 116.0
+margin_bottom = 40.0
+cooldown = 30.0
