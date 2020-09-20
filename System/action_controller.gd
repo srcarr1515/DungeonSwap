@@ -33,7 +33,11 @@ func cue_transition(transition_cue, action_id, args=null):
 			action_blueprints.erase(action_id)
 
 func _on_UI_commit_skill(_button, _target):
-	execute_action(_button.skill_id, _target)	
+	execute_action(_button.skill_id, _target)
+
+func execute_action(skill_id, target):
+	GameState.sub_state('ready')
+	print(playerVar.skill_list[skill_id])
 
 func perform_action(action_blueprint_name, args=null):
 	var bp_script = load("res://Actions/Blueprints/{action}.gd".format({"action": action_blueprint_name})).new()
@@ -82,9 +86,7 @@ func spawn_action(action_id, args=null):
 
 func destroy_action(action_id, args=null):
 	emit_signal("action_complete", args.action)
-
-func execute_action(skill_id, target):
-	GameState.sub_state('ready')
+	
 
 func set_event_location(action_id, target_pos, transition_cue):
 	if action_step[action_id] + 1 <= action_blueprints[action_id].size():

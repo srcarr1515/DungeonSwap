@@ -5,6 +5,7 @@ var action_id = null
 export (Vector2) var start_pos = Vector2.ZERO
 export (Vector2) var target = Vector2.ZERO
 export (String) var is_playing = null
+export (float) var max_speed = 64
 onready var emitter = $Particles2D
 #export (Script) var skill_script
 #onready var CustomEffect = load(skill_script.get_path()).new()
@@ -36,6 +37,7 @@ func init_act(args):
 		global_position = args.start_position
 	if args.has("target"):
 		velocity = args.target
+		velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if args.has("emitter"):
 		emitter.set_emitting(args.emitter)
 	if args.has('atk_power'):

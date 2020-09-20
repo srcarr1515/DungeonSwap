@@ -20,4 +20,4 @@ func SpawnAction(args):
 		args["target"].x = abs(args["target"].x)
 	args.start_position = global_position
 	var new_args = [args]
-	ActionController.perform_action('exploding_rounds', new_args)
+	ActionController.perform_action('bullet', new_args)
