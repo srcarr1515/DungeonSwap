@@ -19,6 +19,8 @@ func attack(delta):
 	set_animation("attack")
 	yield(parent.anim_player, "animation_finished")
 	state_event({"event": "idle"})
+	if parent.detect.target == null:
+		parent.detect.check_nearby_entities('enemy')
 
 func set_animation(anim):
 	var anim_player = parent.anim_player

@@ -28,9 +28,6 @@ func _ready():
 
 func _physics_process(delta):
 	move_and_collide(velocity)
-
-func test(b):
-	print(b)
 	
 ## does this really do anything?
 ## I can set variables before I add child!
