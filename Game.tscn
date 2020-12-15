@@ -271,6 +271,47 @@ follow_viewport_enable = true
 
 [node name="UI" parent="HUD" instance=ExtResource( 8 )]
 
+[node name="slot_controller" type="Node2D" parent="HUD/UI" groups=[
+"slot_controller",
+]]
+script = ExtResource( 5 )
+
+[node name="slot" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 32, 100 )
+slot_num = 1
+
+[node name="slot2" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 64, 100 )
+slot_num = 2
+
+[node name="slot3" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 96, 100 )
+slot_num = 3
+
+[node name="slot4" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 128, 100 )
+slot_num = 4
+
+[node name="slot5" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 160, 100 )
+slot_num = 5
+
+[node name="slot6" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 192, 100 )
+slot_num = 6
+
+[node name="slot7" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 224, 100 )
+slot_num = 7
+
+[node name="slot8" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 256, 100 )
+slot_num = 8
+
+[node name="slot9" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 288, 100 )
+slot_num = 9
+
 [node name="action_controller" parent="." instance=ExtResource( 9 )]
 
 [node name="Level" type="Node2D" parent="."]
@@ -287,47 +328,6 @@ script = ExtResource( 6 )
 [node name="spawnPoint2" parent="Level/Player" instance=ExtResource( 7 )]
 position = Vector2( 320, 120 )
 deployment_group = "right_side_enemy"
-
-[node name="slot_controller" type="Node2D" parent="Level/Player" groups=[
-"slot_controller",
-]]
-script = ExtResource( 5 )
-
-[node name="slot" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 32, 100 )
-slot_num = 1
-
-[node name="slot2" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 64, 100 )
-slot_num = 2
-
-[node name="slot3" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 96, 100 )
-slot_num = 3
-
-[node name="slot4" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 128, 100 )
-slot_num = 4
-
-[node name="slot5" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 160, 100 )
-slot_num = 5
-
-[node name="slot6" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 192, 100 )
-slot_num = 6
-
-[node name="slot7" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 224, 100 )
-slot_num = 7
-
-[node name="slot8" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 256, 100 )
-slot_num = 8
-
-[node name="slot9" parent="Level/Player/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 288, 100 )
-slot_num = 9
 
 [node name="Camera2D" type="Camera2D" parent="Level/Player"]
 position = Vector2( 160, 97 )
@@ -349,4 +349,4 @@ tile_data = PoolIntArray( 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
-[connection signal="update_char_slots" from="Level/Player/slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]
+[connection signal="update_char_slots" from="HUD/UI/slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]

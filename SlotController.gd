@@ -25,6 +25,7 @@ func init_slots():
 		## if the slot number matches the slot assigned to the character...
 		if assigned_char_slot.keys().has(slot.slot_num):
 			var _char = playerVar.put_party_member(assigned_char_slot[slot.slot_num])
+			playerVar.party_chars[_char.party_slot] = _char
 			add_child(_char)
 			_char.global_position = slot.global_position
 			_char.slot_assign = slot.slot_num

@@ -27,4 +27,7 @@ default_color = Color( 0.431373, 0.45098, 0.517647, 1 )
 trail_length = 100
 inherit_alpha = true
 
+[node name="Particles2D" parent="." index="5"]
+emitting = false
+
 [editable path="ActiveCollision"]

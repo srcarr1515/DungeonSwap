@@ -13,11 +13,14 @@ func SpawnAction(args):
 			if parent.atk_power != null:
 				args["atk_power"] = parent.atk_power
 	var action = Action.instance()
-	print(parent.is_flipped)
 	if parent.is_flipped:
 		args["target"].x = abs(args["target"].x) * -1
 	else:
 		args["target"].x = abs(args["target"].x)
 	args.start_position = global_position
 	var new_args = [args]
-	ActionController.perform_action('bullet', new_args)
+	action.start_pos = position
+	action.atk_power = args['atk_power']
+	action.target = args['target']
+	add_child(action)
+#	ActionController.perform_action('bullet', null)

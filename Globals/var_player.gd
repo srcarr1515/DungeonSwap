@@ -14,6 +14,11 @@ var cur_skills = {
 	2: [],
 	3: []
 }
+var party_chars = { ## Gives you actual objects
+	1: null,
+	2: null,
+	3: null,
+}
 
 var equipped_skills = {}
 
@@ -59,6 +64,13 @@ func equip_skill(skill_id, equip_index=0):
 
 func get_party_member(party_slot):
 	return char_list[cur_party[party_slot]] ## returns char object assigned to party slot
+
+func get_party_slot(char_index):
+	var p_slot = null
+	for party_slot in cur_party.keys():
+		if cur_party[party_slot] == char_index:
+			p_slot = party_slot
+	return p_slot
 
 func put_char_actor(char_index):
 	var player_char = load(actor_path.format({"char_class": char_list[char_index].char_class})).instance()

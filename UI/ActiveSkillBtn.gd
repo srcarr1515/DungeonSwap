@@ -5,6 +5,7 @@ export(float) var cooldown = 1.0
 onready var clockwipe = $ClockWipe
 var is_active
 var is_preactivated = false
+onready var parent = get_parent()
 signal precommit_skill(_button)
 
 func _ready():
@@ -30,7 +31,7 @@ func init_skill():
 func _process(delta):
 	clockwipe.value = int(($Timer.time_left / cooldown) * 100)
 
-func activate_skill():
+func start_cooldown():
 	if is_active:
 		disabled = true
 		set_process(true)

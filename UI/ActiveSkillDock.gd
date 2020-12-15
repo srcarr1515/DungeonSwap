@@ -8,6 +8,7 @@ func _ready():
 	get_parent().set_dock_char()
 	print(char_slot)
 	toggle_activate(is_active)
+	print(char_slot)
 	
 func toggle_activate(is_active):
 	if is_active == null:
@@ -24,6 +25,5 @@ func set_active_buttons(is_active):
 		var button = skill_buttons[b]
 		button.is_active = is_active
 		if char_slot != null:
-			pass
 			button.skill_id = playerVar.cur_skills[char_slot][b]
 		button.init_skill()
