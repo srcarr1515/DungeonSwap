@@ -1,37 +1,5 @@
 extends Node
 
-## action_blueprint logic
-#var action_blueprint = []
-#var action_blueprints = {}
-#var action_step = {} ## each index of action blueprint is a step (action_step - 1 == action_blueprint.index)
-#signal action_complete(action)
-
-#func next_step(action_id, args):
-#	if args != null && "action" in args: ## If we specify an action in arguments
-##		if typeof(args.action) == 19:
-#		call(args.action, action_id, args) ## call that action and pass in the args
-#		#	print('------')
-#		#	print(yield(self, "action_complete"))
-#		#	print('------')
-#		#	while yield(self, "action_complete") != args.id: pass ## wait for action to complete
-#		cue_transition(true, action_id, args) ## attempt to cue up next action (assuming it has no transition cues)
-##		else:
-##			print("Action in step {step} of {blueprint} is not an Array.".format({'step': action_step, 'blueprint': args.blueprint_name}))
-
-#func cue_transition(transition_cue, action_id, args=null):
-#	if action_id in action_blueprints:
-#		var action_blueprint = action_blueprints[action_id]
-#		var next_action = null
-#		if action_step[action_id] + 1 <= action_blueprint.size():
-#			var step_index = action_step[action_id]
-#			next_action = action_blueprint[step_index] ## because the index is 1 less than the current action step
-#			if transition_cue in next_action.transition_cue:
-#				action_step[action_id] += 1
-#				next_step(action_id, action_blueprint[step_index].args)
-#		else:
-#			## action is done, remove it from the blueprints hash
-#			action_blueprints.erase(action_id)
-
 func _on_UI_commit_skill(_button, _target):
 	var char_slot = _button.parent.char_slot
 	var parent = playerVar.party_chars[char_slot]
@@ -84,6 +52,9 @@ func execute_action(skill_id, args):
 ## Actions
 #func move_action(action_id, args=null):
 #	emit_signal("action_complete", args.action)
+
+func spawn_instance(instance):
+	get_tree().get_root().add_child(instance)
 
 func spawn_action(action_id, args=null):
 	var action_object = args.action_object

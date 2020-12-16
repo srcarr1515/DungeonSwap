@@ -43,6 +43,8 @@ collision_mask = 8
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 3 )
 
+[node name="ActPoint" type="Position2D" parent="."]
+
 [editable path="DetectionZone"]
 
 [editable path="HurtBox"]

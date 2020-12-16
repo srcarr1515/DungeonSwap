@@ -3,6 +3,9 @@ extends Node
 var char_defaults = {
 	"Gunslinger": {
 		"weapon": 0
+	},
+	"Templar": {
+		"weapon": 1
 	}
 }
 var char_list = [
@@ -30,7 +33,8 @@ var party_chars = { ## Gives you actual objects
 }
 
 var item_dict = [
-	{'name': 'Gun', 'atk_power': 2, 'anim': 'Bullet'}
+	{'name': 'Gun', 'atk_power': 2, 'anim': 'Bullet'},
+	{'name': 'Broadsword', 'atk_power': 4, 'anim': null}
 ]
 var item_bank = {}
 var inventory = []
@@ -110,6 +114,7 @@ func put_char_actor(char_index):
 	var weapon_iid = char_list[char_index]["equipment"]["weapon"].front()
 	if weapon_iid != null:
 		player_char.atk_anim = item_bank[weapon_iid]["anim"]
+		player_char.atk_power = item_bank[weapon_iid]["atk_power"]
 	return player_char
 
 func add_item(item_id, zone):

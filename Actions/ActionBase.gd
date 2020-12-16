@@ -1,11 +1,20 @@
 extends KinematicBody2D
 
 var velocity = Vector2.ZERO
+export (float) var max_speed = 64
+
 var action_id = null
+
 export (Vector2) var start_pos = Vector2.ZERO
+export (Vector2) var end_pos = Vector2.ZERO
+
+enum MOVEMENT { bullet, pathfinder }
+export(MOVEMENT) var movement_type = MOVEMENT.bullet
+
 export (Vector2) var target = Vector2.ZERO
 export (String) var is_playing = null
-export (float) var max_speed = 64
+
+
 onready var emitter = $Particles2D
 #export (Script) var skill_script
 #onready var CustomEffect = load(skill_script.get_path()).new()
@@ -23,7 +32,6 @@ func _ready():
 			var function  = f["func"]
 			var params = f["params"]
 			callv(function, params)
-	velocity = target
 	if is_playing != null:
 		anim_player.play(is_playing)
 
@@ -42,3 +50,16 @@ func init_act(args):
 		emitter.set_emitting(args.emitter)
 	if args.has('atk_power'):
 		atk_power = args.atk_power
+
+func spawn():
+	velocity = end_pos
+	global_position = start_pos
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	ActionController.spawn_instance(self)
+	var end_position = end_pos
+	if movement_type == MOVEMENT.bullet:
+		end_position = start_pos + end_pos
+	if start_pos > end_position:
+		scale.x = scale.x * -1
+		## Is flipped
+

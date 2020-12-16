@@ -46,8 +46,8 @@ tracks/2/keys = {
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="ActionBase" instance=ExtResource( 1 )]
-is_playing = "spin"
 max_speed = 1.0
+is_playing = "spin"
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1.2, 1.2, 1.2, 1 )

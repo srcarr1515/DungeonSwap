@@ -314,7 +314,9 @@ slot_num = 9
 
 [node name="action_controller" parent="." instance=ExtResource( 9 )]
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Level" type="Node2D" parent="." groups=[
+"level",
+]]
 
 [node name="dungeon_wall_bg" type="Sprite" parent="Level"]
 position = Vector2( 160.991, 55.8214 )
