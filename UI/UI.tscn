@@ -71,7 +71,7 @@ anchor_bottom = 0.0
 margin_right = 36.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 36, 40 )
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillBtn2" parent="ActiveSkillDock" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -79,7 +79,7 @@ anchor_bottom = 0.0
 margin_left = 40.0
 margin_right = 76.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillBtn3" parent="ActiveSkillDock" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -87,7 +87,7 @@ anchor_bottom = 0.0
 margin_left = 80.0
 margin_right = 116.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillDock2" parent="." groups=[
 "skill_dock",
@@ -108,7 +108,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 36.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillBtn2" parent="ActiveSkillDock2" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -116,7 +116,7 @@ anchor_bottom = 0.0
 margin_left = 40.0
 margin_right = 76.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillBtn3" parent="ActiveSkillDock2" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -124,7 +124,7 @@ anchor_bottom = 0.0
 margin_left = 80.0
 margin_right = 116.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillDock3" parent="." groups=[
 "skill_dock",
@@ -145,7 +145,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 36.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillBtn2" parent="ActiveSkillDock3" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -153,7 +153,7 @@ anchor_bottom = 0.0
 margin_left = 40.0
 margin_right = 76.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0
 
 [node name="ActiveSkillBtn3" parent="ActiveSkillDock3" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -161,4 +161,4 @@ anchor_bottom = 0.0
 margin_left = 80.0
 margin_right = 116.0
 margin_bottom = 40.0
-cooldown = 30.0
+cooldown = 10.0

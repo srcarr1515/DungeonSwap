@@ -30,17 +30,6 @@ func toggle_flip(flip):
 		scale.x = abs(scale.x) * -1
 	else:
 		scale.x = abs(scale.x)
-#	if flip == null:
-#		flip = sprite.is_flipped_h()
-#	if sprite.is_flipped_h() != flip:
-#		if sprite.offset != Vector2.ZERO:
-#			sprite.offset *= -1
-#	if flip:
-#		sprite.set_flip_h(true)
-#		detect.radius.global_position = detect.get_node("left_anchor").global_position
-#	else:
-#		sprite.set_flip_h(false)
-#		detect.radius.global_position = detect.get_node("right_anchor").global_position
 
 func detect_target():
 	if detect.can_see_target() && battle_role != "support":

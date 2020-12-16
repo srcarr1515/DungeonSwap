@@ -1,62 +1,28 @@
-extends Node
+extends Node2D
 
 func _on_UI_commit_skill(_button, _target):
 	var char_slot = _button.parent.char_slot
 	var parent = playerVar.party_chars[char_slot]
-	var args = {}
-#	if !"atk_power" in args.keys():
-#		if parent.atk_power != null:
-#			args["atk_power"] = parent.atk_power
-#	args.target.x = _target.global_position.x
-#	if parent.is_flipped:
-#		args["target"].x = abs(args["target"].x) * -1
-#	else:
-#		args["target"].x = abs(args["target"].x)
-#	args.start_position = parent.global_position
-	execute_action(_button.skill_id, args)
+	var args = {"start_pos":parent.global_position}
+	if get_global_mouse_position().x < parent.position.x:
+		args["is_flipped"] = true
+	spawn_action(playerVar.skill_list[_button.skill_id]["skill_name"], args)
 	_button.start_cooldown()
+	GameState.sub_state('ready')
 
 func execute_action(skill_id, args):
-	pass
-#	GameState.sub_state('ready')
-#	perform_action('holy_bolt', [args])
-	
-#
-#	var ability = playerVar.skill_list[skill_id]
-#	perform_action(ability.skill_name)
-
-#func perform_action(action_blueprint_name, args=null):
-#	var bp_script = load("res://Actions/Blueprints/{action}.gd".format({"action": action_blueprint_name})).new()
-#	add_action_blueprint(bp_script.blueprint, action_blueprint_name, args)
-
-#func add_action_blueprint(blueprint, blueprint_name, args=null):
-#	var action_id = Helpers.random()
-#	if action_id in action_blueprints: ## if this Id exists, do it again! (must be unique)
-#		add_action_blueprint(blueprint, blueprint_name) 
-#	else:		
-#		for step in range(0, blueprint.size() - 1): ## Give each step in the blue print the action id!
-#			var action = blueprint[step]
-#			action["id"] = action_id
-#			action["blueprint_name"] = blueprint_name
-#			if args != null && step <= args.size() - 1:
-#				for a in args[step].keys():
-#					action.args[a] = args[step][a]
-#		action_blueprints[action_id] = blueprint
-#		action_step[action_id] = 0
-#		var start_args = null
-#		if 'args' in blueprint[action_step[action_id]]:
-#			start_args = blueprint[action_step[action_id]].args
-#		cue_transition(true, action_id, start_args)
-
-
-## Actions
-#func move_action(action_id, args=null):
-#	emit_signal("action_complete", args.action)
+	print(playerVar.skill_list[skill_id])
 
 func spawn_instance(instance):
 	get_tree().get_root().add_child(instance)
 
-func spawn_action(action_id, args=null):
+func spawn_action(action_name, args=null):
+	var action_instance = load("res://Actions/{action_obj}.tscn".format({"action_obj": action_name})).instance()
+	for arg_key in args.keys():
+		action_instance.set(arg_key, args[arg_key])
+	action_instance.spawn()
+
+func old_spawn_action(action_id, args=null):
 	var action_object = args.action_object
 	## Create an object
 	var action_instance = load("res://Actions/{action_obj}.tscn".format({"action_obj": action_object})).instance()

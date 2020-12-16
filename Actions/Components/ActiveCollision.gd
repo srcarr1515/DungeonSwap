@@ -11,6 +11,7 @@ func _on_body_entered(body):
 	ActionController.collide(target, body)
 	if destroy_on_collision:
 		ActionController.destroy(target)
+		target.on_destroyed()
 	if body != null && 'stats' in body:
 		if target.atk_power != null && target.atk_power > 0:
 			body.stats.health -= target.atk_power
