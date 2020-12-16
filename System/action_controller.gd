@@ -99,8 +99,8 @@ func spawn_action(action_id, args=null):
 #	cue_transition("on_spawn_action", action_instance.action_id)
 	emit_signal("action_complete", args.action)
 
-func destroy_action(action_id, args=null):
-	emit_signal("action_complete", args.action)
+#func destroy_action(action_id, args=null):
+#	emit_signal("action_complete", args.action)
 	
 
 #func set_event_location(action_id, target_pos, transition_cue):

@@ -11,10 +11,15 @@ func toggle_flip(sprite, flip):
 	else:
 		sprite.set_flip_h(false)
 
-func random():
+func random(exclude_list=null):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	return randi()
+	var random_num = randi()
+	## Check random number againt list of ids you want to exclude. (to ensure uniqueness)
+	if exclude_list != null:
+		while random_num in exclude_list:
+			random_num = randi()
+	return random_num
 
 func pick_nearest(group, _position):
 	var targets = get_tree().get_nodes_in_group(group)

@@ -11,6 +11,7 @@ onready var detect = $DetectionZone
 onready var stats = $Stats
 var is_flipped = false
 var atk_power = 1
+var atk_anim = null
 
 var battle_role
 
