@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Actors/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Components/DetectionZone.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Actors/Components/Enemy_FSM.gd" type="Script" id=4]
 [ext_resource path="res://Hboxes/HurtBox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Actors/Components/Stats.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 5.15582
@@ -26,6 +27,9 @@ height = 8.13872
 ]]
 collision_layer = 16
 script = ExtResource( 1 )
+
+[node name="HealthDisplay" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -64 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.27, 0.27 )
@@ -68,6 +72,8 @@ shape = SubResource( 4 )
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 4 )
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="health_recovered" from="Stats" to="HealthDisplay" method="_on_Stats_health_recovered"]
+[connection signal="health_reduced" from="Stats" to="HealthDisplay" method="_on_Stats_health_reduced"]
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 
 [editable path="DetectionZone"]

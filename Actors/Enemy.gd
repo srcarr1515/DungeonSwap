@@ -7,6 +7,7 @@ onready var anim_player = $AnimationPlayer
 onready var softCollision = $SoftCollision
 onready var state = $FSM
 onready var stats = $Stats
+onready var health_display = $HealthDisplay
 export(int) var MOVE_TOLERANCE = 4
 
 var knockback = Vector2.ZERO
@@ -27,6 +28,9 @@ func set_path(value : PoolVector2Array):
 var velocity = Vector2.ZERO
 
 func _ready():
+	health_display.healthbar.max_value = stats.max_health
+	health_display.update_healthbar(stats.health)
+	health_display.hide()
 	if chase_x < global_position.x:
 		toggle_flip(true)
 
