@@ -1,6 +1,7 @@
 extends TextureButton
 
 var skill_id
+var skill_details
 export(float) var cooldown = 1.0
 onready var clockwipe = $ClockWipe
 var is_active
@@ -15,7 +16,9 @@ func _ready():
 func init_skill():
 	var skill_name = null
 	if playerVar.skill_list.has(skill_id):
-		skill_name = playerVar.skill_list[skill_id].skill_name
+		skill_details = playerVar.skill_list[skill_id]
+		skill_name = skill_details.skill_name
+		cooldown = skill_details.cooldown
 	$Timer.wait_time = cooldown
 	if is_active:
 		set_modulate(Color(1,1,1,1))

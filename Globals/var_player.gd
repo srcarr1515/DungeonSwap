@@ -33,9 +33,22 @@ var party_chars = { ## Gives you actual objects
 }
 
 var item_dict = [
-	{'name': 'Gun', 'atk_power': 2, 'anim': 'Bullet'},
-	{'name': 'Broadsword', 'atk_power': 4, 'anim': null}
+	{'name': 'gun', 'atk_power': 2, 'anim': 'Bullet'},
+	{'name': 'broadsword', 'atk_power': 4, 'anim': null}
 ]
+
+var skill_dict = {
+	"holy_bolt": {'skill_name': "holy_bolt", "cooldown": 10, "atk_power": 5},
+	"faith_healing": {'skill_name': "faith_healing", "cooldown": 5, "atk_power": 5},
+	"resurrect": {'skill_name': "resurrect", "cooldown": 30, "atk_power": 5},
+	"runic_wall": {'skill_name': "runic_wall", "cooldown": 20, "atk_power": 5},
+	"energy_nova": {'skill_name': "energy_nova", "cooldown": 10, "atk_power": 5},
+	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 30, "atk_power": 5},
+	"dynamite": {'skill_name': "dynamite", "cooldown": 10, "atk_power": 15},
+	"snare": {'skill_name': "snare", "cooldown": 10, "atk_power": 10},
+	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 5, "atk_power": 4}
+}
+
 var item_bank = {}
 var inventory = []
 
@@ -72,22 +85,27 @@ func _ready():
 					add_item(item_id, equip_slot)
 	
 	for slot in cur_skills.keys():
+		## TODO: Need to handle the edge case where we have 1/none skills equipped
 		cur_skills[slot] = equipped_skills[cur_party[slot]]
 	
 func add_skill(skill_name, char_id, options=null):
-	if options == null:
-		pass ## Thinking about modifiers such as increased level or other adjustments
-	var skill_id = Helpers.random(skill_list.keys())
-	skill_list[skill_id] = {"skill_name": skill_name, "char_id": char_id}
-	## auto-equip skills if none are equipped
-	var add_skill = -1
-	if equipped_skills.has(char_id):
-		add_skill = equipped_skills[char_id].find(null)
-	else:
-		add_skill = 0
-	if add_skill > -1:
-		equip_skill(skill_id, add_skill)
-	return skill_id
+	if skill_name in skill_dict.keys():
+		var skill_details = skill_dict[skill_name]
+		if options == null:
+			pass ## Thinking about modifiers such as increased level or other adjustments
+		var skill_id = Helpers.random(skill_list.keys())
+#		skill_list[skill_id] = {"skill_name": skill_name, "char_id": char_id}
+		skill_list[skill_id] = skill_details.duplicate()
+		skill_list[skill_id]["char_id"] = char_id
+		## auto-equip skills if none are equipped
+		var add_skill = -1
+		if equipped_skills.has(char_id):
+			add_skill = equipped_skills[char_id].find(null)
+		else:
+			add_skill = 0
+		if add_skill > -1:
+			equip_skill(skill_id, add_skill)
+		return skill_id
 
 func equip_skill(skill_id, equip_index=0):
 	if skill_list.has(skill_id):

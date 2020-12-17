@@ -271,47 +271,6 @@ follow_viewport_enable = true
 
 [node name="UI" parent="HUD" instance=ExtResource( 8 )]
 
-[node name="slot_controller" type="Node2D" parent="HUD/UI" groups=[
-"slot_controller",
-]]
-script = ExtResource( 5 )
-
-[node name="slot" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 32, 100 )
-slot_num = 1
-
-[node name="slot2" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 64, 100 )
-slot_num = 2
-
-[node name="slot3" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 96, 100 )
-slot_num = 3
-
-[node name="slot4" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 128, 100 )
-slot_num = 4
-
-[node name="slot5" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 160, 100 )
-slot_num = 5
-
-[node name="slot6" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 192, 100 )
-slot_num = 6
-
-[node name="slot7" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 224, 100 )
-slot_num = 7
-
-[node name="slot8" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 256, 100 )
-slot_num = 8
-
-[node name="slot9" parent="HUD/UI/slot_controller" instance=ExtResource( 4 )]
-position = Vector2( 288, 100 )
-slot_num = 9
-
 [node name="action_controller" parent="." instance=ExtResource( 9 )]
 
 [node name="Level" type="Node2D" parent="." groups=[
@@ -348,7 +307,52 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 720895, 2, 0, 655360, 2, 0, 655361, 2, 0, 655362, 2, 0, 655363, 2, 0, 655364, 2, 0, 655365, 2, 0, 655366, 2, 0, 655367, 2, 0, 655368, 2, 0, 655369, 2, 0, 655370, 2, 0, 655371, 2, 0, 655372, 2, 0, 655373, 2, 0, 655374, 2, 0, 655375, 2, 0, 655376, 2, 0, 655377, 2, 0, 655378, 2, 0, 655379, 2, 0, 655380, 2, 0, 786431, 2, 0, 720896, 2, 0, 720897, 2, 0, 720898, 2, 0, 720899, 2, 0, 720900, 2, 0, 720901, 2, 0, 720902, 2, 0, 720903, 2, 0, 720904, 2, 0, 720905, 2, 0, 720906, 2, 0, 720907, 2, 0, 720908, 2, 0, 720909, 2, 0, 720910, 2, 0, 720911, 2, 0, 720912, 2, 0, 720913, 2, 0, 720914, 2, 0, 720915, 2, 0, 720916, 2, 0, 851967, 2, 0, 786432, 2, 0, 786433, 2, 0, 786434, 2, 0, 786435, 2, 0, 786436, 2, 0, 786437, 2, 0, 786438, 2, 0, 786439, 2, 0, 786440, 2, 0, 786441, 2, 0, 786442, 2, 0, 786443, 2, 0, 786444, 2, 0, 786445, 2, 0, 786446, 2, 0, 786447, 2, 0, 786448, 2, 0, 786449, 2, 0, 786450, 2, 0, 786451, 2, 0, 786452, 2, 0 )
 
+[node name="slot_controller" type="Node2D" parent="." groups=[
+"slot_controller",
+]]
+script = ExtResource( 5 )
+
+[node name="slot" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 32, 100 )
+slot_num = 1
+
+[node name="slot2" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 64, 100 )
+slot_num = 2
+
+[node name="slot3" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 96, 100 )
+slot_num = 3
+
+[node name="slot4" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 128, 100 )
+slot_num = 4
+
+[node name="slot5" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 160, 100 )
+slot_num = 5
+
+[node name="slot6" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 192, 100 )
+slot_num = 6
+
+[node name="slot7" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 224, 100 )
+slot_num = 7
+
+[node name="slot8" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 256, 100 )
+slot_num = 8
+
+[node name="slot9" parent="slot_controller" instance=ExtResource( 4 )]
+position = Vector2( 288, 100 )
+slot_num = 9
+
+[node name="Foreground" type="Node2D" parent="." groups=[
+"foreground",
+]]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
-[connection signal="update_char_slots" from="HUD/UI/slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]
+[connection signal="update_char_slots" from="slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]

@@ -2,6 +2,7 @@ extends Area2D
 
 export(bool) var destroy_on_collision
 var target
+var colliding_with
 
 func _ready():
 	if target == null:
@@ -9,6 +10,7 @@ func _ready():
 
 func _on_body_entered(body):
 	ActionController.collide(target, body)
+	colliding_with = body
 	if destroy_on_collision:
 		ActionController.destroy(target)
 		target.on_destroyed()

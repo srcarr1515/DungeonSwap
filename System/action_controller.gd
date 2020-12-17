@@ -3,7 +3,8 @@ extends Node2D
 func _on_UI_commit_skill(_button, _target):
 	var char_slot = _button.parent.char_slot
 	var parent = playerVar.party_chars[char_slot]
-	var args = {"start_pos":parent.global_position}
+	var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
+	var args = {"start_pos":parent.global_position, "slot_pos": slot.global_position}
 	if get_global_mouse_position().x < parent.position.x:
 		args["is_flipped"] = true
 	spawn_action(playerVar.skill_list[_button.skill_id]["skill_name"], args)
@@ -14,13 +15,18 @@ func execute_action(skill_id, args):
 	print(playerVar.skill_list[skill_id])
 
 func spawn_instance(instance):
-	get_tree().get_root().add_child(instance)
+	var level = get_tree().get_nodes_in_group("foreground").front()
+	level.add_child(instance)
 
 func spawn_action(action_name, args=null):
 	var action_instance = load("res://Actions/{action_obj}.tscn".format({"action_obj": action_name})).instance()
 	for arg_key in args.keys():
 		action_instance.set(arg_key, args[arg_key])
-	action_instance.spawn()
+	var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()
+	var in_support_slot = slot_controller.assigned_char_slot[5]
+	yield(get_tree().create_timer(action_instance.delay), "timeout")
+	if slot_controller.assigned_char_slot[5] == in_support_slot:
+		action_instance.spawn()
 
 func old_spawn_action(action_id, args=null):
 	var action_object = args.action_object
@@ -28,7 +34,7 @@ func old_spawn_action(action_id, args=null):
 	var action_instance = load("res://Actions/{action_obj}.tscn".format({"action_obj": action_object})).instance()
 	action_instance.action_id = action_id
 	action_instance.action_args = args
-	get_tree().get_root().add_child(action_instance)
+	get_tree().get_node("Level").add_child(action_instance)
 	action_instance.init_act(args)
 	## Assign an action_id to it
 	## Set it's position

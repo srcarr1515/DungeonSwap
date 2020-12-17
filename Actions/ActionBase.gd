@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export (float) var delay = 5.0
+
 var velocity = Vector2.ZERO
 export (float) var max_speed = 64
 export (float) var accel = 1.0
@@ -8,6 +10,7 @@ var action_id = null
 
 export (Vector2) var start_pos = Vector2.ZERO
 export (Vector2) var end_pos = Vector2.ZERO
+export (Vector2) var slot_pos = Vector2.ZERO
 
 enum MOVEMENT { bullet, pathfinder, fixed }
 export(MOVEMENT) var movement_type = MOVEMENT.bullet
@@ -16,9 +19,14 @@ export(bool) var is_flipped = false
 
 export (Vector2) var target = Vector2.ZERO
 export (String) var is_playing = null
+export (bool) var is_healing = false
 
 export (PackedScene) var onCollisionObject
 export (PackedScene) var onDestroyedObject
+export (PackedScene) var onTriggerObject
+
+export (String) var char_animation ## Not done yet...
+export (int) var  start_act_point = -1 ## No act point specified
 
 
 onready var emitter = $Particles2D
@@ -26,6 +34,7 @@ export(bool) var is_emitting = true
 #export (Script) var skill_script
 #onready var CustomEffect = load(skill_script.get_path()).new()
 
+onready var collision = $ActiveCollision
 onready var anim_player = $AnimationPlayer
 var atk_power ## must be greater than 0
 var action_args = {}
@@ -90,7 +99,22 @@ func on_collision():
 		on_collision_instance.global_position = global_position
 		ActionController.spawn_instance(on_collision_instance)
 
+func on_trigger(inherit_stat=false):
+	if onTriggerObject != null:
+		var on_trigger_instance = onTriggerObject.instance()
+		on_trigger_instance.global_position = global_position
+		if inherit_stat:
+			on_trigger_instance.atk_power = atk_power
+		ActionController.spawn_instance(on_trigger_instance)
+
+func destroy():
+	ActionController.destroy(self)
+
 func spawn():
+	if is_healing:
+		atk_power = atk_power * -1
+	if movement_type == MOVEMENT.fixed:
+		start_pos = slot_pos
 	init_movement()
 	ActionController.spawn_instance(self)
 	if flippable:
