@@ -11,6 +11,11 @@ var transition = {
 }
 
 func sub_state(new_state):
+	if new_state == 'ready':
+		Input.set_custom_mouse_cursor(null)
+	if new_state == 'select_target':
+		var cursor = load("res://Assets/Icons/crosshairs_cursor.png")
+		Input.set_custom_mouse_cursor(cursor)
 	if transition[main].has(new_state):
 		prev["sub"] = sub
 		sub = new_state

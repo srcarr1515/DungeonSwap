@@ -16,8 +16,6 @@ func _ready():
 	set_process(false)
 
 func _on_precommit_skill(_button):
-	## TODO: change cursor to denote skill targeting
-	## TODO: need to control the state... can't swap while selecting target.
 	commit_button = _button
 	GameState.sub_state('select_target')
 	commit_button = _button
