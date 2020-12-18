@@ -143,7 +143,7 @@ tracks/1/keys = {
 [node name="Enemy" instance=ExtResource( 1 )]
 scale = Vector2( 0.5, 0.5 )
 collision_layer = 8
-MAX_SPEED = 20
+MAX_SPEED = 15
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2( 0, -40 )
@@ -182,6 +182,9 @@ visible = true
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2( 0, -28 )
 shape = SubResource( 5 )
+
+[node name="Stats" parent="." index="7"]
+max_health = 10
 
 [node name="AnimationPlayer" parent="." index="8"]
 anims/attack = SubResource( 6 )

@@ -1,5 +1,4 @@
 extends "res://Util/StateMachine.gd"
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current = "chase"
@@ -22,6 +21,10 @@ func attack(delta):
 	set_animation("attack")
 	yield(parent.anim_player, "animation_finished")
 	state_event({"event": "idle"})
+	if parent.playerDetect.target == null:
+		parent.playerDetect.check_nearby_entities('player_char')
+		if parent.playerDetect.target == null:
+			state_event({"event": "chase"})
 	
 func idle(delta):
 	set_animation("idle")

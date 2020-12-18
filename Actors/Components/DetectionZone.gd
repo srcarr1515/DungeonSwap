@@ -9,6 +9,10 @@ func can_see_target():
 func check_nearby_entities(group=target_group):
 	if target == null:
 		var entities = get_overlapping_bodies()
+		if entities.size() < 1:
+			var areas = get_overlapping_areas()
+			for area in areas:
+				entities.push_front(area.get_parent())
 		var targets = []
 		if group == null:
 			targets = entities

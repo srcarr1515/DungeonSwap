@@ -1,14 +1,18 @@
 extends Position2D
 
 onready var timer = $Timer
-#var formation = ["Skeleton_Warrior"]
-var formation = ["Wolf"]
+var avail_enemies = ["Wolf", "Skeleton_Warrior"]
+var formation = []
 var timer_amt = 3
 export var deployment_group = "left_side_enemy"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	while formation.size() < 8:
+		var random_index = floor(rand_range(0, avail_enemies.size()))
+		var enemy = avail_enemies[random_index]
+		formation.push_front(enemy)
 	reset_timer()
 
 

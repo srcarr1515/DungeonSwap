@@ -56,3 +56,10 @@ func _on_HurtBox_area_entered(area):
 	var entity = area.get_parent()
 	if entity.is_in_group("enemy") && area.name == "HitBox":
 		stats.health -= entity.atk_power
+		if stats.health < 1:
+			var enemies = get_tree().get_nodes_in_group("enemy")
+			for enemy in enemies:
+				if "playerDetect" in enemy:
+					if enemy.playerDetect.target == self:
+						enemy.playerDetect.target = null
+			queue_free()

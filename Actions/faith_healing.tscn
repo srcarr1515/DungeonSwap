@@ -54,6 +54,9 @@ anims/fade_in_out = SubResource( 1 )
 position = Vector2( 5, 28 )
 scale = Vector2( 0.5, 0.5 )
 
+[node name="DetectionZone" parent="." index="4"]
+target_group = "player_char"
+
 [node name="CollisionShape2D" parent="DetectionZone" index="0"]
 shape = SubResource( 2 )
 
