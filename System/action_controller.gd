@@ -22,15 +22,20 @@ func spawn_instance(instance):
 	level.add_child(instance)
 
 func spawn_action(action_name, args=null):
-	var action_instance = load("res://Actions/{action_obj}.tscn".format({"action_obj": action_name})).instance()
-	print(action_instance.name)
-	for arg_key in args.keys():
-		action_instance.set(arg_key, args[arg_key])
-	var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()
-	var in_support_slot = slot_controller.assigned_char_slot[5]
-	yield(get_tree().create_timer(action_instance.delay), "timeout")
-	if slot_controller.assigned_char_slot[5] == in_support_slot:
-		action_instance.spawn()
+	var directory = Directory.new()
+	var file_path = "res://Actions/{action_obj}.tscn".format({"action_obj": action_name})
+	if directory.file_exists(file_path):
+		var action_instance = load(file_path).instance()
+		print(action_instance.name)
+		for arg_key in args.keys():
+			action_instance.set(arg_key, args[arg_key])
+		var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()
+		var in_support_slot = slot_controller.assigned_char_slot[5]
+		yield(get_tree().create_timer(action_instance.delay), "timeout")
+		if slot_controller.assigned_char_slot[5] == in_support_slot:
+			action_instance.spawn()
+	else:
+		print("Action doesnt exist!")
 
 func old_spawn_action(action_id, args=null):
 	var action_object = args.action_object
