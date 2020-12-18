@@ -6,6 +6,9 @@ var char_defaults = {
 	},
 	"Templar": {
 		"weapon": 1
+	},
+	"Arcanist": {
+		"weapon": 2
 	}
 }
 var char_list = [
@@ -33,8 +36,9 @@ var party_chars = { ## Gives you actual objects
 }
 
 var item_dict = [
-	{'name': 'gun', 'atk_power': 2, 'anim': 'Bullet'},
-	{'name': 'broadsword', 'atk_power': 4, 'anim': null}
+	{'name': 'gun', 'atk_power': 0, 'anim': 'Bullet'},
+	{'name': 'broadsword', 'atk_power': 0, 'anim': null},
+	{'name': 'staff', 'atk_power': 0, 'anim': null}
 ]
 
 var skill_dict = {

@@ -3,11 +3,14 @@ extends Node2D
 func _on_UI_commit_skill(_button, _target):
 	var char_slot = _button.parent.char_slot
 	var parent = playerVar.party_chars[char_slot]
+	var skill_details = playerVar.skill_list[_button.skill_id]
 	var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
 	var args = {"start_pos":parent.global_position, "slot_pos": slot.global_position}
 	if get_global_mouse_position().x < parent.position.x:
 		args["is_flipped"] = true
-	spawn_action(playerVar.skill_list[_button.skill_id]["skill_name"], args)
+	if "atk_power" in skill_details.keys():
+		args["atk_power"] = skill_details["atk_power"]
+	spawn_action(skill_details["skill_name"], args)
 	_button.start_cooldown()
 	GameState.sub_state('ready')
 
@@ -20,6 +23,7 @@ func spawn_instance(instance):
 
 func spawn_action(action_name, args=null):
 	var action_instance = load("res://Actions/{action_obj}.tscn".format({"action_obj": action_name})).instance()
+	print(action_instance.name)
 	for arg_key in args.keys():
 		action_instance.set(arg_key, args[arg_key])
 	var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()

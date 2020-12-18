@@ -37,7 +37,7 @@ export(bool) var is_emitting = true
 onready var detect_zone = $DetectionZone
 onready var collision = $ActiveCollision
 onready var anim_player = $AnimationPlayer
-var atk_power ## must be greater than 0
+var atk_power = 0 ## must be greater than 0
 var action_args = {}
 
 
@@ -111,6 +111,9 @@ func on_trigger(inherit_stat=false):
 func detect_entity(group=null, method=null):
 	if detect_zone.can_see_target():
 		print(detect_zone.target)
+		if method == null:
+			if "stats" in detect_zone.target:
+				detect_zone.target.stats.health -= atk_power
 		## callv(method)
 
 func destroy():

@@ -10,6 +10,7 @@ onready var anim_player = $AnimationPlayer
 onready var detect = $DetectionZone
 onready var stats = $Stats
 onready var act_point = $ActPoint
+onready var health_display = $HealthDisplay
 var is_flipped = false
 var atk_power = 1
 var atk_anim = null
@@ -18,7 +19,9 @@ var battle_role
 
 func _ready():
 	## TODO: Need to verify that we actually use atk_power when resolving damage.
-	pass
+	health_display.init()
+	health_display.set_scale(Vector2(0.1, 0.1))
+	health_display.global_position = global_position - Vector2(0,10)
 #	if sprite.is_flipped_h():
 #		detect.radius.global_position = detect.get_node("left_anchor").global_position
 #	else:
@@ -43,13 +46,12 @@ func move_to(target_pos):
 func AnimAction(args={"end_pos":Vector2(3,0)}):
 	var atk_object = null
 	if atk_anim != null:
-		atk_object = load("res://Actions/{atk_anim}.tscn".format({"atk_anim": atk_anim})).instance()
-	if atk_object != null:
-		atk_object.atk_power = atk_power
-		atk_object.start_pos = act_point.global_position
-		atk_object.end_pos = args["end_pos"]
+		args["start_pos"] = act_point.global_position
 		if is_flipped:
-			atk_object.end_pos.x = abs(atk_object.end_pos.x) * -1
-		atk_object.spawn()
+			args["is_flipped"] = true
+		ActionController.spawn_action(atk_anim, args)
 
-
+func _on_HurtBox_area_entered(area):
+	var entity = area.get_parent()
+	if entity.is_in_group("enemy") && area.name == "HitBox":
+		stats.health -= entity.atk_power

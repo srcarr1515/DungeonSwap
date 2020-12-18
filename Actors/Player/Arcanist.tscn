@@ -95,13 +95,12 @@ position = Vector2( -40, 4 )
 [node name="right_anchor" parent="DetectionZone" index="2"]
 position = Vector2( 36, 4 )
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="4"]
 visible = false
 position = Vector2( -4, 4 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-visible = false
 position = Vector2( -4, 4 )
 shape = SubResource( 3 )
 
@@ -110,7 +109,10 @@ position = Vector2( 28, 0 )
 shape = SubResource( 4 )
 disabled = true
 
-[node name="AnimationPlayer" parent="." index="7"]
+[node name="Stats" parent="." index="7"]
+max_health = 20
+
+[node name="AnimationPlayer" parent="." index="8"]
 anims/attack = SubResource( 5 )
 anims/idle = SubResource( 6 )
 anims/walk = SubResource( 7 )

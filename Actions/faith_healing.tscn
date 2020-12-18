@@ -41,10 +41,10 @@ tracks/1/keys = {
 radius = 12.0
 
 [node name="faith_healing" instance=ExtResource( 1 )]
-modulate = Color( 1, 1, 1, 0 )
 delay = 0.0
 movement_type = 2
 is_playing = "fade_in_out"
+is_healing = true
 onTriggerObject = ExtResource( 3 )
 
 [node name="AnimationPlayer" parent="." index="1"]

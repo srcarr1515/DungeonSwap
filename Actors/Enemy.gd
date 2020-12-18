@@ -8,6 +8,7 @@ onready var softCollision = $SoftCollision
 onready var state = $FSM
 onready var stats = $Stats
 onready var health_display = $HealthDisplay
+export(int) var atk_power = 1
 export(int) var MOVE_TOLERANCE = 4
 
 var knockback = Vector2.ZERO
@@ -28,9 +29,8 @@ func set_path(value : PoolVector2Array):
 var velocity = Vector2.ZERO
 
 func _ready():
-	health_display.healthbar.max_value = stats.max_health
-	health_display.update_healthbar(stats.health)
-	health_display.hide()
+	health_display.init()
+	health_display.set_scale(Vector2(0.1, 0.1))
 	if chase_x < global_position.x:
 		toggle_flip(true)
 
@@ -54,7 +54,10 @@ func detect_target():
 		state.state_event({"event": "attack", "target": playerDetect.target})
 
 func _on_HurtBox_area_entered(area):
-	stats.health -= 1
+	var entity = area.get_parent()
+	if entity.is_in_group("player_char") && area.name == "HitBox":
+		stats.health -= entity.atk_power
+#	stats.health -= entity.atk_power
 #	print(stats.health)
 #	knockback = area.knockback_vector * 120
 	

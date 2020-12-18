@@ -72,8 +72,8 @@ shape = SubResource( 4 )
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 4 )
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
-[connection signal="health_recovered" from="Stats" to="HealthDisplay" method="_on_Stats_health_recovered"]
-[connection signal="health_reduced" from="Stats" to="HealthDisplay" method="_on_Stats_health_reduced"]
+[connection signal="health_recovered" from="Stats" to="HealthDisplay" method="_on_health_changed"]
+[connection signal="health_reduced" from="Stats" to="HealthDisplay" method="_on_health_changed"]
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 
 [editable path="DetectionZone"]
