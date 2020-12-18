@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Actions/ActionBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Effects/Fireflies.tscn" type="PackedScene" id=2]
@@ -26,18 +26,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.3, 3 ),
+"times": PoolRealArray( 0.5, 3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
-"args": [ true ],
-"method": "on_trigger"
+"args": [ null, null ],
+"method": "detect_entity"
 }, {
 "args": [  ],
 "method": "destroy"
 } ]
 }
 
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 12.0
+
 [node name="faith_healing" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0 )
 delay = 0.0
 movement_type = 2
 is_playing = "fade_in_out"
@@ -49,3 +53,8 @@ anims/fade_in_out = SubResource( 1 )
 [node name="Fireflies" parent="." index="3" instance=ExtResource( 2 )]
 position = Vector2( 5, 28 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="CollisionShape2D" parent="DetectionZone" index="0"]
+shape = SubResource( 2 )
+
+[editable path="DetectionZone"]

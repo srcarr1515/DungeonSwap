@@ -34,6 +34,7 @@ export(bool) var is_emitting = true
 #export (Script) var skill_script
 #onready var CustomEffect = load(skill_script.get_path()).new()
 
+onready var detect_zone = $DetectionZone
 onready var collision = $ActiveCollision
 onready var anim_player = $AnimationPlayer
 var atk_power ## must be greater than 0
@@ -106,6 +107,11 @@ func on_trigger(inherit_stat=false):
 		if inherit_stat:
 			on_trigger_instance.atk_power = atk_power
 		ActionController.spawn_instance(on_trigger_instance)
+
+func detect_entity(group=null, method=null):
+	if detect_zone.can_see_target():
+		print(detect_zone.target)
+		## callv(method)
 
 func destroy():
 	ActionController.destroy(self)
