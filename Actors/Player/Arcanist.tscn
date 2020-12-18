@@ -96,7 +96,6 @@ position = Vector2( -40, 4 )
 position = Vector2( 36, 4 )
 
 [node name="CollisionShape2D" parent="." index="4"]
-visible = false
 position = Vector2( -4, 4 )
 shape = SubResource( 2 )
 

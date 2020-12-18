@@ -1,11 +1,12 @@
 extends Area2D
 onready var radius = $CollisionShape2D
 var target = null
+export (String) var target_group = "enemy"
 
 func can_see_target():
 	return target != null
 
-func check_nearby_entities(group):
+func check_nearby_entities(group=target_group):
 	if target == null:
 		var entities = get_overlapping_bodies()
 		var targets = []
@@ -19,7 +20,19 @@ func check_nearby_entities(group):
 			target = targets.front()
 
 func _on_body_entered(body):
-	target = body
+	if body.is_in_group(target_group):
+		target = body
 
 func _on_body_exited(body):
-	target = null
+	if body.is_in_group(target_group):
+		target = null
+
+func _on_DetectionZone_area_entered(area):
+	var parent = area.get_parent()
+	if parent.is_in_group(target_group):
+		target = area
+
+func _on_DetectionZone_area_exited(area):
+	var parent = area.get_parent()
+	if parent.is_in_group(target_group):
+		target = null

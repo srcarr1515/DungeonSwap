@@ -37,6 +37,7 @@ region_enabled = true
 region_rect = Rect2( 7.24524, 115.647, 170.405, 158.949 )
 
 [node name="DetectionZone" parent="." instance=ExtResource( 2 )]
+target_group = "player_char"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

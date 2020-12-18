@@ -35,8 +35,6 @@ func toggle_flip(flip):
 		scale.x = abs(scale.x)
 
 func detect_target():
-	if name == "Templar":
-		print(detect.can_see_target())
 	if detect.can_see_target() && battle_role != "support":
 		state.state_event({"event": "attack", "target": detect.target})
 
@@ -49,6 +47,7 @@ func AnimAction(args={"end_pos":Vector2(3,0)}):
 	var atk_object = null
 	if atk_anim != null:
 		args["start_pos"] = act_point.global_position
+		args["atk_power"] = atk_power
 		if is_flipped:
 			args["is_flipped"] = true
 		ActionController.spawn_action(atk_anim, args)

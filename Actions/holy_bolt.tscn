@@ -66,10 +66,11 @@ destroy_on_collision = true
 [node name="CollisionShape2D" parent="ActiveCollision" index="0"]
 shape = SubResource( 2 )
 
-[node name="Particles2D" parent="." index="3"]
+[node name="Particles2D" parent="." index="4"]
 position = Vector2( -8, 0 )
 amount = 500
 lifetime = 1.5
 process_material = ExtResource( 3 )
+[connection signal="area_entered" from="ActiveCollision" to="ActiveCollision" method="_on_ActiveCollision_area_entered"]
 
 [editable path="ActiveCollision"]

@@ -15,8 +15,10 @@ scale = Vector2( 0.09375, 0.09375 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="ActiveCollision" parent="." instance=ExtResource( 1 )]
+collision_mask = 24
 
 [node name="DetectionZone" parent="." instance=ExtResource( 3 )]
 collision_mask = 31
 
 [node name="Particles2D" type="Particles2D" parent="."]
+[connection signal="area_entered" from="ActiveCollision" to="ActiveCollision" method="_on_ActiveCollision_area_entered"]
