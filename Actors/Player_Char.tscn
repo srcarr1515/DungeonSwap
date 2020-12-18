@@ -21,7 +21,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -24 )
 
 [node name="DetectionZone" parent="." instance=ExtResource( 4 )]
-collision_mask = 16
+collision_mask = 8
 
 [node name="left_anchor" type="Position2D" parent="DetectionZone"]
 

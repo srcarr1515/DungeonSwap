@@ -142,15 +142,16 @@ tracks/1/keys = {
 
 [node name="Enemy" instance=ExtResource( 1 )]
 scale = Vector2( 0.5, 0.5 )
+collision_layer = 8
 MAX_SPEED = 20
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2( 0, -40 )
 scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
+offset = Vector2( 49.943, -23.418 )
 vframes = 7
 hframes = 5
-frame = 22
 region_enabled = false
 
 [node name="CollisionShape2D" parent="DetectionZone" index="0"]

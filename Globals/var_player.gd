@@ -36,9 +36,9 @@ var party_chars = { ## Gives you actual objects
 }
 
 var item_dict = [
-	{'name': 'gun', 'atk_power': 0, 'anim': 'Bullet'},
-	{'name': 'broadsword', 'atk_power': 0, 'anim': null},
-	{'name': 'staff', 'atk_power': 0, 'anim': null}
+	{'name': 'gun', 'atk_power': 1, 'anim': 'Bullet'},
+	{'name': 'broadsword', 'atk_power': 3, 'anim': null},
+	{'name': 'staff', 'atk_power': 2, 'anim': null}
 ]
 
 var skill_dict = {

@@ -12,6 +12,7 @@ export(int) var atk_power = 1
 export(int) var MOVE_TOLERANCE = 4
 
 var knockback = Vector2.ZERO
+var is_flipped = false
 
 export var ACCELEARATION = 300
 export var MAX_SPEED = 50
@@ -35,15 +36,11 @@ func _ready():
 		toggle_flip(true)
 
 func toggle_flip(flip):
-	if flip == null:
-		flip = sprite.is_flipped_h()
-	if sprite.is_flipped_h() != flip:
-		if sprite.offset != Vector2.ZERO:
-			sprite.offset *= -1
-	if flip:
-		sprite.set_flip_h(true)
+	is_flipped = flip
+	if is_flipped:
+		scale.x = abs(scale.x) * -1
 	else:
-		sprite.set_flip_h(false)
+		scale.x = abs(scale.x)
 
 func accelerate_toward_position(target_position, delta):
 	var direction = global_position.direction_to(target_position)

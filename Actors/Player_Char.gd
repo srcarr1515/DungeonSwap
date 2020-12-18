@@ -35,6 +35,8 @@ func toggle_flip(flip):
 		scale.x = abs(scale.x)
 
 func detect_target():
+	if name == "Templar":
+		print(detect.can_see_target())
 	if detect.can_see_target() && battle_role != "support":
 		state.state_event({"event": "attack", "target": detect.target})
 

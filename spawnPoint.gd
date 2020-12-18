@@ -1,7 +1,8 @@
 extends Position2D
 
 onready var timer = $Timer
-var formation = ["Skeleton_Warrior", "Skeleton_Warrior", "Skeleton_Warrior"]
+#var formation = ["Skeleton_Warrior"]
+var formation = ["Wolf"]
 var timer_amt = 3
 export var deployment_group = "left_side_enemy"
 
