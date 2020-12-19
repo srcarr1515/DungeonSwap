@@ -3,10 +3,13 @@ extends "res://Util/StateMachine.gd"
 
 func _ready():
 	current = "idle"
+	all = ["death"]
 	transitions = {
-	"idle": ["attack", "walk"],
-	"walk": ["idle"],
-	"attack": ["idle"]
+	"idle": ["attack", "walk", "death"],
+	"walk": ["idle", "death"],
+	"attack": ["idle", "death"],
+	"death": ["revive"],
+	"revive": ["idle"]
 	}
 
 func idle(delta):
@@ -14,6 +17,25 @@ func idle(delta):
 	
 func walk(delta):
 	set_animation("walk")
+	
+func death(delta):
+	set_animation("idle")
+	## You are dead, stop detecting things...
+	parent.detect.radius.set_disabled(true)
+	var skill_docks = get_tree().get_nodes_in_group("skill_dock")
+	for dock in skill_docks:
+		if parent.char_index == playerVar.cur_party[dock.char_slot]:
+			dock.char_status = "death"
+	parent.hide()
+
+func revive(delta):
+	## You are not dead, get back to work.
+	parent.detect.radius.set_disabled(false)
+	var skill_docks = get_tree().get_nodes_in_group("skill_dock")
+	for dock in skill_docks:
+		if parent.char_index == playerVar.cur_party[dock.char_slot]:
+			dock.char_status = "active"
+	parent.show()
 
 func attack(delta):
 	set_animation("attack")
@@ -30,4 +52,5 @@ func set_animation(anim):
 			active = false
 
 func every_tick(delta):
-	parent.detect_target()
+	if current != "death":
+		parent.detect_target()

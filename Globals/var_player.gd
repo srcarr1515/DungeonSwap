@@ -121,7 +121,7 @@ func equip_skill(skill_id, equip_index=0):
 			equipped_skills[char_id][equip_index] = skill_id
 
 func get_party_member(party_slot):
-	return char_list[cur_party[party_slot]] ## returns char object assigned to party slot
+	return char_list[cur_party[party_slot]] ## returns char DATA object assigned to party slot
 
 func get_party_slot(char_index):
 	var p_slot = null

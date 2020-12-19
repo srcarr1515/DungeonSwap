@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var slot_assign = 5
+var slot_assign = 5 ## The slot (in level)
 var party_slot
 onready var tween = $Tween
 onready var sprite = $Sprite
@@ -22,6 +22,7 @@ func _ready():
 	health_display.init()
 	health_display.set_scale(Vector2(0.1, 0.1))
 	health_display.global_position = global_position - Vector2(0,10)
+	print(party_slot)
 #	if sprite.is_flipped_h():
 #		detect.radius.global_position = detect.get_node("left_anchor").global_position
 #	else:
@@ -55,11 +56,19 @@ func AnimAction(args={"end_pos":Vector2(3,0)}):
 func _on_HurtBox_area_entered(area):
 	var entity = area.get_parent()
 	if entity.is_in_group("enemy") && area.name == "HitBox":
-		stats.health -= entity.atk_power
-		if stats.health < 1:
-			var enemies = get_tree().get_nodes_in_group("enemy")
-			for enemy in enemies:
-				if "playerDetect" in enemy:
-					if enemy.playerDetect.target == self:
-						enemy.playerDetect.target = null
-			queue_free()
+		if state.current == "death":
+			var chars = get_tree().get_nodes_in_group("player_char")
+			for c in chars:
+				if c.slot_assign == 5 && c.state.current != "death":
+					c._on_HurtBox_area_entered(area)
+				elif c.slot_assign != slot_assign && c.state.current != "death":
+					c._on_HurtBox_area_entered(area)
+		else:
+			stats.health -= entity.atk_power
+			if stats.health < 1:
+				var enemies = get_tree().get_nodes_in_group("enemy")
+				for enemy in enemies:
+					if "playerDetect" in enemy:
+						if enemy.playerDetect.target == self:
+							enemy.playerDetect.target = null
+				state.state_event({"event": "death"})

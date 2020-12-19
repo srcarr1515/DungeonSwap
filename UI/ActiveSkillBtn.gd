@@ -6,6 +6,7 @@ export(float) var cooldown = 1.0
 onready var clockwipe = $ClockWipe
 var is_active
 var is_preactivated = false
+export (String) var button_key
 onready var parent = get_parent()
 signal precommit_skill(_button)
 
@@ -41,6 +42,14 @@ func start_cooldown():
 		$Timer.start()
 
 func _on_ActiveSkillBtn_pressed():
+	activate_skill()
+		## TODO: change icon to indicate pre-activated
+
+func _unhandled_input(event):
+	if Input.is_action_just_pressed(button_key):
+		activate_skill()
+
+func activate_skill():
 	if is_active:
 		var skill_buttons = get_tree().get_nodes_in_group("skill_button")
 		for button in skill_buttons:
@@ -48,7 +57,7 @@ func _on_ActiveSkillBtn_pressed():
 			## TODO: change icon to default
 		is_preactivated = true
 		emit_signal("precommit_skill", self)
-		## TODO: change icon to indicate pre-activated
+	
 
 func _on_Cooldown_Timer_timeout():
 	clockwipe.value = 0

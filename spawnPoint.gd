@@ -21,7 +21,7 @@ func _ready():
 #	pass
 
 func reset_timer():
-	timer_amt = rand_range(2.5,3.5)
+	timer_amt = rand_range(3.5,5)
 	timer.start(timer_amt)
 
 func _on_Timer_timeout():

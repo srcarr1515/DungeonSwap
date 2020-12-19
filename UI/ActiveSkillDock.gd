@@ -3,14 +3,16 @@ extends HBoxContainer
 onready var char_slot
 export(bool) var is_active = false
 onready var skill_buttons = get_children()
+var char_status = "active"
 
 func _ready():
 	get_parent().set_dock_char()
-	print(char_slot)
 	toggle_activate(is_active)
-	print(char_slot)
+	print('cs', char_slot)
 	
 func toggle_activate(is_active):
+	if char_status == "death":
+		is_active = false
 	if is_active == null:
 		is_active = !is_active
 	if !is_active:

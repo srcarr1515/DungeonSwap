@@ -9,6 +9,11 @@ signal update_char_slots
 func _ready():
 	init_slots()
 
+func get_cur_slot(party_slot):
+	for slot in cur_char_slot.keys():
+		if party_slot == cur_char_slot[slot]:
+			return slot
+
 func get_battle_role(_char, slot, char_slots):
 	if char_slots.min() < slot.slot_num && char_slots.max() > slot.slot_num:
 		## You are the middle slot!
@@ -34,15 +39,6 @@ func init_slots():
 			get_battle_role(_char, slot, char_slots)
 			slot.is_clickable = true
 		
-#		if char_slots.has(slot.slot_num):
-#			var _char = playerVar.put_char_actor(playerVar.cur_party[assigned_char_slot[slot.slot_num]])
-#			add_child(_char)
-#			_char.global_position = slot.global_position
-#			_char.slot_assign = slot.slot_num
-#			if char_slots.min() == slot.slot_num:
-#				_char.toggle_flip(true)
-#			get_battle_role(_char, slot, char_slots)
-#			slot.is_clickable = true
 		if slot.onload_obj != null:
 			slot.add_child(slot.onload_obj.instance())
 
@@ -62,12 +58,7 @@ func swap_slot_objects(old_slot, new_slot, assigned_obj):
 			p_char_from.push_front(cha)
 		elif cha.slot_assign == new_slot:
 			p_char_to.push_front(cha)
-#	for c in from_slot.get_children():
-#		if c.is_in_group("player_char"):
-#			p_char_from.push_front(c)
-#	for c in to_slot.get_children():
-#		if c.is_in_group("player_char"):
-#			p_char_to.push_front(c)
+
 	if p_char_from.size() > 0 && p_char_to.size() > 0:
 		swap_anim(p_char_from.front(), p_char_to.front(), to_slot, from_slot)
 		yield(p_char_from.front().tween, "tween_completed")
@@ -79,34 +70,6 @@ func swap_slot_objects(old_slot, new_slot, assigned_obj):
 		p_char_to.front().detect.check_nearby_entities('enemy')
 		get_battle_role(p_char_to.front(), from_slot, char_slots)
 		get_battle_role(p_char_from.front(), to_slot, char_slots)
-		
-#	if p_char_from.size() > 0:
-#		if !swap_anim_complete:
-#			swap_anim(p_char_from.front(), p_char_to.front(), to_slot, from_slot)
-#			yield(p_char_from.front().tween, "tween_completed")
-#			p_char_from.front().state.state_event({"event": "idle"})
-##			yield(p_char_to.front().tween, "tween_completed")
-##			p_char_to.front().state.state_event({"event": "idle"})
-##		var new_obj = p_char_from.front().duplicate()
-##		new_obj.position = Vector2.ZERO
-##		new_obj.char_index = p_char_from.front().char_index
-##		to_slot.add_child(new_obj)
-##		p_char_from.front().queue_free()
-#		get_battle_role(p_char_from.front(), to_slot, char_slots)
-#	if p_char_to.size() > 0:
-#		if !swap_anim_complete:
-#			swap_anim(p_char_from.front(), p_char_to.front(), to_slot, from_slot)
-#			yield(p_char_to.front().tween, "tween_completed")
-#			p_char_to.front().state.state_event({"event": "idle"})
-#			print(p_char_to.front().state.current)
-			############
-#		var new_obj = p_char_to.front().duplicate()
-#		new_obj.position = Vector2.ZERO
-#		new_obj.char_index = p_char_to.front().char_index
-#		from_slot.add_child(new_obj)
-#		p_char_to.front().queue_free()
-			#####################
-#		get_battle_role(p_char_to.front(), from_slot, char_slots)
 	swap_in_progress = false
 
 func swap_anim(from_obj, to_obj, from_target, to_target):
