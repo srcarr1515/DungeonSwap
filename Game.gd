@@ -26,4 +26,4 @@ func _unhandled_input(event):
 			OS.alert('Welcome to God Mode')
 			cheat_modes.push_front("God Mode")
 		key_code = []
-	print(cheat_modes)
+

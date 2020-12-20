@@ -91,7 +91,6 @@ func seek_player():
 
 func _on_HurtBox_area_entered(area):
 	stats.health -= area.damage
-	print(stats.health)
 	knockback = area.knockback_vector * 120
 
 #func _on_Stats_no_health():

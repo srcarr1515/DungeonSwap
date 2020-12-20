@@ -21,7 +21,6 @@ func _ready():
 	states = state_info.keys()
 	if states.size() > 0:
 		active_state = states[0]
-	print(active_state)
 
 func set_state(state_name):
 	if state_name in states:

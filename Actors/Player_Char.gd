@@ -22,7 +22,6 @@ func _ready():
 	health_display.init()
 	health_display.set_scale(Vector2(0.1, 0.1))
 	health_display.global_position = global_position - Vector2(0,10)
-	print(party_slot)
 #	if sprite.is_flipped_h():
 #		detect.radius.global_position = detect.get_node("left_anchor").global_position
 #	else:
