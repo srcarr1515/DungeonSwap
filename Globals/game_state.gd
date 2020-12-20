@@ -7,8 +7,17 @@ var prev = {
 	"main": null
 }
 var transition = {
-	'battle': ['ready', 'select_target']
+	'battle': ['ready', 'select_target', 'game over']
 }
+var death_ct = 0 setget set_death_ct
+
+func set_death_ct(value):
+	death_ct = value
+	if death_ct >= 3:
+		GameState.sub_state('game over')
+		OS.alert('Game Over!')
+		get_tree(). reload_current_scene()
+		GameState.sub_state('ready')
 
 func sub_state(new_state):
 	if new_state == 'ready':

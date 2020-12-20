@@ -23,12 +23,17 @@ func death(delta):
 	## You are dead, stop detecting things...
 	parent.detect.radius.set_disabled(true)
 	var skill_docks = get_tree().get_nodes_in_group("skill_dock")
+	### Dead people can't cast spells...
 	for dock in skill_docks:
 		if parent.char_index == playerVar.cur_party[dock.char_slot]:
 			dock.char_status = "death"
+	### I don't have a death animation, let's just hide until then.
 	parent.hide()
+	yield(get_tree().create_timer(0.1), "timeout")
+	GameState.death_ct += 1
 
 func revive(delta):
+	GameState.death_ct -= 1
 	## You are not dead, get back to work.
 	parent.detect.radius.set_disabled(false)
 	var skill_docks = get_tree().get_nodes_in_group("skill_dock")

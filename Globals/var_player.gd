@@ -50,7 +50,7 @@ var skill_dict = {
 	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 30, "atk_power": 5},
 	"dynamite": {'skill_name': "dynamite", "cooldown": 10, "atk_power": 15},
 	"snare": {'skill_name': "snare", "cooldown": 10, "atk_power": 10},
-	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 5, "atk_power": 4}
+	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 5, "atk_power": 5}
 }
 
 var item_bank = {}
