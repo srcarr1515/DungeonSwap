@@ -25,6 +25,9 @@ export (PackedScene) var onCollisionObject
 export (PackedScene) var onDestroyedObject
 export (PackedScene) var onTriggerObject
 
+export (String) var customScriptPath = null
+var CustomScript
+
 export (String) var char_animation ## Not done yet...
 export (int) var  start_act_point = -1 ## No act point specified
 
@@ -43,6 +46,9 @@ var action_args = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if customScriptPath != null:
+		CustomScript = load(customScriptPath).new()
+		CustomScript.init(self)
 	emitter.emitting = is_emitting
 #	CustomEffect.pre_effects()
 #	init_movement()
@@ -109,6 +115,8 @@ func on_trigger(inherit_stat=false):
 		ActionController.spawn_instance(on_trigger_instance)
 
 func detect_entity(group=null, method=null):
+	if customScriptPath != null:
+		CustomScript.detect_entity(group, method)
 	if detect_zone.can_see_target():
 		print(detect_zone.target)
 		if method == null:

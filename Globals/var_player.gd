@@ -44,7 +44,7 @@ var item_dict = [
 var skill_dict = {
 	"holy_bolt": {'skill_name': "holy_bolt", "cooldown": 10, "atk_power": 5},
 	"faith_healing": {'skill_name': "faith_healing", "cooldown": 5, "atk_power": 5},
-	"resurrect": {'skill_name': "resurrect", "cooldown": 30, "atk_power": 5},
+	"resurrect": {'skill_name': "resurrect", "cooldown": 30, "atk_power": 10},
 	"runic_wall": {'skill_name': "runic_wall", "cooldown": 20, "atk_power": 5},
 	"energy_nova": {'skill_name': "energy_nova", "cooldown": 10, "atk_power": 5},
 	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 30, "atk_power": 5},
