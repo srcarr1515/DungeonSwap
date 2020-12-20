@@ -37,10 +37,9 @@ func revive(delta):
 	## You are not dead, get back to work.
 	parent.detect.radius.set_disabled(false)
 	var skill_docks = get_tree().get_nodes_in_group("skill_dock")
-	if parent.char_index == 5:
-		for dock in skill_docks:
-			if parent.char_index == playerVar.cur_party[dock.char_slot]:
-				dock.char_status = "active"
+	for dock in skill_docks:
+		if parent.char_index == playerVar.cur_party[dock.char_slot]:
+			dock.char_status = "active"
 	parent.show()
 	state_event({"event": "idle"})
 

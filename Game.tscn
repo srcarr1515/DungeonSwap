@@ -263,7 +263,9 @@ glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_luminance_cap = 14.81
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" groups=[
+"game_base",
+]]
 script = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer" parent="."]

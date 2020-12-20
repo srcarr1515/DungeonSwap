@@ -54,21 +54,22 @@ func AnimAction(args={"end_pos":Vector2(3,0)}):
 		ActionController.spawn_action(atk_anim, args)
 
 func _on_HurtBox_area_entered(area):
-	var entity = area.get_parent()
-	if entity.is_in_group("enemy") && area.name == "HitBox":
-		if state.current == "death":
-			var chars = get_tree().get_nodes_in_group("player_char")
-			for c in chars:
-				if c.slot_assign == 5 && c.state.current != "death":
-					c._on_HurtBox_area_entered(area)
-				elif c.slot_assign != slot_assign && c.state.current != "death":
-					c._on_HurtBox_area_entered(area)
-		else:
-			stats.health -= entity.atk_power
-			if stats.health < 1:
-				var enemies = get_tree().get_nodes_in_group("enemy")
-				for enemy in enemies:
-					if "playerDetect" in enemy:
-						if enemy.playerDetect.target == self:
-							enemy.playerDetect.target = null
-				state.state_event({"event": "death"})
+	if !get_tree().get_nodes_in_group("game_base").front().cheat_modes.has("God Mode"):
+		var entity = area.get_parent()
+		if entity.is_in_group("enemy") && area.name == "HitBox":
+			if state.current == "death":
+				var chars = get_tree().get_nodes_in_group("player_char")
+				for c in chars:
+					if c.slot_assign == 5 && c.state.current != "death":
+						c._on_HurtBox_area_entered(area)
+					elif c.slot_assign != slot_assign && c.state.current != "death":
+						c._on_HurtBox_area_entered(area)
+			else:
+				stats.health -= entity.atk_power
+				if stats.health < 1:
+					var enemies = get_tree().get_nodes_in_group("enemy")
+					for enemy in enemies:
+						if "playerDetect" in enemy:
+							if enemy.playerDetect.target == self:
+								enemy.playerDetect.target = null
+					state.state_event({"event": "death"})
