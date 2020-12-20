@@ -4,8 +4,8 @@ func _ready():
 	pass # Replace with function body.
 
 func post_effects():
-	print('after')
+	pass
 
 func pre_effects():
-	print('before')
+	pass
 	return false

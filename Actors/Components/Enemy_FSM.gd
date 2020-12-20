@@ -11,7 +11,6 @@ func _ready():
 	}
 
 func death(delta):
-	print('dead!')
 	parent.queue_free()
 
 func hit(delta):

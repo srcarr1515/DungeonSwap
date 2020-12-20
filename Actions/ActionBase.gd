@@ -118,7 +118,6 @@ func detect_entity(group=null, method=null):
 	if customScriptPath != null:
 		CustomScript.detect_entity(group, method)
 	if detect_zone.can_see_target():
-		print(detect_zone.target)
 		if method == null:
 			if "stats" in detect_zone.target:
 				detect_zone.target.stats.health -= atk_power

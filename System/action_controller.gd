@@ -15,7 +15,7 @@ func _on_UI_commit_skill(_button, _target):
 	GameState.sub_state('ready')
 
 func execute_action(skill_id, args):
-	print(playerVar.skill_list[skill_id])
+	pass
 
 func spawn_instance(instance):
 	var level = get_tree().get_nodes_in_group("foreground").front()
@@ -26,7 +26,7 @@ func spawn_action(action_name, args=null):
 	var file_path = "res://Actions/{action_obj}.tscn".format({"action_obj": action_name})
 	if directory.file_exists(file_path):
 		var action_instance = load(file_path).instance()
-		print(action_instance.name)
+		pass
 		for arg_key in args.keys():
 			action_instance.set(arg_key, args[arg_key])
 		var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()

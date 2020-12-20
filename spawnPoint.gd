@@ -28,9 +28,6 @@ func _on_Timer_timeout():
 	if formation.size() > 0:
 		spawnEnemy(formation.front())
 		formation.pop_front()
-	else:
-		## Request another enemy formation! (signal to formation controller)
-		print("No More Enemies")
 
 func spawnEnemy(enemy_name):
 	var actor_path = "res://Actors/Enemy/{enemy_name}.tscn"

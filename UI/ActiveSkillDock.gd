@@ -8,7 +8,6 @@ var char_status = "active"
 func _ready():
 	get_parent().set_dock_char()
 	toggle_activate(is_active)
-	print('cs', char_slot)
 	
 func toggle_activate(is_active):
 	if char_status == "death":
