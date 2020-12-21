@@ -27,4 +27,10 @@ func update_healthbar(value):
 	healthbar.value = value
 
 func _on_health_changed(value):
+	if parent != null && "state" in parent && parent.stats.health < value:
+#		parent.state.set_animation("flash_hit")
+		pass
 	update_healthbar(value)
+	if parent != null && "stun_amt" in parent:
+		if parent.stun_amt == 0:
+			parent.stun_amt = 0.5

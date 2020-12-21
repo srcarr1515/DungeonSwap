@@ -4,6 +4,8 @@ var selected_slot = 0
 var swap_in_progress = false
 var assigned_char_slot = {4: 1, 5: 2, 6: 3}
 var cur_char_slot = assigned_char_slot
+var mouse_over_slot = null
+
 signal update_char_slots
 
 func _ready():

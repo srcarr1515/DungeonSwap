@@ -2,12 +2,13 @@ extends "res://Util/StateMachine.gd"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current = "chase"
-	all = ["death", "hit"]
+	all = ["death", "hit", "stunned"]
 	transitions = {
 	"idle": ["attack", "chase"],
 	"chase": ["attack", "idle"],
 	"attack": ["idle"],
-	"death": []
+	"death": [],
+	"stunned": ["idle"]
 	}
 
 func death(delta):
@@ -37,8 +38,15 @@ func chase(delta):
 #	var is_colliding = parent.softCollision.is_colliding()
 #	if is_colliding:
 #		parent.velocity += parent.softCollision.get_push_vector(is_colliding) * delta * 400
-
+#	if parent.stun_amt > 0:
+#		state_event({"event": "stunned"})
 	parent.velocity = parent.move_and_slide(parent.velocity)
+
+func stunned(delta):
+	pass
+#	yield(get_tree().create_timer(0.1), "timeout")
+#	state_event({"event": "chase"})
+#	parent.stun_amt = 0
 
 func set_animation(anim):
 	var anim_player = parent.anim_player

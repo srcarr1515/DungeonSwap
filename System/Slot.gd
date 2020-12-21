@@ -5,6 +5,8 @@ export (PackedScene) var onload_obj
 var assigned_obj
 export var is_clickable = false
 onready var icon = $icon
+var mouse_over = false
+onready var parent = get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,3 +35,14 @@ func _on_slot_input_event(viewport, event, shape_idx):
 		else:
 			## Is button release
 			pass
+
+
+func _on_slot_mouse_entered():
+	icon.modulate = Color(0,0,0,0.5)
+	mouse_over = true
+	parent.mouse_over_slot = self
+
+func _on_slot_mouse_exited():
+	icon.modulate = Color(0,0,0,0)
+	mouse_over = false
+	parent.mouse_over_slot = null

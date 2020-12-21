@@ -11,6 +11,8 @@ onready var health_display = $HealthDisplay
 export(int) var atk_power = 1
 export(int) var MOVE_TOLERANCE = 4
 
+var stun_amt = 0
+
 var knockback = Vector2.ZERO
 var is_flipped = false
 
@@ -44,7 +46,15 @@ func toggle_flip(flip):
 
 func accelerate_toward_position(target_position, delta):
 	var direction = global_position.direction_to(target_position)
-	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELEARATION * delta)
+	if stun_amt > 0:
+		velocity = Vector2.ZERO
+		stun_amt -= 0.1
+		if stun_amt < 0:
+#			sprite.get_material().set_shader_param("flash_modifier", 0)
+			stun_amt = 0
+	else:
+		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELEARATION * delta)
+	
 
 func detect_target():
 	if playerDetect.can_see_target():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Actors/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Components/DetectionZone.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Hboxes/HurtBox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Actors/Components/Stats.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Effects/WhiteCover.tres" type="Material" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 5.15582
@@ -21,8 +22,24 @@ radius = 4.65408
 radius = 7.33019
 height = 8.13872
 
+[sub_resource type="Animation" id=5]
+resource_name = "flash_hit"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.6, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0, 1.0, 1.0, 0.0 ]
+}
+
 [node name="Enemy" type="KinematicBody2D" groups=[
 "enemy",
+"entity",
 "targetable",
 ]]
 collision_layer = 16
@@ -32,6 +49,7 @@ script = ExtResource( 1 )
 position = Vector2( 0, -64 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 8 )
 scale = Vector2( 0.27, 0.27 )
 region_enabled = true
 region_rect = Rect2( 7.24524, 115.647, 170.405, 158.949 )
@@ -69,6 +87,7 @@ shape = SubResource( 4 )
 [node name="Stats" parent="." instance=ExtResource( 6 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/flash_hit = SubResource( 5 )
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 4 )

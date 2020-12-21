@@ -42,15 +42,15 @@ var item_dict = [
 ]
 
 var skill_dict = {
-	"holy_bolt": {'skill_name': "holy_bolt", "cooldown": 10, "atk_power": 5},
-	"faith_healing": {'skill_name': "faith_healing", "cooldown": 5, "atk_power": 5},
-	"resurrect": {'skill_name': "resurrect", "cooldown": 30, "atk_power": 10},
-	"runic_wall": {'skill_name': "runic_wall", "cooldown": 20, "atk_power": 5},
-	"energy_nova": {'skill_name': "energy_nova", "cooldown": 40, "atk_power": 5, "charges": 5},
-	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 45, "atk_power": 10, "charges": 3},
-	"dynamite": {'skill_name': "dynamite", "cooldown": 30, "atk_power": 15},
-	"six_shooter": {'skill_name': "six_shooter", "cooldown": 15, "atk_power": 2, "charges": 6},
-	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 30, "atk_power": 20}
+	"holy_bolt": {'skill_name': "holy_bolt", "skill_type": "spell", "cooldown": 10, "atk_power": 5},
+	"faith_healing": {'skill_name': "faith_healing", "skill_type": "spell", "cooldown": 10, "atk_power": 10},
+	"resurrect": {'skill_name': "resurrect", "skill_type": "spell", "cooldown": 30, "atk_power": 10},
+	"runic_wall": {'skill_name': "runic_wall", "skill_type": "summon", "cooldown": 2, "atk_power": 0},
+	"energy_nova": {'skill_name': "energy_nova", "skill_type": "spell", "cooldown": 60, "atk_power": 5, "charges": 5, "auto-deploy": true},
+	"eldritch_blitz": {'skill_name': "eldritch_blitz", "skill_type": "spell", "cooldown": 70, "atk_power": 10, "charges": 3},
+	"dynamite": {'skill_name': "dynamite", "skill_type": "spell", "cooldown": 30, "atk_power": 15},
+	"six_shooter": {'skill_name': "six_shooter", "skill_type": "spell", "cooldown": 15, "atk_power": 2, "charges": 6},
+	"sharpshoot": {'skill_name': "sharpshoot", "skill_type": "spell", "cooldown": 30, "atk_power": 20}
 }
 
 var item_bank = {}

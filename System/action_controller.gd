@@ -1,26 +1,40 @@
 extends Node2D
 
 func _on_UI_commit_skill(_button, _target):
-	var char_slot = _button.parent.char_slot
-	var parent = playerVar.party_chars[char_slot]
-	var skill_details = playerVar.skill_list[_button.skill_id]
 	var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
-	var args = {"start_pos":parent.global_position, "slot_pos": slot.global_position}
-	if get_global_mouse_position().x < parent.position.x:
-		args["is_flipped"] = true
-	if "atk_power" in skill_details.keys():
-		args["atk_power"] = skill_details["atk_power"]
-	spawn_action(skill_details["skill_name"], args)
-	if _button.skill_charges == null || _button.skill_charges < 2:
-		_button.start_cooldown()
-		if _button.skill_charges != null:
-			_button.skill_charges = skill_details.charges ## It will default to the max
-	elif _button.skill_charges > 1:
-		_button.skill_charges -= 1
-	GameState.sub_state('ready')
-	if _button.key_down:
-		yield(get_tree().create_timer(0.25), "timeout")
-		_button.activate_skill()
+	var skill_details = playerVar.skill_list[_button.skill_id]
+	var is_occupied = false
+#	if skill_details["skill_type"] == "summon":
+#		var nearest_entity = Helpers.pick_nearest("entity", slot.global_position)
+#		var distance = nearest_entity.global_position - slot.global_position
+#		if abs(distance.x) < 16:
+#			is_occupied = true
+	if is_occupied:
+		pass
+#		print('occupied!')
+#		GameState.sub_state('ready')
+	else:
+		var char_slot = _button.parent.char_slot
+		var parent = playerVar.party_chars[char_slot]
+		var args = {"start_pos":parent.global_position, "slot_pos": slot.global_position}
+		if get_global_mouse_position().x < parent.position.x:
+			parent.toggle_flip(true)
+			args["is_flipped"] = true
+		else:
+			parent.toggle_flip(false)
+		if "atk_power" in skill_details.keys():
+			args["atk_power"] = skill_details["atk_power"]
+		spawn_action(skill_details["skill_name"], args)
+		if _button.skill_charges == null || _button.skill_charges < 2:
+			_button.start_cooldown()
+			if _button.skill_charges != null:
+				_button.skill_charges = skill_details.charges ## It will default to the max
+		elif _button.skill_charges > 1:
+			_button.skill_charges -= 1
+		GameState.sub_state('ready')
+		if _button.key_down:
+			yield(get_tree().create_timer(0.25), "timeout")
+			_button.activate_skill()
 
 func execute_action(skill_id, args):
 	pass

@@ -12,7 +12,6 @@ func _on_HurtBox_area_entered(area):
 	if entity.is_in_group("enemy") && area.name == "HitBox":
 		stats.health -= entity.atk_power
 
-
 func _on_Stats_no_health():
 	if parent.is_in_group("action"):
 		parent.queue_free()

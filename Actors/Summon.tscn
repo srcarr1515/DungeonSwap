@@ -8,6 +8,7 @@
 [ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=6]
 
 [node name="Summon" type="KinematicBody2D" groups=[
+"entity",
 "player_entity",
 "player_summon",
 ]]

@@ -3,6 +3,7 @@ extends Control
 onready var char_skill_slots = [$char_slot_1, $char_slot_2, $char_slot_3]
 var dock_party_slot = {}
 var commit_button = null
+onready var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()
 signal commit_skill(_button, _target)
 ## playerVar.cur_party ## {1: 1, 2: 0, 3: 2}
 
@@ -22,21 +23,42 @@ func _on_precommit_skill(_button):
 	set_process(true)
 
 func _process(delta):
+	var is_occupied = false
+	if commit_button.skill_details["skill_type"] == "summon":
+		var slot = slot_controller.mouse_over_slot
+		if slot != null:
+			var nearest_entity = Helpers.pick_nearest("entity", slot.global_position)
+			var distance = nearest_entity.global_position - slot.global_position
+			if abs(distance.x) < 18:
+				slot.icon.modulate = Color(0.5,0,0,0.5)
+				is_occupied = true
+			else:
+				slot.icon.modulate = Color(0,0,0,0.5)
+	
 	var last_button = commit_button
 	if commit_button != null:
 		var is_finished = false
-		if Input.is_action_pressed("left_mouse"):
-			## TODO: Show clickable area slots
-			var nearest_target = Helpers.pick_nearest("targetable", get_global_mouse_position())
-#			nearest_target.icon.modulate = Color(0,0,0,0.5)
-			## TODO: Get either target slot or target entity
-			## TODO: Adjust a clickable collision box on the slots that when clicked will select a slot...
-			## TODO: Prioritize direct enemy clicks, clicking around an enemy to the surroudning slot will select the slot..
-			## TODO: Create feedback that helps the player understand which selection is being made.
-			emit_signal("commit_skill", commit_button, nearest_target)
+		if Input.is_action_pressed("right_mouse") || Input.is_action_pressed("ui_cancel"):
+			## Deselect Skill!
 			is_finished = true
-		elif Input.is_action_pressed("right_mouse") || Input.is_action_pressed("ui_cancel"):
-			is_finished = true
+			GameState.sub_state('ready')
+		else:
+			## Select Skill
+			var auto_deploy = false
+			if "auto-deploy" in commit_button.skill_details:
+				auto_deploy = commit_button.skill_details["auto-deploy"]
+				commit_button.key_down = false
+			if (Input.is_action_pressed("left_mouse") && !is_occupied) || auto_deploy:
+				## TODO: Show clickable area slots
+				var nearest_target = Helpers.pick_nearest("targetable", get_global_mouse_position())
+	#			nearest_target.icon.modulate = Color(0,0,0,0.5)
+				## TODO: Get either target slot or target entity
+				## TODO: Adjust a clickable collision box on the slots that when clicked will select a slot...
+				## TODO: Prioritize direct enemy clicks, clicking around an enemy to the surroudning slot will select the slot..
+				## TODO: Create feedback that helps the player understand which selection is being made.
+				emit_signal("commit_skill", commit_button, nearest_target)
+				is_finished = true
+		
 		if is_finished:
 			set_process(false)
 			commit_button = null
@@ -71,3 +93,7 @@ func set_skill_dock_pos():
 
 func _on_slot_controller_update_char_slots():
 	set_skill_dock_pos()
+
+
+func _on_slot_mouse_entered():
+	pass # Replace with function body.
