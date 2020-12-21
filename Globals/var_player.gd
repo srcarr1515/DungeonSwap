@@ -21,8 +21,8 @@ var actor_path = "res://Actors/Player/{char_class}.tscn"
 var coin = 0
 var cur_party = {
 	1: 1,
-	2: 0,
-	3: 2
+	2: 2,
+	3: 0
 }
 var cur_skills = {
 	1: [],
@@ -46,11 +46,11 @@ var skill_dict = {
 	"faith_healing": {'skill_name': "faith_healing", "cooldown": 5, "atk_power": 5},
 	"resurrect": {'skill_name': "resurrect", "cooldown": 30, "atk_power": 10},
 	"runic_wall": {'skill_name': "runic_wall", "cooldown": 20, "atk_power": 5},
-	"energy_nova": {'skill_name': "energy_nova", "cooldown": 10, "atk_power": 5},
+	"energy_nova": {'skill_name': "energy_nova", "cooldown": 40, "atk_power": 5, "charges": 5},
 	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 45, "atk_power": 10, "charges": 3},
-	"dynamite": {'skill_name': "dynamite", "cooldown": 10, "atk_power": 15},
-	"six_shooter": {'skill_name': "six_shooter", "cooldown": 10, "atk_power": 2, "charges": 6},
-	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 20, "atk_power": 20}
+	"dynamite": {'skill_name': "dynamite", "cooldown": 30, "atk_power": 15},
+	"six_shooter": {'skill_name': "six_shooter", "cooldown": 15, "atk_power": 2, "charges": 6},
+	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 30, "atk_power": 20}
 }
 
 var item_bank = {}

@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Actions/ActionBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/Skills/bomb_effect_seq.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=2]
+resource_name = "boom"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ null, null ],
+"method": "detect_entity"
+}, {
+"args": [  ],
+"method": "destroy"
+} ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "throw"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:end_pos")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 0 ), Vector2( 2, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 20, 20 )
+
+[node name="dynamite" instance=ExtResource( 1 )]
+delay = 1.0
+accel = 1.0
+end_pos = Vector2( 2, 0 )
+movement_type = 2
+is_playing = "boom"
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 10 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 3
+
+[node name="AnimationPlayer" parent="." index="1"]
+playback_speed = 2.0
+anims/boom = SubResource( 2 )
+anims/throw = SubResource( 1 )
+
+[node name="ActiveCollision" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="DetectionZone" index="0"]
+position = Vector2( 0, 16 )
+shape = SubResource( 3 )
+
+[node name="Particles2D" parent="." index="4"]
+visible = false
+
+[editable path="DetectionZone"]

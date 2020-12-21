@@ -26,7 +26,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1, 2.6 ),
+"times": PoolRealArray( 0.8, 2.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ null, null ],
@@ -53,7 +53,7 @@ scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 5
-frame = 10
+frame = 11
 
 [node name="AnimationPlayer" parent="." index="1"]
 playback_speed = 1.5

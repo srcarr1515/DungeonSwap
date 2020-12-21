@@ -19,7 +19,7 @@ func _on_UI_commit_skill(_button, _target):
 		_button.skill_charges -= 1
 	GameState.sub_state('ready')
 	if _button.key_down:
-		yield(get_tree().create_timer(0.1), "timeout")
+		yield(get_tree().create_timer(0.25), "timeout")
 		_button.activate_skill()
 
 func execute_action(skill_id, args):
