@@ -2,8 +2,13 @@ extends TextureButton
 
 var skill_id
 var skill_details
+var skill_charges = null setget set_skill_charges
 export(float) var cooldown = 1.0
 onready var clockwipe = $ClockWipe
+onready var charges_ui = $Charges/TextureProgress
+
+var key_down = false
+
 var is_active
 var is_preactivated = false
 export (String) var button_key
@@ -20,6 +25,13 @@ func init_skill():
 		skill_details = playerVar.skill_list[skill_id]
 		skill_name = skill_details.skill_name
 		cooldown = skill_details.cooldown
+		if "charges" in skill_details:
+			charges_ui.show()
+			skill_charges = skill_details.charges
+			charges_ui.max_value = skill_charges
+		else:
+			charges_ui.hide()
+		
 	$Timer.wait_time = cooldown
 	if is_active:
 		set_modulate(Color(1,1,1,1))
@@ -46,18 +58,37 @@ func _on_ActiveSkillBtn_pressed():
 		## TODO: change icon to indicate pre-activated
 
 func _unhandled_input(event):
-	if Input.is_action_just_pressed(button_key):
-		activate_skill()
+	if is_active:
+		if Input.is_action_just_pressed(button_key) && key_down == false:
+			activate_skill()
+			key_down = true
+		
+		if Input.is_action_just_released(button_key):
+			key_down = false
+	
 
 func activate_skill():
-	if is_active:
+	var is_ready = true
+	if skill_charges != null:
+		if skill_charges < 1:
+			is_ready = false
+	
+	if is_active && is_ready && !disabled:
 		var skill_buttons = get_tree().get_nodes_in_group("skill_button")
 		for button in skill_buttons:
 			button.is_preactivated = false
 			## TODO: change icon to default
 		is_preactivated = true
 		emit_signal("precommit_skill", self)
-	
+
+func set_skill_charges(value):
+	if skill_charges < 0:
+		skill_charges = 0
+		key_down = false
+	if value > skill_details.charges:
+		skill_charges = skill_details.charges
+	skill_charges = value
+	charges_ui.value = value
 
 func _on_Cooldown_Timer_timeout():
 	clockwipe.value = 0

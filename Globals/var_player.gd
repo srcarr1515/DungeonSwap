@@ -47,10 +47,10 @@ var skill_dict = {
 	"resurrect": {'skill_name': "resurrect", "cooldown": 30, "atk_power": 10},
 	"runic_wall": {'skill_name': "runic_wall", "cooldown": 20, "atk_power": 5},
 	"energy_nova": {'skill_name': "energy_nova", "cooldown": 10, "atk_power": 5},
-	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 30, "atk_power": 5},
+	"eldritch_blitz": {'skill_name': "eldritch_blitz", "cooldown": 45, "atk_power": 10, "charges": 3},
 	"dynamite": {'skill_name': "dynamite", "cooldown": 10, "atk_power": 15},
-	"snare": {'skill_name': "snare", "cooldown": 10, "atk_power": 10},
-	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 5, "atk_power": 5}
+	"six_shooter": {'skill_name': "six_shooter", "cooldown": 10, "atk_power": 2, "charges": 6},
+	"sharpshoot": {'skill_name': "sharpshoot", "cooldown": 20, "atk_power": 20}
 }
 
 var item_bank = {}
@@ -68,7 +68,7 @@ func _ready():
 	add_skill("energy_nova", 0)
 	add_skill("eldritch_blitz", 0)
 	add_skill("dynamite", 2)
-	add_skill("snare", 2)
+	add_skill("six_shooter", 2)
 	add_skill("sharpshoot", 2)
 	## Temporary Add Skill End
 	

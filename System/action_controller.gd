@@ -11,8 +11,16 @@ func _on_UI_commit_skill(_button, _target):
 	if "atk_power" in skill_details.keys():
 		args["atk_power"] = skill_details["atk_power"]
 	spawn_action(skill_details["skill_name"], args)
-	_button.start_cooldown()
+	if _button.skill_charges == null || _button.skill_charges < 2:
+		_button.start_cooldown()
+		if _button.skill_charges != null:
+			_button.skill_charges = skill_details.charges ## It will default to the max
+	elif _button.skill_charges > 1:
+		_button.skill_charges -= 1
 	GameState.sub_state('ready')
+	if _button.key_down:
+		yield(get_tree().create_timer(0.1), "timeout")
+		_button.activate_skill()
 
 func execute_action(skill_id, args):
 	pass

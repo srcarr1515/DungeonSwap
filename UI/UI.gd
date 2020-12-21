@@ -22,6 +22,7 @@ func _on_precommit_skill(_button):
 	set_process(true)
 
 func _process(delta):
+	var last_button = commit_button
 	if commit_button != null:
 		var is_finished = false
 		if Input.is_action_pressed("left_mouse"):

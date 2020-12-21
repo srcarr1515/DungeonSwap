@@ -21,7 +21,7 @@ func attack(delta):
 	yield(parent.anim_player, "animation_finished")
 	state_event({"event": "idle"})
 	if parent.playerDetect.target == null:
-		parent.playerDetect.check_nearby_entities('player_char')
+		parent.playerDetect.check_nearby_entities('player_entity')
 		if parent.playerDetect.target == null:
 			state_event({"event": "chase"})
 	

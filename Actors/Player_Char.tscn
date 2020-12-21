@@ -10,6 +10,7 @@
 
 [node name="Player_Char" type="KinematicBody2D" groups=[
 "player_char",
+"player_entity",
 "targetable",
 ]]
 collision_layer = 2
