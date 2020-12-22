@@ -6,6 +6,7 @@ var velocity = Vector2.ZERO
 export (float) var max_speed = 64
 export (float) var accel = 1.0
 
+var action_owner = null
 var action_id = null
 
 export (Vector2) var start_pos = Vector2.ZERO
@@ -132,6 +133,8 @@ func spawn():
 	if movement_type == MOVEMENT.fixed:
 		start_pos = slot_pos
 	init_movement()
+	action_owner.state.state_event({"event": "cast"})
+	yield(action_owner.anim_player, "animation_finished")
 	ActionController.spawn_instance(self)
 	if flippable:
 		if is_flipped:

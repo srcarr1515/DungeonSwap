@@ -33,6 +33,7 @@ var velocity = Vector2.ZERO
 
 func _ready():
 	health_display.init()
+	health_display.hide()
 	health_display.set_scale(Vector2(0.1, 0.1))
 	if chase_x < global_position.x:
 		toggle_flip(true)
@@ -46,14 +47,13 @@ func toggle_flip(flip):
 
 func accelerate_toward_position(target_position, delta):
 	var direction = global_position.direction_to(target_position)
-	if stun_amt > 0:
-		velocity = Vector2.ZERO
-		stun_amt -= 0.1
-		if stun_amt < 0:
-#			sprite.get_material().set_shader_param("flash_modifier", 0)
-			stun_amt = 0
-	else:
-		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELEARATION * delta)
+#	if stun_amt > 0:
+#		velocity = Vector2.ZERO
+#		stun_amt -= 0.1
+#		if stun_amt < 0:
+#			stun_amt = 0
+#	else:
+	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELEARATION * delta)
 	
 
 func detect_target():
@@ -63,7 +63,11 @@ func detect_target():
 func _on_HurtBox_area_entered(area):
 	var entity = area.get_parent()
 	if entity.is_in_group("player_char") && area.name == "HitBox":
-		stats.health -= entity.atk_power
+#		if !entity.attack_queue.has(self):
+#			entity.attack_queue.push_back(self)
+		if !entity.has_target:
+			stats.health -= entity.atk_power
+			entity.has_target = true
 #	stats.health -= entity.atk_power
 #	print(stats.health)
 #	knockback = area.knockback_vector * 120

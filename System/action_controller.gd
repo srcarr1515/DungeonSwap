@@ -16,7 +16,11 @@ func _on_UI_commit_skill(_button, _target):
 	else:
 		var char_slot = _button.parent.char_slot
 		var parent = playerVar.party_chars[char_slot]
-		var args = {"start_pos":parent.global_position, "slot_pos": slot.global_position}
+		var args = {
+			"start_pos":parent.global_position, 
+			"slot_pos": slot.global_position,
+			"action_owner": parent
+			}
 		if get_global_mouse_position().x < parent.position.x:
 			parent.toggle_flip(true)
 			args["is_flipped"] = true
@@ -24,7 +28,8 @@ func _on_UI_commit_skill(_button, _target):
 			parent.toggle_flip(false)
 		if "atk_power" in skill_details.keys():
 			args["atk_power"] = skill_details["atk_power"]
-		spawn_action(skill_details["skill_name"], args)
+		
+		
 		if _button.skill_charges == null || _button.skill_charges < 2:
 			_button.start_cooldown()
 			if _button.skill_charges != null:
@@ -35,9 +40,21 @@ func _on_UI_commit_skill(_button, _target):
 		if _button.key_down:
 			yield(get_tree().create_timer(0.25), "timeout")
 			_button.activate_skill()
+		
+		spawn_action(skill_details["skill_name"], args)
 
 func execute_action(skill_id, args):
 	pass
+
+func display_info(header, body, _position, show=true):
+	var info_box = get_tree().get_nodes_in_group("info_box").front()
+	info_box.header.text = header
+	info_box.body.text = body
+	info_box.global_position = _position
+	if show:
+		info_box.show()
+	else:
+		info_box.hide()
 
 func spawn_instance(instance):
 	var level = get_tree().get_nodes_in_group("foreground").front()
@@ -53,7 +70,12 @@ func spawn_action(action_name, args=null):
 			action_instance.set(arg_key, args[arg_key])
 		var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()
 		var in_support_slot = slot_controller.assigned_char_slot[5]
-		yield(get_tree().create_timer(action_instance.delay), "timeout")
+		
+		## If action has a delay timer!
+		if action_instance.delay > 0:
+			args.action_owner.delay_timer.start_timer(action_instance.delay)
+			yield(args.action_owner.delay_timer.timer, "timeout")
+		
 		if slot_controller.assigned_char_slot[5] == in_support_slot:
 			action_instance.spawn()
 	else:

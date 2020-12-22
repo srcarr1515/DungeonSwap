@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Actors/Player_Char.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Player/gunslinger-sheet.png" type="Texture" id=2]
@@ -45,7 +45,22 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=5]
-resource_name = "idle"
+resource_name = "cast"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
 length = 2.4
 loop = true
 tracks/0/type = "value"
@@ -61,8 +76,7 @@ tracks/0/keys = {
 "values": [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "walk"
+[sub_resource type="Animation" id=7]
 length = 1.4
 loop = true
 tracks/0/type = "value"
@@ -87,7 +101,7 @@ texture = ExtResource( 2 )
 offset = Vector2( 19.663, 0 )
 vframes = 6
 hframes = 10
-frame = 21
+frame = 7
 
 [node name="CollisionShape2D" parent="DetectionZone" index="0"]
 position = Vector2( 60, 4 )
@@ -120,8 +134,9 @@ max_health = 20
 
 [node name="AnimationPlayer" parent="." index="8"]
 anims/attack = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/walk = SubResource( 6 )
+anims/cast = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/walk = SubResource( 7 )
 
 [node name="ActionPoint" type="Position2D" parent="." index="9"]
 position = Vector2( 10.001, -5.57656 )

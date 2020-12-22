@@ -41,7 +41,7 @@ tracks/1/keys = {
 extents = Vector2( 12, 32 )
 
 [node name="eldritch_blitz" instance=ExtResource( 1 )]
-delay = 0.0
+delay = 0.25
 movement_type = 2
 is_playing = "zap"
 

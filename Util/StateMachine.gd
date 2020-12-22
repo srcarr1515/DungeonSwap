@@ -27,6 +27,7 @@ func state_event(_props):
 	if _props["event"] in transitions[current] || _props["event"] in all:
 		props = _props
 		active = true
+		previous = current
 		current = _props.event
 	else:
 		pass

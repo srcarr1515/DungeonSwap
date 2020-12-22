@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Icons/UI/barHorizontal_yellow.png" type="Texture" id=1]
 [ext_resource path="res://UI/ActiveSkillBtn.gd" type="Script" id=2]
+[ext_resource path="res://UI/MainTheme.tres" type="Theme" id=3]
 
 [node name="ActiveSkillBtn" type="TextureButton" groups=[
 "skill_button",
@@ -10,6 +11,7 @@ anchor_right = 0.2
 anchor_bottom = 0.356
 margin_bottom = -0.0800018
 rect_min_size = Vector2( 36, 36 )
+theme = ExtResource( 3 )
 expand = true
 script = ExtResource( 2 )
 __meta__ = {

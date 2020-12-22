@@ -3,7 +3,7 @@
 [ext_resource path="res://Actions/ActionBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Skills/bomb_effect_seq.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "boom"
 length = 1.2
 tracks/0/type = "value"
@@ -45,8 +45,7 @@ tracks/2/keys = {
 "values": [ 4.0, 28.0, 32.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "throw"
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:end_pos")
 tracks/0/interp = 1
@@ -60,15 +59,14 @@ tracks/0/keys = {
 "values": [ Vector2( 2, 0 ), Vector2( 2, 0 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 radius = 4.0
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 28, 20 )
 
 [node name="dynamite" instance=ExtResource( 1 )]
-delay = 1.0
-accel = 1.0
+delay = 0.5
 end_pos = Vector2( 2, 0 )
 movement_type = 2
 is_playing = "boom"
@@ -83,19 +81,22 @@ hframes = 3
 
 [node name="AnimationPlayer" parent="." index="1"]
 playback_speed = 2.0
-anims/boom = SubResource( 2 )
-anims/throw = SubResource( 1 )
+anims/boom = SubResource( 1 )
+anims/throw = SubResource( 2 )
+
+[node name="ActiveCollision" parent="." index="2"]
+target_type = 1
 
 [node name="CollisionShape2D" parent="ActiveCollision" index="0"]
 position = Vector2( 0, 16 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="DetectionZone" parent="." index="3"]
 visible = false
 
 [node name="CollisionShape2D" parent="DetectionZone" index="0"]
 position = Vector2( 0, 16 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Particles2D" parent="." index="4"]
 visible = false

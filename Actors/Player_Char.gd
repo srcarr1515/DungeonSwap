@@ -11,11 +11,14 @@ onready var detect = $DetectionZone
 onready var stats = $Stats
 onready var act_point = $ActPoint
 onready var health_display = $HealthDisplay
+onready var delay_timer = $DelayTimer
 var is_flipped = false
 var atk_power = 1
 var atk_anim = null
 
 var battle_role
+var attack_queue = []
+var has_target = false
 
 func _ready():
 	## TODO: Need to verify that we actually use atk_power when resolving damage.
@@ -43,10 +46,20 @@ func move_to(target_pos):
 	tween.interpolate_property(self, "global_position", global_position, target_pos, 0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	tween.start()
 
+func resolveAttack():
+	pass
+#	var attack_target = attack_queue.front()
+#	if attack_target != null && attack_queue.size() > 0:
+#		if is_instance_valid(attack_target) && "stats" in attack_target:
+#			attack_target.stats.health -= atk_power
+#			if attack_target == null || attack_target.stats.health < 1:
+#				attack_queue.pop_front()
+
 func AnimAction(args={"end_pos":Vector2(3,0)}):
 	var atk_object = null
 	if atk_anim != null:
 		args["start_pos"] = act_point.global_position
+		args["action_owner"] = self
 		args["atk_power"] = atk_power
 		if is_flipped:
 			args["is_flipped"] = true

@@ -49,7 +49,7 @@ tracks/2/keys = {
 radius = 4.0
 
 [node name="energy_nova" instance=ExtResource( 1 )]
-delay = 0.0
+delay = 0.5
 is_playing = "boom"
 
 [node name="Sprite" parent="." index="0"]
@@ -63,6 +63,9 @@ hframes = 4
 [node name="AnimationPlayer" parent="." index="1"]
 playback_speed = 2.0
 anims/boom = SubResource( 1 )
+
+[node name="ActiveCollision" parent="." index="2"]
+target_type = 1
 
 [node name="CollisionShape2D" parent="ActiveCollision" index="0"]
 shape = SubResource( 2 )

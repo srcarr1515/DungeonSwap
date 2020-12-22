@@ -4,6 +4,7 @@ onready var char_slot
 export(bool) var is_active = false
 onready var skill_buttons = get_children()
 var char_status = "active"
+onready var parent = get_parent()
 
 func _ready():
 	get_parent().set_dock_char()

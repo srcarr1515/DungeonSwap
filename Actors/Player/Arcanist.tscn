@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Sprites/Player/mage_anim.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Player_Char.tscn" type="PackedScene" id=2]
@@ -42,8 +42,38 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false, true ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "resolveAttack"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
+resource_name = "cast"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 8, 9, 10 ]
+}
+
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -58,7 +88,7 @@ tracks/0/keys = {
 "values": [ 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -82,7 +112,7 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 vframes = 6
 hframes = 9
-frame = 44
+frame = 7
 
 [node name="CollisionShape2D" parent="DetectionZone" index="0"]
 position = Vector2( 36, 4 )
@@ -106,15 +136,15 @@ shape = SubResource( 3 )
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2( 28, 0 )
 shape = SubResource( 4 )
-disabled = true
 
 [node name="Stats" parent="." index="7"]
 max_health = 20
 
 [node name="AnimationPlayer" parent="." index="8"]
 anims/attack = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/walk = SubResource( 7 )
+anims/cast = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/walk = SubResource( 8 )
 
 [editable path="DetectionZone"]
 

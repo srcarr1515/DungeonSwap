@@ -14,7 +14,6 @@ func init():
 	parent = get_parent()
 	healthbar.max_value = parent.stats.max_health
 	update_healthbar(parent.stats.health)
-#	hide()
 	
 func update_healthbar(value):
 	healthbar.texture_progress = bar_green
@@ -31,6 +30,8 @@ func _on_health_changed(value):
 #		parent.state.set_animation("flash_hit")
 		pass
 	update_healthbar(value)
+	## TODO: Should move this into a more logical area (this seems out of place here.)
 	if parent != null && "stun_amt" in parent:
 		if parent.stun_amt == 0:
 			parent.stun_amt = 0.5
+			parent.state.state_event({"event": "stunned"})

@@ -8,7 +8,7 @@ func _ready():
 	"chase": ["attack", "idle"],
 	"attack": ["idle"],
 	"death": [],
-	"stunned": ["idle"]
+	"stunned": ["idle", "chase", "attack"]
 	}
 
 func death(delta):
@@ -38,17 +38,22 @@ func chase(delta):
 #	var is_colliding = parent.softCollision.is_colliding()
 #	if is_colliding:
 #		parent.velocity += parent.softCollision.get_push_vector(is_colliding) * delta * 400
-#	if parent.stun_amt > 0:
-#		state_event({"event": "stunned"})
+
 	parent.velocity = parent.move_and_slide(parent.velocity)
 
 func stunned(delta):
-	pass
-#	yield(get_tree().create_timer(0.1), "timeout")
-#	state_event({"event": "chase"})
-#	parent.stun_amt = 0
+	set_animation("flash_hit")
+	if parent.stun_amt > 0:
+		parent.velocity = Vector2.ZERO
+		parent.stun_amt -= 0.1
+		if parent.stun_amt <= 0:
+			parent.stun_amt = 0
+	else:
+		state_event({"event": previous})
 
 func set_animation(anim):
+	if anim != "flash_hit":
+		parent.sprite.get_material().set_shader_param("flash_modifier", 0)
 	var anim_player = parent.anim_player
 	if anim_player.has_animation(anim):
 		anim_player.play(anim)

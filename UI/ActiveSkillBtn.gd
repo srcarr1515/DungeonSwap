@@ -13,6 +13,7 @@ var is_active
 var is_preactivated = false
 export (String) var button_key
 onready var parent = get_parent()
+
 signal precommit_skill(_button)
 
 func _ready():
@@ -66,6 +67,13 @@ func _unhandled_input(event):
 		if Input.is_action_just_released(button_key):
 			key_down = false
 	
+#func _on_Button_gui_input(event):
+#	print(event)
+#	if event is InputEventMouseButton and event.pressed:
+#		match event.button_index:
+#			BUTTON_RIGHT:
+#				print('test')
+#				ActionController.display_info(skill_details.skill_name, skill_details.skill_name, rect_global_position)
 
 func activate_skill():
 	var is_ready = true
@@ -94,3 +102,12 @@ func _on_Cooldown_Timer_timeout():
 	clockwipe.value = 0
 	disabled = false
 	set_process(false)
+
+
+func _on_mouse_entered():
+	pass
+#	ActionController.display_info(skill_details.skill_name, skill_details.skill_name, rect_global_position)
+
+func _on_mouse_exited():
+	pass
+#	ActionController.display_info("cookies", "cookies", parent.rect_global_position, false)

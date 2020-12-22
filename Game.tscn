@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/BG/dungeon_wall_bg.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tilesets/dungeon_prison_tileset.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Actors/Components/spawnPoint.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://System/action_controller.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/InfoBox.tscn" type="PackedScene" id=10]
+[ext_resource path="res://UI/MainTheme.tres" type="Theme" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "dungeon_prison_tileset.png 0"
@@ -272,6 +274,14 @@ script = ExtResource( 3 )
 follow_viewport_enable = true
 
 [node name="UI" parent="HUD" instance=ExtResource( 8 )]
+theme = ExtResource( 11 )
+
+[node name="InfoBox" parent="HUD" groups=[
+"info_box",
+] instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 156, 88 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="action_controller" parent="." instance=ExtResource( 9 )]
 

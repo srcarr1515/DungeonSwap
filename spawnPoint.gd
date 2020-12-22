@@ -15,7 +15,6 @@ func _ready():
 		formation.push_front(enemy)
 	reset_timer()
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

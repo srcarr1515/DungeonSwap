@@ -3,18 +3,24 @@ extends "res://Util/StateMachine.gd"
 
 func _ready():
 	current = "idle"
-	all = ["death"]
+	all = ["death", "cast"]
 	transitions = {
 	"idle": ["attack", "walk", "death"],
 	"walk": ["idle", "death"],
 	"attack": ["idle", "death"],
 	"death": ["revive"],
-	"revive": ["idle"]
+	"revive": ["idle"],
+	"cast": ["idle"]
 	}
 
 func idle(delta):
 	set_animation("idle")
-	
+
+func cast(delta):
+	set_animation("cast")
+	yield(parent.anim_player, "animation_finished")
+	state_event({"event": "idle"})
+
 func walk(delta):
 	set_animation("walk")
 	
@@ -45,7 +51,12 @@ func revive(delta):
 
 func attack(delta):
 	set_animation("attack")
+#	var attack_target = parent.attack_queue.front()
+#	if attack_target != null:
+#		attack_target.stats.health -= parent.atk_power
+#		parent.attack_queue = []
 	yield(parent.anim_player, "animation_finished")
+	parent.has_target = false
 	state_event({"event": "idle"})
 	if parent.detect.target == null:
 		parent.detect.check_nearby_entities('enemy')

@@ -22,6 +22,8 @@ func set_health(value):
 	if health <= 0:
 		health = 0
 		emit_signal("no_health")
+	if health > max_health:
+		health = max_health
 
 func _ready():
 	self.health = max_health
