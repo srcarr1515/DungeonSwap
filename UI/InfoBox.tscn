@@ -12,7 +12,6 @@ font_data = ExtResource( 2 )
 font_path = "res://Assets/Fonts/SHPinscher-Regular.otf"
 
 [sub_resource type="DynamicFont" id=3]
-size = 18
 extra_spacing_top = -2
 extra_spacing_bottom = -5
 font_data = SubResource( 2 )
@@ -22,10 +21,10 @@ script = ExtResource( 3 )
 
 [node name="BG" type="NinePatchRect" parent="."]
 modulate = Color( 1, 1, 1, 0.960784 )
-margin_left = -108.0
+margin_left = -128.0
 margin_top = -125.0
-margin_right = 100.0
-margin_bottom = -1.0
+margin_right = 124.0
+margin_bottom = 4.0
 texture = ExtResource( 1 )
 patch_margin_left = 9
 patch_margin_top = 9
@@ -36,9 +35,9 @@ __meta__ = {
 }
 
 [node name="header" type="Label" parent="."]
-margin_left = -108.0
+margin_left = -124.0
 margin_top = -128.0
-margin_right = 96.0
+margin_right = 120.0
 margin_bottom = -98.0
 custom_fonts/font = SubResource( 1 )
 text = "Test"
@@ -49,10 +48,10 @@ __meta__ = {
 }
 
 [node name="body" type="Label" parent="."]
-margin_left = -104.0
-margin_top = -108.0
-margin_right = 96.0
-margin_bottom = -8.0
+margin_left = -120.0
+margin_top = -106.0
+margin_right = 116.0
+margin_bottom = -4.0
 rect_clip_content = true
 custom_fonts/font = SubResource( 3 )
 text = "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium"

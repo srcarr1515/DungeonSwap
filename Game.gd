@@ -1,6 +1,9 @@
+## <emitting_node>.connect("signal_name", <target_node>, "target_method_name") <<--- I keep forgetting this
+
 extends Node2D
 var key_code = []
 var cheat_modes = []
+signal left_mouse
 func _ready():
 	pass # Replace with function body
 # For testing!
@@ -12,6 +15,8 @@ func _ready():
 #		test_action.spawn()
 
 func _unhandled_input(event):
+	if Input.is_action_just_pressed("left_mouse"):
+		emit_signal("left_mouse")
 	if Input.is_key_pressed(KEY_I):
 		key_code.push_back('I')
 	if Input.is_key_pressed(KEY_D):
@@ -26,3 +31,9 @@ func _unhandled_input(event):
 			OS.alert('Welcome to God Mode')
 			cheat_modes.push_front("God Mode")
 		key_code = []
+
+func _process(delta):
+	if key_code != []:
+		yield(get_tree().create_timer(1), "timeout")
+		key_code = []
+	

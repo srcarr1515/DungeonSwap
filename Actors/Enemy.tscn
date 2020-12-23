@@ -25,7 +25,6 @@ height = 8.13872
 [sub_resource type="Animation" id=5]
 resource_name = "flash_hit"
 length = 0.2
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:material:shader_param/flash_modifier")
 tracks/0/interp = 1
@@ -37,6 +36,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [node name="Enemy" type="KinematicBody2D" groups=[
@@ -58,6 +69,9 @@ region_rect = Rect2( 7.24524, 115.647, 170.405, 158.949 )
 
 [node name="DetectionZone" parent="." instance=ExtResource( 2 )]
 target_group = "player_entity"
+
+[node name="AllyDetect" parent="." instance=ExtResource( 2 )]
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -99,6 +113,8 @@ script = ExtResource( 4 )
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 
 [editable path="DetectionZone"]
+
+[editable path="AllyDetect"]
 
 [editable path="SoftCollision"]
 

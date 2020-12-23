@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 #const EnemyDeathEffect = preload("res://Effects/EnemyDeathEffect.tscn")
 onready var playerDetect = $DetectionZone
+onready var allyDetect = $AllyDetect
 onready var sprite = $Sprite
 onready var anim_player = $AnimationPlayer
 onready var softCollision = $SoftCollision
@@ -19,6 +20,8 @@ var is_flipped = false
 export var ACCELEARATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200
+export (float) var RANGE_VARIANCE = 0.1
+
 var chase_x = 160
 
 var path := PoolVector2Array() setget set_path
@@ -35,6 +38,7 @@ func _ready():
 	health_display.init()
 	health_display.hide()
 	health_display.set_scale(Vector2(0.1, 0.1))
+	playerDetect.position.x += rand_range(-20, 20)
 	if chase_x < global_position.x:
 		toggle_flip(true)
 
@@ -46,6 +50,15 @@ func toggle_flip(flip):
 		scale.x = abs(scale.x)
 
 func accelerate_toward_position(target_position, delta):
+	## Yucky Fix For Overlapping Enemies
+#	if is_on_wall():
+#		var nearest_target = Helpers.pick_nearest("player_entity", global_position)
+#		var target_dist = global_position.distance_to(nearest_target.global_position)
+#		if abs(target_dist) < 50:
+#			state.state_event({"event": "attack"})
+#		else:
+#			state.state_event({"event": "queued"})
+
 	var direction = global_position.direction_to(target_position)
 #	if stun_amt > 0:
 #		velocity = Vector2.ZERO
@@ -54,7 +67,15 @@ func accelerate_toward_position(target_position, delta):
 #			stun_amt = 0
 #	else:
 	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELEARATION * delta)
-	
+
+func get_which_wall_collided():
+	for i in range(get_slide_count()):
+		var collision = get_slide_collision(i)
+		if collision.normal.x > 0:
+			return "left"
+		elif collision.normal.x < 0:
+			return "right"
+	return "none"
 
 func detect_target():
 	if playerDetect.can_see_target():

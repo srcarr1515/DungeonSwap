@@ -62,6 +62,7 @@ func _process(delta):
 		if is_finished:
 			set_process(false)
 			commit_button = null
+			last_button.precommitting = false
 
 func set_dock_char():
 	var skill_docks = get_tree().get_nodes_in_group("skill_dock")
@@ -94,6 +95,3 @@ func set_skill_dock_pos():
 func _on_slot_controller_update_char_slots():
 	set_skill_dock_pos()
 
-
-func _on_slot_mouse_entered():
-	pass # Replace with function body.

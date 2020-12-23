@@ -1,21 +1,40 @@
 extends "res://Util/StateMachine.gd"
+var queue_timer = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ActionController.connect("on_enemy_death", self, "on_enemy_death")
 	current = "chase"
 	all = ["death", "hit", "stunned"]
 	transitions = {
 	"idle": ["attack", "chase"],
-	"chase": ["attack", "idle"],
+	"chase": ["attack", "idle", "queued"],
 	"attack": ["idle"],
 	"death": [],
-	"stunned": ["idle", "chase", "attack"]
+	"stunned": ["idle", "chase", "attack"],
+	"queued": ["attack", "idle", "chase"]
 	}
+
+func on_enemy_death(enemy):
+	if current == "queued":
+		state_event({"event": "chase"})
 
 func death(delta):
 	parent.queue_free()
-
+	
 func hit(delta):
 	pass
+
+func queued(delta):
+	queue_timer += 1
+	if queue_timer > 60:
+		queue_timer = 0
+		parent.allyDetect.check_nearby_entities('enemy')
+		if parent.allyDetect.target == null:
+			state_event({"event": "chase"})
+
+func on_queued():
+	set_animation("idle")
 
 func attack(delta):
 	set_animation("attack")
@@ -41,15 +60,21 @@ func chase(delta):
 
 	parent.velocity = parent.move_and_slide(parent.velocity)
 
-func stunned(delta):
+func on_stunned():
 	set_animation("flash_hit")
-	if parent.stun_amt > 0:
-		parent.velocity = Vector2.ZERO
-		parent.stun_amt -= 0.1
-		if parent.stun_amt <= 0:
-			parent.stun_amt = 0
-	else:
-		state_event({"event": previous})
+
+func stunned(delta):
+#	if parent.stun_amt > 0:
+#		parent.velocity = Vector2.ZERO
+#		parent.stun_amt -= 0.1
+#		if parent.stun_amt <= 0:
+#			parent.stun_amt = 0
+#	else:
+	yield(parent.anim_player, "animation_finished")
+	var prev_state = previous
+	if prev_state == "stunned":
+		prev_state = "chase"
+	state_event({"event": prev_state})
 
 func set_animation(anim):
 	if anim != "flash_hit":

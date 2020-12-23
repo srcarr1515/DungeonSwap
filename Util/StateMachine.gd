@@ -29,6 +29,9 @@ func state_event(_props):
 		active = true
 		previous = current
 		current = _props.event
+		## Transition Events
+		if parent.state.has_method("on_" + _props["event"]):
+			call("on_" + _props["event"])
 	else:
 		pass
 

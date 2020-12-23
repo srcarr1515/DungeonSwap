@@ -20,8 +20,8 @@ var char_list = [
 var actor_path = "res://Actors/Player/{char_class}.tscn" 
 var coin = 0
 var cur_party = {
-	1: 1,
-	2: 2,
+	1: 2,
+	2: 1,
 	3: 0
 }
 var cur_skills = {
@@ -42,15 +42,15 @@ var item_dict = [
 ]
 
 var skill_dict = {
-	"holy_bolt": {'skill_name': "holy_bolt", "skill_type": "spell", "cooldown": 20, "atk_power": 5},
-	"faith_healing": {'skill_name': "faith_healing", "skill_type": "spell", "cooldown": 20, "atk_power": 10},
-	"resurrect": {'skill_name': "resurrect", "skill_type": "spell", "cooldown": 60, "atk_power": 10},
-	"runic_wall": {'skill_name': "runic_wall", "skill_type": "summon", "cooldown": 40, "atk_power": 0},
-	"energy_nova": {'skill_name': "energy_nova", "skill_type": "spell", "cooldown": 120, "atk_power": 10, "charges": 2, "auto-deploy": true},
-	"eldritch_blitz": {'skill_name': "eldritch_blitz", "skill_type": "spell", "cooldown": 140, "atk_power": 10, "charges": 3},
-	"dynamite": {'skill_name': "dynamite", "skill_type": "spell", "cooldown": 40, "atk_power": 10},
-	"six_shooter": {'skill_name': "six_shooter", "skill_type": "spell", "cooldown": 30, "atk_power": 2, "charges": 6},
-	"sharpshoot": {'skill_name': "sharpshoot", "skill_type": "spell", "cooldown": 60, "atk_power": 20}
+	"holy_bolt": {'label': 'Holy Bolt', 'description': 'Shoot a ball of holy energy.', 'skill_name': "holy_bolt", "skill_type": "spell", "cooldown": 20, "atk_power": 5},
+	"faith_healing": {'label': 'Faith Healing', 'description': 'Heal one ally with the power of faith.', 'skill_name': "faith_healing", "skill_type": "spell", "cooldown": 20, "atk_power": 10},
+	"resurrect": {'label': 'Resurrect', 'description': 'Revive a fallen ally.', 'skill_name': "resurrect", "skill_type": "spell", "cooldown": 60, "atk_power": 10},
+	"runic_wall": {'label': 'Runic Wall', 'description': 'Summon a wall of pure energy.', 'skill_name': "runic_wall", "skill_type": "summon", "cooldown": 40, "atk_power": 0},
+	"energy_nova": {'label': 'Energy Nova', 'description': 'Conjure surrounding blast of energy. 2 charges.','skill_name': "energy_nova", "skill_type": "spell", "cooldown": 120, "atk_power": 10, "charges": 2, "auto-deploy": true},
+	"eldritch_blitz": {'label': 'Eldritch Blitz', 'description': 'Call down a bolt of eldritch lightning. 3 charges.', 'skill_name': "eldritch_blitz", "skill_type": "spell", "cooldown": 140, "atk_power": 10, "charges": 3},
+	"dynamite": {'label': 'Dynamite', 'description': 'Create an explosion with dynamite.', 'skill_name': "dynamite", "skill_type": "spell", "cooldown": 40, "atk_power": 10},
+	"six_shooter": {'label': 'Six Shooter', 'description': 'Provide cover fire with a six-shooter pistol.', 'skill_name': "six_shooter", "skill_type": "spell", "cooldown": 30, "atk_power": 2, "charges": 6},
+	"sharpshoot": {'label': 'Sharpshoot', 'description': 'Perform a carefully aimed gun shot.', 'skill_name': "sharpshoot", "skill_type": "spell", "cooldown": 60, "atk_power": 20}
 }
 
 var item_bank = {}

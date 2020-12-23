@@ -6,12 +6,17 @@ var skill_charges = null setget set_skill_charges
 export(float) var cooldown = 1.0
 onready var clockwipe = $ClockWipe
 onready var charges_ui = $Charges/TextureProgress
+onready var mouse_over = $MouseOver
+
+var precommitting = false
 
 var key_down = false
 
 var is_active
 var is_preactivated = false
 export (String) var button_key
+export (PackedScene) var msg_box
+onready var msg = msg_box.instance()
 onready var parent = get_parent()
 
 signal precommit_skill(_button)
@@ -55,10 +60,12 @@ func start_cooldown():
 		$Timer.start()
 
 func _on_ActiveSkillBtn_pressed():
+	precommitting = true
 	activate_skill()
+#	ActionController.display_info(skill_details.skill_name, skill_details.skill_name, rect_global_position)
 		## TODO: change icon to indicate pre-activated
 
-func _unhandled_input(event):
+func _input(event):
 	if is_active:
 		if Input.is_action_just_pressed(button_key) && key_down == false:
 			activate_skill()
@@ -103,11 +110,28 @@ func _on_Cooldown_Timer_timeout():
 	disabled = false
 	set_process(false)
 
+func _on_TextureRect_gui_input(ev):
+	print(ev)
 
 func _on_mouse_entered():
-	pass
-#	ActionController.display_info(skill_details.skill_name, skill_details.skill_name, rect_global_position)
+	mouse_over.start()
 
 func _on_mouse_exited():
-	pass
-#	ActionController.display_info("cookies", "cookies", parent.rect_global_position, false)
+	mouse_over.stop()
+	msg.hide()
+
+func _on_MouseOver_timeout():
+	if !precommitting:
+		var middle_of_screen = get_viewport_rect().size / 2
+		msg.global_position = rect_global_position
+		msg.global_position.y += 12
+		if rect_global_position.x > middle_of_screen.x + 40:
+			msg.global_position.x -= 64
+		elif rect_global_position.x < middle_of_screen.x - 40:
+			msg.global_position.x += 64
+		var ui = get_tree().get_nodes_in_group("UI").front()
+		ui.add_child(msg)
+		msg.set_scale(Vector2(0.4,0.4))
+		msg.header.text = skill_details["label"]
+		msg.body.text = skill_details["description"]
+		msg.show()

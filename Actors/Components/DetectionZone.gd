@@ -22,6 +22,7 @@ func check_nearby_entities(group=target_group):
 					targets.push_front(e)
 		if targets.size() > 0:
 			target = targets.front()
+		return targets
 
 func _on_body_entered(body):
 	if body.is_in_group(target_group):

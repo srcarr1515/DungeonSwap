@@ -1,5 +1,7 @@
 extends Node2D
 
+signal on_enemy_death
+
 func _on_UI_commit_skill(_button, _target):
 	var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
 	var skill_details = playerVar.skill_list[_button.skill_id]
@@ -46,8 +48,14 @@ func _on_UI_commit_skill(_button, _target):
 func execute_action(skill_id, args):
 	pass
 
-func display_info(header, body, _position, show=true):
+func wait_for_click():
+	var game_base = get_tree().get_nodes_in_group('game_base').front()
+	yield(game_base, "left_mouse")
+
+func display_info(header, body, _position=null, show=true):
 	var info_box = get_tree().get_nodes_in_group("info_box").front()
+	if _position == null:
+		_position = info_box.start_position
 	info_box.header.text = header
 	info_box.body.text = body
 	info_box.global_position = _position
@@ -116,11 +124,13 @@ func destroy(obj):
 ##				next_action.args.start_position = obj.global_position
 #		set_event_location(obj.action_id, obj.global_position, "on_destroyed")
 #		cue_transition("on_destroyed", obj.action_id)
+	if obj.is_in_group("enemy"):
+		emit_signal("on_enemy_death", obj)
 	obj.queue_free()
 
 func collide(source_obj, collide_obj):
 	pass
 #	cue_transition("on_collision", source_obj.action_id)
 
-
-
+func _on_Game_left_mouse():
+	pass # Replace with function body.

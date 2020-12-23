@@ -23,7 +23,6 @@ func get_battle_role(_char, slot, char_slots):
 	else:
 		_char.battle_role = "offense"
 
-
 func init_slots():
 	var char_slots = assigned_char_slot.keys()
 	## loop through all slots...
