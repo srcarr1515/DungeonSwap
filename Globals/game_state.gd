@@ -10,6 +10,7 @@ var transition = {
 	'battle': ['ready', 'select_target', 'game over']
 }
 var death_ct = 0 setget set_death_ct
+var game_speed = 0.5
 
 func set_death_ct(value):
 	death_ct = value
