@@ -3,7 +3,6 @@ extends Node2D
 signal on_enemy_death
 
 func _on_UI_commit_skill(_button, _target):
-	var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
 	var skill_details = playerVar.skill_list[_button.skill_id]
 	var is_occupied = false
 #	if skill_details["skill_type"] == "summon":
@@ -18,9 +17,16 @@ func _on_UI_commit_skill(_button, _target):
 	else:
 		var char_slot = _button.parent.char_slot
 		var parent = playerVar.party_chars[char_slot]
+		var target_pos = Vector2.ZERO
+		target_pos.x = get_global_mouse_position().x
+		target_pos.y = parent.global_position.y
+		if _button.skill_details["target_type"] == "tile":
+			var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
+			target_pos = slot.global_position
+
 		var args = {
 			"start_pos":parent.global_position, 
-			"slot_pos": slot.global_position,
+			"slot_pos": target_pos,
 			"action_owner": parent
 			}
 		if get_global_mouse_position().x < parent.position.x:
@@ -80,7 +86,6 @@ func spawn_action(action_name, args=null):
 	var file_path = "res://Actions/{action_obj}.tscn".format({"action_obj": action_name})
 	if directory.file_exists(file_path):
 		var action_instance = load(file_path).instance()
-		pass
 		for arg_key in args.keys():
 			action_instance.set(arg_key, args[arg_key])
 		var slot_controller = get_tree().get_nodes_in_group("slot_controller").front()
