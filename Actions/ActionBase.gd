@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export (float) var delay = 5.0
+export (String) var sfx
 
 var velocity = Vector2.ZERO
 export (float) var max_speed = 64
@@ -118,6 +119,7 @@ func on_trigger(inherit_stat=false):
 func detect_entity(group=null, method=null):
 	if customScriptPath != null:
 		CustomScript.detect_entity(group, method)
+	detect_zone.check_nearby_entities()
 	if detect_zone.can_see_target():
 		if method == null:
 			if "stats" in detect_zone.target:
@@ -134,7 +136,7 @@ func spawn():
 		start_pos = slot_pos
 	init_movement()
 	action_owner.state.state_event({"event": "cast"})
-	yield(action_owner.anim_player, "animation_finished")
+#	yield(action_owner.anim_player, "animation_finished")
 	ActionController.spawn_instance(self)
 	if flippable:
 		if is_flipped:

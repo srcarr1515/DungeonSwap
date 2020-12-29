@@ -17,6 +17,8 @@ func _ready():
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("left_mouse"):
 		emit_signal("left_mouse")
+#	if InputEventScreenTouch:
+#		emit_signal("left_mouse")
 	if Input.is_key_pressed(KEY_I):
 		key_code.push_back('I')
 	if Input.is_key_pressed(KEY_D):

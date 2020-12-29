@@ -55,6 +55,8 @@ collision_mask = 8
 script = ExtResource( 3 )
 
 [node name="ActPoint" type="Position2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 [connection signal="area_entered" from="DetectionZone" to="DetectionZone" method="_on_DetectionZone_area_entered"]
 [connection signal="area_exited" from="DetectionZone" to="DetectionZone" method="_on_DetectionZone_area_exited"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]

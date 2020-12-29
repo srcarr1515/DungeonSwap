@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Arcane Spell 03.wav-cc5a928f3a74fac8e3c62fcf00f2903d.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Arcane Spell 03.wav"
+dest_files=[ "res://.import/Arcane Spell 03.wav-cc5a928f3a74fac8e3c62fcf00f2903d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

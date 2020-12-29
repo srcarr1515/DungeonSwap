@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Actions/ActionBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Summon/energy_bar.png" type="Texture" id=2]
 [ext_resource path="res://Actors/Summon/runicWall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Sprites/square_light_mask.png" type="Texture" id=4]
+[ext_resource path="res://Assets/SFX/Buff Defense 05.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "reveal"
@@ -57,7 +58,6 @@ tracks/3/keys = {
 }
 
 [node name="runic_wall" instance=ExtResource( 1 )]
-delay = 0.0
 movement_type = 2
 is_playing = "reveal"
 
@@ -89,5 +89,10 @@ texture = ExtResource( 4 )
 energy = 0.0
 mode = 3
 range_item_cull_mask = 1024
+
+[node name="AudioStreamPlayer" parent="." index="7"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+autoplay = true
 
 [editable path="runicWall"]

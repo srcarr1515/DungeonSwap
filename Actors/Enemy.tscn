@@ -19,8 +19,8 @@ radius = 5.81671
 radius = 4.65408
 
 [sub_resource type="CapsuleShape2D" id=4]
-radius = 7.33019
-height = 8.13872
+radius = 8.0
+height = 17.3396
 
 [sub_resource type="Animation" id=5]
 resource_name = "flash_hit"
@@ -107,6 +107,8 @@ anims/flash_hit = SubResource( 5 )
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="ActPoint" type="Position2D" parent="."]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="health_recovered" from="Stats" to="HealthDisplay" method="_on_health_changed"]
 [connection signal="health_reduced" from="Stats" to="HealthDisplay" method="_on_health_changed"]

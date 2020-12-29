@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Stab 1_1.wav-917b15ba65daf7a4d96384ea7f11fa24.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Stab 1_1.wav"
+dest_files=[ "res://.import/Stab 1_1.wav-917b15ba65daf7a4d96384ea7f11fa24.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

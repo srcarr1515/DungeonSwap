@@ -105,10 +105,13 @@ func set_skill_charges(value):
 	skill_charges = value
 	charges_ui.value = value
 
-func _on_Cooldown_Timer_timeout():
+func reset_cooldown():
 	clockwipe.value = 0
 	disabled = false
 	set_process(false)
+
+func _on_Cooldown_Timer_timeout():
+	reset_cooldown()
 
 func _on_TextureRect_gui_input(ev):
 	print(ev)

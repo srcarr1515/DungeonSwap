@@ -28,3 +28,9 @@ func pick_nearest(group, _position):
 		if t.global_position.distance_to(_position) < nearest_target.global_position.distance_to(_position):
 			nearest_target = t
 	return nearest_target
+
+func choose(list, how_many=1):
+	var which_index = int(rand_range(0, list.size()))
+	return list[which_index]
+		
+	

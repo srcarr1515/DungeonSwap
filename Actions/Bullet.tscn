@@ -9,7 +9,6 @@ radius = 4.0
 
 [node name="Bullet" instance=ExtResource( 1 )]
 collision_mask = 16
-delay = 0.0
 
 [node name="ActiveCollision" parent="." index="2"]
 destroy_on_collision = true
@@ -30,5 +29,9 @@ inherit_alpha = true
 
 [node name="Particles2D" parent="." index="6"]
 emitting = false
+
+[node name="AudioStreamPlayer" parent="." index="7"]
+volume_db = -5.0
+autoplay = true
 
 [editable path="ActiveCollision"]

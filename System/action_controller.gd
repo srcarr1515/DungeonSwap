@@ -48,9 +48,16 @@ func _on_UI_commit_skill(_button, _target):
 func execute_action(skill_id, args):
 	pass
 
-func wait_for_click():
-	var game_base = get_tree().get_nodes_in_group('game_base').front()
-	yield(game_base, "left_mouse")
+func restore_group_health(group_name):
+	var chars = get_tree().get_nodes_in_group(group_name)
+	for ch in chars:
+		if "stats" in ch:
+			ch.stats.health = ch.stats.max_health
+
+func restore_char_cooldowns():
+	var buttons = get_tree().get_nodes_in_group("skill_button")
+	for button in buttons:
+		button.reset_cooldown()
 
 func display_info(header, body, _position=null, show=true):
 	var info_box = get_tree().get_nodes_in_group("info_box").front()

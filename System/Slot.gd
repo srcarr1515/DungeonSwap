@@ -30,6 +30,8 @@ func _on_slot_input_event(viewport, event, shape_idx):
 				icon.modulate = Color(0,0,0,0)
 				slot_selected = false
 			else:
+				var sounds = ['swosh-01.wav', 'swosh-07.wav']
+				SFX.create(Helpers.choose(sounds), rand_range(-24.0, -18.0))
 				controller.swap_slot_objects(controller.selected_slot, slot_num, assigned_obj)
 				controller.selected_slot = 0
 				for ch in controller.get_children():

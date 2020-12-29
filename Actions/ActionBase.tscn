@@ -24,4 +24,6 @@ collision_mask = 24
 collision_mask = 31
 
 [node name="Particles2D" type="Particles2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 [connection signal="area_entered" from="ActiveCollision" to="ActiveCollision" method="_on_ActiveCollision_area_entered"]

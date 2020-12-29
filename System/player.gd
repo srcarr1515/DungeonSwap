@@ -12,6 +12,3 @@ func _unhandled_input(event):
 #			if c.global_position.distance_to(get_global_mouse_position()) < nearest_char.global_position.distance_to(get_global_mouse_position()):
 #				nearest_char = c
 		nearest_char.state.state_event({"event": "attack"})
-
-		
-		

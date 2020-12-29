@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Actions/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/Skills/arrow.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SFX/Arrow Fly 1_1.wav" type="AudioStream" id=3]
+
+[node name="Arrow" instance=ExtResource( 1 )]
+accel = 2.0
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, -2 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="ActiveCollision" parent="." index="2"]
+collision_mask = 2
+target_group = "player_entity"
+
+[node name="CollisionShape2D" parent="ActiveCollision" index="0"]
+position = Vector2( -1, 0 )
+
+[node name="Trail" parent="." index="4"]
+default_color = Color( 0.588235, 0.454902, 0.0980392, 0.756863 )
+
+[node name="Sprite2" type="Sprite" parent="." index="5"]
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+
+[node name="AudioStreamPlayer" parent="." index="8"]
+stream = ExtResource( 3 )
+
+[editable path="ActiveCollision"]

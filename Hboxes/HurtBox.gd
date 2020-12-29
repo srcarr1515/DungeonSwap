@@ -9,6 +9,7 @@ onready var timer = $Timer
 signal on_hit
 
 func trigger_hit():
+	SFX.create('Shield Metal 1_1.wav', rand_range(-24.0, -18.0))
 	pass
 #	var effect = HitEffect.instance()
 #	var main = get_tree().current_scene
@@ -27,4 +28,4 @@ func _on_HurtBox_area_exited(area):
 
 func _on_Timer_timeout():
 	if is_overlapping:
-		trigger_hit()
+		pass

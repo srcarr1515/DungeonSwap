@@ -74,6 +74,7 @@ func swap_slot_objects(old_slot, new_slot, assigned_obj):
 	swap_in_progress = false
 
 func swap_anim(from_obj, to_obj, from_target, to_target):
+
 	var char_slots = cur_char_slot.keys()
 #	EventController.emit_signal("char_state_event", from_obj, {"event": "swap"})
 	from_obj.state.state_event({"event": "walk"})

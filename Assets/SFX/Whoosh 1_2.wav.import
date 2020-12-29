@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Whoosh 1_2.wav-dfa4cca6b069dadb9b911dbd5cd643da.sample"
+
+[deps]
+
+source_file="res://Assets/SFX/Whoosh 1_2.wav"
+dest_files=[ "res://.import/Whoosh 1_2.wav-dfa4cca6b069dadb9b911dbd5cd643da.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

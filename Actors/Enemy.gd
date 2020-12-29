@@ -9,9 +9,11 @@ onready var softCollision = $SoftCollision
 onready var state = $FSM
 onready var stats = $Stats
 onready var health_display = $HealthDisplay
+onready var act_point = $ActPoint
 export(int) var atk_power = 1
 export(int) var MOVE_TOLERANCE = 4
 
+export (String) var atk_anim = null
 var stun_amt = 0
 
 var knockback = Vector2.ZERO
@@ -35,6 +37,8 @@ func set_path(value : PoolVector2Array):
 var velocity = Vector2.ZERO
 
 func _ready():
+	ACCELEARATION *= GameState.game_speed
+	MAX_SPEED *= GameState.game_speed
 	health_display.init()
 	health_display.hide()
 	health_display.set_scale(Vector2(0.1, 0.1))
@@ -80,6 +84,16 @@ func get_which_wall_collided():
 func detect_target():
 	if playerDetect.can_see_target():
 		state.state_event({"event": "attack", "target": playerDetect.target})
+
+func AnimAction(args={"end_pos":Vector2(3,0)}):
+	var atk_object = null
+	if atk_anim != null:
+		args["start_pos"] = act_point.global_position
+		args["action_owner"] = self
+		args["atk_power"] = atk_power
+		if is_flipped:
+			args["is_flipped"] = true
+		ActionController.spawn_action(atk_anim, args)
 
 func _on_HurtBox_area_entered(area):
 	var entity = area.get_parent()

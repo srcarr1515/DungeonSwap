@@ -26,8 +26,19 @@ func update_healthbar(value):
 	healthbar.value = value
 
 func _on_health_changed(value):
-	if parent != null && "state" in parent && parent.stats.health < value:
-#		parent.state.set_animation("flash_hit")
+	if parent != null && "state" in parent && parent.stats.health > value:
+		var hit_sounds = [
+			"Blunt Weapon 1_1.wav", 
+			'Shield Metal 1_1.wav', 
+			'Shield Wood 1_1.wav',
+			"Metal Weapon Hit Metal 2_1.wav",
+			"Stab 1_1.wav",
+			"Stab 1_2.wav",
+			"Stab 2_1.wav",
+			"Stab 2_2.wav",
+			"Metal Weapon Hit Metal 1_1.wav"
+			]
+		SFX.create(Helpers.choose(hit_sounds), rand_range(-24.0, -18.0))
 		pass
 	update_healthbar(value)
 	## TODO: Should move this into a more logical area (this seems out of place here.)
