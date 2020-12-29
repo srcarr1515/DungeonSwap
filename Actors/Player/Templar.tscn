@@ -154,7 +154,7 @@ shape = SubResource( 4 )
 disabled = true
 
 [node name="Stats" parent="." index="8"]
-max_health = 20
+max_health = 30
 
 [node name="AnimationPlayer" parent="." index="9"]
 anims/attack = SubResource( 5 )

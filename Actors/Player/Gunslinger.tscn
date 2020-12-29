@@ -195,7 +195,7 @@ visible = false
 visible = false
 
 [node name="Stats" parent="." index="8"]
-max_health = 20
+max_health = 25
 
 [node name="ActionPoint" type="Position2D" parent="." index="9"]
 position = Vector2( 10.001, -5.57656 )
