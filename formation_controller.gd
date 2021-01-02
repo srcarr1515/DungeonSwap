@@ -37,7 +37,7 @@ var waves = [
 	2,2,7,1,3,2,4,3,5,7,6
 ]
 onready var total_waves = waves.size()
-var current_wave = 0
+var current_wave = -1
 onready var timer = $Timer
 
 func _ready():
@@ -54,7 +54,7 @@ func _ready():
 		var skill_docks = get_tree().get_nodes_in_group("skill_dock")
 		for dock in skill_docks:
 			dock.hide()
-	if current_wave != 0:
+	if current_wave > 0:
 		timer.start()
 	
 	for spawn in spawn_points:

@@ -290,16 +290,21 @@ pause_mode = 2
 follow_viewport_enable = true
 follow_viewport_scale = 0.9
 
-[node name="UI" parent="HUD" instance=ExtResource( 8 )]
+[node name="UI" parent="HUD" groups=[
+"battle_ui",
+] instance=ExtResource( 8 )]
 theme = ExtResource( 11 )
 
 [node name="InfoBox" parent="HUD" groups=[
+"battle_ui",
 "info_box",
 ] instance=ExtResource( 10 )]
 position = Vector2( 156, 79 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="PauseButton" type="TextureButton" parent="HUD"]
+[node name="PauseButton" type="TextureButton" parent="HUD" groups=[
+"battle_ui",
+]]
 margin_left = 3.0
 margin_top = 5.0
 margin_right = 43.0
@@ -311,7 +316,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MuteButton" type="TextureButton" parent="HUD"]
+[node name="MuteButton" type="TextureButton" parent="HUD" groups=[
+"battle_ui",
+]]
 margin_left = 24.0
 margin_top = 2.0
 margin_right = 64.0
@@ -323,6 +330,7 @@ __meta__ = {
 }
 
 [node name="SkipButton" type="TextureButton" parent="HUD" groups=[
+"battle_ui",
 "skip_button",
 ]]
 margin_left = 276.0
@@ -337,8 +345,10 @@ __meta__ = {
 }
 
 [node name="WaveCounter" type="Label" parent="HUD" groups=[
+"battle_ui",
 "wave_counter",
 ]]
+visible = false
 margin_left = 248.0
 margin_top = 12.0
 margin_right = 302.0
@@ -355,14 +365,28 @@ script = ExtResource( 12 )
 
 [node name="action_controller" parent="." instance=ExtResource( 9 )]
 
+[node name="BG" type="Node2D" parent="."]
+
+[node name="dungeon_wall_bg" type="Sprite" parent="BG"]
+position = Vector2( 160.991, 55.8214 )
+texture = ExtResource( 1 )
+
+[node name="tileMap" type="Node2D" parent="."]
+position = Vector2( -7.92228, -23.7668 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="dungeonTiles" type="TileMap" parent="tileMap"]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 720895, 2, 0, 655360, 2, 0, 655361, 2, 0, 655362, 2, 0, 655363, 2, 0, 655364, 2, 0, 655365, 2, 0, 655366, 2, 0, 655367, 2, 0, 655368, 2, 0, 655369, 2, 0, 655370, 2, 0, 655371, 2, 0, 655372, 2, 0, 655373, 2, 0, 655374, 2, 0, 655375, 2, 0, 655376, 2, 0, 655377, 2, 0, 655378, 2, 0, 655379, 2, 0, 655380, 2, 0, 786431, 2, 0, 720896, 2, 0, 720897, 2, 0, 720898, 2, 0, 720899, 2, 0, 720900, 2, 0, 720901, 2, 0, 720902, 2, 0, 720903, 2, 0, 720904, 2, 0, 720905, 2, 0, 720906, 2, 0, 720907, 2, 0, 720908, 2, 0, 720909, 2, 0, 720910, 2, 0, 720911, 2, 0, 720912, 2, 0, 720913, 2, 0, 720914, 2, 0, 720915, 2, 0, 720916, 2, 0, 851967, 2, 0, 786432, 2, 0, 786433, 2, 0, 786434, 2, 0, 786435, 2, 0, 786436, 2, 0, 786437, 2, 0, 786438, 2, 0, 786439, 2, 0, 786440, 2, 0, 786441, 2, 0, 786442, 2, 0, 786443, 2, 0, 786444, 2, 0, 786445, 2, 0, 786446, 2, 0, 786447, 2, 0, 786448, 2, 0, 786449, 2, 0, 786450, 2, 0, 786451, 2, 0, 786452, 2, 0 )
+
 [node name="Level" type="Node2D" parent="." groups=[
 "level",
 "pausable",
 ]]
-
-[node name="dungeon_wall_bg" type="Sprite" parent="Level"]
-position = Vector2( 160.991, 55.8214 )
-texture = ExtResource( 1 )
 
 [node name="Player" type="Node2D" parent="Level"]
 script = ExtResource( 6 )
@@ -373,23 +397,6 @@ script = ExtResource( 6 )
 
 [node name="Timer" parent="Level/Player/formation_controller" index="2"]
 wait_time = 1.5
-
-[node name="Camera2D" type="Camera2D" parent="Level/Player"]
-position = Vector2( 160, 97 )
-current = true
-zoom = Vector2( 0.9, 0.9 )
-
-[node name="tileMap" type="Node2D" parent="Level"]
-position = Vector2( -7.92228, -23.7668 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="dungeonTiles" type="TileMap" parent="Level/tileMap"]
-tile_set = SubResource( 1 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 720895, 2, 0, 655360, 2, 0, 655361, 2, 0, 655362, 2, 0, 655363, 2, 0, 655364, 2, 0, 655365, 2, 0, 655366, 2, 0, 655367, 2, 0, 655368, 2, 0, 655369, 2, 0, 655370, 2, 0, 655371, 2, 0, 655372, 2, 0, 655373, 2, 0, 655374, 2, 0, 655375, 2, 0, 655376, 2, 0, 655377, 2, 0, 655378, 2, 0, 655379, 2, 0, 655380, 2, 0, 786431, 2, 0, 720896, 2, 0, 720897, 2, 0, 720898, 2, 0, 720899, 2, 0, 720900, 2, 0, 720901, 2, 0, 720902, 2, 0, 720903, 2, 0, 720904, 2, 0, 720905, 2, 0, 720906, 2, 0, 720907, 2, 0, 720908, 2, 0, 720909, 2, 0, 720910, 2, 0, 720911, 2, 0, 720912, 2, 0, 720913, 2, 0, 720914, 2, 0, 720915, 2, 0, 720916, 2, 0, 851967, 2, 0, 786432, 2, 0, 786433, 2, 0, 786434, 2, 0, 786435, 2, 0, 786436, 2, 0, 786437, 2, 0, 786438, 2, 0, 786439, 2, 0, 786440, 2, 0, 786441, 2, 0, 786442, 2, 0, 786443, 2, 0, 786444, 2, 0, 786445, 2, 0, 786446, 2, 0, 786447, 2, 0, 786448, 2, 0, 786449, 2, 0, 786450, 2, 0, 786451, 2, 0, 786452, 2, 0 )
 
 [node name="slot_controller" type="Node2D" parent="." groups=[
 "slot_controller",
@@ -432,6 +439,11 @@ slot_num = 8
 position = Vector2( 288, 100 )
 slot_num = 9
 
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 75, 55 )
+current = true
+zoom = Vector2( 0.9, 0.9 )
+
 [node name="Foreground" type="Node2D" parent="." groups=[
 "foreground",
 ]]
@@ -443,8 +455,14 @@ environment = SubResource( 2 )
 stream = ExtResource( 17 )
 volume_db = -12.0
 autoplay = true
-[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
+
+[node name="camPos_Battle" type="Position2D" parent="."]
+position = Vector2( 160, 100 )
+
+[node name="camPos_Map" type="Position2D" parent="."]
+position = Vector2( 160, 52 )
 [connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
+[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="HUD/MuteButton" to="HUD/MuteButton" method="_on_MuteButton_pressed"]

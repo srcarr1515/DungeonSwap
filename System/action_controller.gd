@@ -5,11 +5,6 @@ signal on_enemy_death
 func _on_UI_commit_skill(_button, _target):
 	var skill_details = playerVar.skill_list[_button.skill_id]
 	var is_occupied = false
-#	if skill_details["skill_type"] == "summon":
-#		var nearest_entity = Helpers.pick_nearest("entity", slot.global_position)
-#		var distance = nearest_entity.global_position - slot.global_position
-#		if abs(distance.x) < 16:
-#			is_occupied = true
 	if is_occupied:
 		pass
 #		print('occupied!')

@@ -2,6 +2,7 @@ extends Node
 
 var main = 'battle'
 var sub = 'ready'
+var parent
 var prev = {
 	"sub": null,
 	"main": null
@@ -11,6 +12,9 @@ var transition = {
 }
 var death_ct = 0 setget set_death_ct
 var game_speed = 0.5
+
+func init_parent(_parent):
+	parent = _parent
 
 func set_death_ct(value):
 	death_ct = value
@@ -29,6 +33,26 @@ func sub_state(new_state):
 	if transition[main].has(new_state):
 		prev["sub"] = sub
 		sub = new_state
+
+func main_state(new_state):
+	prev["main"] = main
+	main = new_state
+	var tween = Tween.new()
+	if new_state == "battle":
+		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,1), Color(1,1,1,0), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		add_child(tween)
+		tween.start()
+		parent.set_game_camera()
+	elif new_state == "map":
+		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		add_child(tween)
+		tween.start()
+		parent.set_game_camera()
+		
+		var battle_ui_nodes = get_tree().get_nodes_in_group("battle_ui")
+		for node in battle_ui_nodes:
+			node.hide()
+
 
 func last_state(state_type):
 	sub = prev[state_type]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Map/Door.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Icons/Map/doorway.png" type="Texture" id=2]
+
+[node name="Door" type="Sprite"]
+modulate = Color( 2.5, 2.5, 2.5, 1 )
+self_modulate = Color( 0.470588, 0.376471, 0.180392, 1 )
+scale = Vector2( 0.8, 1.28205 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -20 )
+script = ExtResource( 1 )

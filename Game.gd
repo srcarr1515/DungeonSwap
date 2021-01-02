@@ -3,8 +3,16 @@
 extends Node2D
 var key_code = []
 var cheat_modes = []
+onready var camera = $Camera
+onready var battle_cam_pos = $camPos_Battle
+onready var map_cam_pos = $camPos_Map
+onready var map = $Map
+
+
 signal left_mouse
 func _ready():
+	GameState.init_parent(self)
+	set_game_camera()
 	pass # Replace with function body
 # For testing!
 #func _unhandled_input(event):
@@ -25,6 +33,14 @@ func _unhandled_input(event):
 		key_code.push_back('D')
 	if Input.is_key_pressed(KEY_Q):
 		key_code.push_back('Q')
+	if key_code == ['I', 'I', 'I']:
+		GameState.main_state('map')
+		print(GameState.main)
+		key_code = []
+	if key_code == ['Q', 'Q', 'Q']:
+		GameState.main_state('battle')
+		print(GameState.main)
+		key_code = []
 	if key_code == ['I', 'D', 'D', 'Q', 'D']:
 		if cheat_modes.has("God Mode"):
 			OS.alert('God Mode is turned off')
@@ -38,4 +54,17 @@ func _process(delta):
 	if key_code != []:
 		yield(get_tree().create_timer(1), "timeout")
 		key_code = []
-	
+
+func set_game_camera(smooth=true):
+	var tween = Tween.new()
+	var cam_position = {
+		"battle": battle_cam_pos.global_position,
+		"map": map_cam_pos.global_position
+	}
+	tween.interpolate_property(camera, 
+	"global_position", 
+	camera.global_position, cam_position[GameState.main],
+	 0.7, Tween.TRANS_SINE, Tween.EASE_OUT)
+	add_child(tween)
+	tween.start()
+#	camera.global_position = cam_position[GameState.main]
