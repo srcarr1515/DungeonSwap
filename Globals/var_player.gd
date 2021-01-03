@@ -176,3 +176,9 @@ func get_char_instance_by_index(char_index):
 	for ch in chars:
 		if ch.char_index == char_index:
 			return ch
+
+func get_char_in_slot(slot):
+	var chars = get_tree().get_nodes_in_group("player_char")
+	for ch in chars:
+		if ch.slot_assign == slot:
+			return ch

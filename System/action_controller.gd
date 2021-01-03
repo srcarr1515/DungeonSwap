@@ -72,8 +72,8 @@ func display_info(header, body, _position=null, show=true):
 	else:
 		info_box.hide()
 
-func spawn_instance(instance):
-	var level = get_tree().get_nodes_in_group("foreground").front()
+func spawn_instance(instance, node_group="action_zone"):
+	var level = get_tree().get_nodes_in_group(node_group).front()
 	level.add_child(instance)
 
 func spawn_action(action_name, args=null):
