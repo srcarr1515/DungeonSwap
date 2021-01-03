@@ -18,6 +18,7 @@ var detected_icons = []
 var playerChars = []
 var bg_scroller
 var floor_scroller
+var parallax_bg_scroller
 var input_vector = Vector2.ZERO
 var last_state
 
@@ -29,6 +30,7 @@ func _ready():
 	playerChars = get_tree().get_nodes_in_group("player_char")
 	bg_scroller = get_tree().get_nodes_in_group("bg_scroller").front()
 	floor_scroller = get_tree().get_nodes_in_group("floor").front()
+	parallax_bg_scroller = get_tree().get_nodes_in_group("parallax_bg").front()
 
 func move_along_path(delta):
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -43,14 +45,19 @@ func move_along_path(delta):
 		last_state = state_hash[str(input_vector.x)]
 	if current_room != null:
 		current_room.path_rider.offset += input_vector.x * delta * 50
-		var bg_rect = bg_scroller.get_region_rect()
-		var floor_rect = floor_scroller.get_region_rect()
-		bg_rect.position.x += input_vector.x * 1.5 * delta * 50
-		floor_rect.position.x += input_vector.x * 1.5 * delta * 50
-		bg_scroller.set_region_rect(bg_rect)
-		floor_scroller.set_region_rect(floor_rect)
-		move_to_path_rider()
-		update_stage_obj_x(input_vector.x * 1.5 * delta * 50)
+		var unit_offset = current_room.path_rider.get_unit_offset()
+		if unit_offset > 0 && unit_offset < 1:
+			var bg_rect = bg_scroller.get_region_rect()
+			var floor_rect = floor_scroller.get_region_rect()
+			var parallax_rect = parallax_bg_scroller.get_region_rect()
+			bg_rect.position.x += input_vector.x * 1.5 * delta * 50
+			floor_rect.position.x += input_vector.x * 1.5 * delta * 50
+			parallax_rect.position.x += input_vector.x * delta * 5
+			bg_scroller.set_region_rect(bg_rect)
+			floor_scroller.set_region_rect(floor_rect)
+			parallax_bg_scroller.set_region_rect(parallax_rect)
+			move_to_path_rider()
+			update_stage_obj_x(input_vector.x * 1.5 * delta * 50)
 
 func update_stage_obj_x(input_vector):
 	for icon in detected_icons:

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dungeon_wall_bg.png-aeba32bb103fc7491e2e35f454b51775.stex"
+path="res://.import/darkwood_door.png-936b48d748dbfaf5fc043fcce6d3dcea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/BG/dungeon_wall_bg.png"
-dest_files=[ "res://.import/dungeon_wall_bg.png-aeba32bb103fc7491e2e35f454b51775.stex" ]
+source_file="res://Assets/Sprites/Stage/darkwood_door.png"
+dest_files=[ "res://.import/darkwood_door.png-936b48d748dbfaf5fc043fcce6d3dcea.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

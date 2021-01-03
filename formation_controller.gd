@@ -182,6 +182,8 @@ func stage_item_in_view(item):
 #		item.stageDist = stageChar.global_position.distance_to(stageObj.global_position)
 		item.distDiff = (item.stageDist - item.mapDist)/item.mapDist
 		ActionController.spawn_instance(stageObj, item.z_placement)
+		if item.z_placement == "FG":
+			stageObj.set_fg_element()
 
 func stage_item_out_view(item):
 	if "stageInstance" in item:

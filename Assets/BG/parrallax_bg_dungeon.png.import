@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dungeon_wall_bg.png-aeba32bb103fc7491e2e35f454b51775.stex"
+path="res://.import/parrallax_bg_dungeon.png-da6ef0cd779fe1334eba489539fffdc5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/BG/dungeon_wall_bg.png"
-dest_files=[ "res://.import/dungeon_wall_bg.png-aeba32bb103fc7491e2e35f454b51775.stex" ]
+source_file="res://Assets/BG/parrallax_bg_dungeon.png"
+dest_files=[ "res://.import/parrallax_bg_dungeon.png-da6ef0cd779fe1334eba489539fffdc5.stex" ]
 
 [params]
 

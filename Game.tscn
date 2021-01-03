@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://Assets/BG/dungeon_wall_bg.png" type="Texture" id=1]
+[ext_resource path="res://Assets/BG/parrallax_bg_dungeon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tilesets/dungeon_prison_tileset.png" type="Texture" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
 [ext_resource path="res://System/Slot.tscn" type="PackedScene" id=4]
@@ -374,17 +374,22 @@ script = ExtResource( 12 )
 "BG",
 ]]
 
-[node name="dungeon_wall_bg" type="Sprite" parent="BG"]
-position = Vector2( 160.991, 55.8214 )
+[node name="parallax_bg" type="Sprite" parent="BG" groups=[
+"parallax_bg",
+]]
+position = Vector2( 145.412, 58 )
+scale = Vector2( 0.985294, 0.985294 )
 texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 10, 0, 352, 272 )
 
 [node name="bg_scroller" type="Sprite" parent="BG" groups=[
 "bg_scroller",
 ]]
-position = Vector2( 150, 48 )
+position = Vector2( 148, 78 )
 texture = ExtResource( 22 )
 region_enabled = true
-region_rect = Rect2( 10, 0, 348, 144 )
+region_rect = Rect2( 0, 61, 348, 83 )
 
 [node name="tileMap" type="Node2D" parent="."]
 position = Vector2( -7.92228, -23.7668 )
