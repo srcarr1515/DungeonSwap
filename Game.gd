@@ -13,6 +13,7 @@ signal left_mouse
 func _ready():
 	GameState.init_parent(self)
 	set_game_camera()
+	GameState.main_state('map')
 	pass # Replace with function body
 # For testing!
 #func _unhandled_input(event):

@@ -170,20 +170,21 @@ func update_wave_label():
 
 func stage_item_in_view(item):
 	if "stageObj" in item:
-		var stageObj = item.stageObj.instance()
-		item.stageInstance = stageObj
-		print(item.spawn_side)
-		if item.spawn_side == "left":
-			stageObj.global_position = spawn_left.global_position
-		else:
-			stageObj.global_position = spawn_right.global_position
-		var stageChar = playerVar.get_char_in_slot(5)
-		item.stageDist = stageChar.global_position.x - stageObj.global_position.x
-#		item.stageDist = stageChar.global_position.distance_to(stageObj.global_position)
-		item.distDiff = (item.stageDist - item.mapDist)/item.mapDist
-		ActionController.spawn_instance(stageObj, item.z_placement)
-		if item.z_placement == "FG":
-			stageObj.set_fg_element()
+		if item.stageObj != null:
+			var stageObj = item.stageObj.instance()
+			item.stageInstance = stageObj
+			print(item.spawn_side)
+			if item.spawn_side == "left":
+				stageObj.global_position = spawn_left.global_position
+			else:
+				stageObj.global_position = spawn_right.global_position
+			var stageChar = playerVar.get_char_in_slot(5)
+			item.stageDist = stageChar.global_position.x - stageObj.global_position.x
+	#		item.stageDist = stageChar.global_position.distance_to(stageObj.global_position)
+			item.distDiff = (item.stageDist - item.mapDist)/item.mapDist
+			ActionController.spawn_instance(stageObj, item.z_placement)
+			if item.z_placement == "FG":
+				stageObj.set_fg_element()
 
 func stage_item_out_view(item):
 	if "stageInstance" in item:

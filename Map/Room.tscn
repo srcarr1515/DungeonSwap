@@ -409,6 +409,8 @@ scale = Vector2( 0.25, 0.156 )
 
 [node name="Doors" type="Node2D" parent="Icons"]
 
+[node name="Enemies" type="Node2D" parent="Icons"]
+
 [node name="Path2D" type="Path2D" parent="."]
 scale = Vector2( 0.25, 0.25 )
 curve = SubResource( 63 )

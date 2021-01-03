@@ -19,6 +19,7 @@ var playerChars = []
 var bg_scroller
 var floor_scroller
 var parallax_bg_scroller
+var formation_controller
 var input_vector = Vector2.ZERO
 var last_state
 
@@ -31,6 +32,7 @@ func _ready():
 	bg_scroller = get_tree().get_nodes_in_group("bg_scroller").front()
 	floor_scroller = get_tree().get_nodes_in_group("floor").front()
 	parallax_bg_scroller = get_tree().get_nodes_in_group("parallax_bg").front()
+	formation_controller = get_tree().get_nodes_in_group("formation_controller").front()
 
 func move_along_path(delta):
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -61,7 +63,8 @@ func move_along_path(delta):
 
 func update_stage_obj_x(input_vector):
 	for icon in detected_icons:
-		icon.set_stage_obj_x(input_vector)
+		if icon.stageInstance != null:
+			icon.set_stage_obj_x(input_vector)
 
 
 func toggle_flip(input_vec):
@@ -92,15 +95,21 @@ func _physics_process(delta):
 	move_along_path(delta)
 
 func _on_Area2D_body_entered(body):
+	## this means it is an icon!
 	if "stageObj" in body:
-		detected_icons.push_front(body)
-		body.mapDist = global_position.x - body.global_position.x
-#		body.mapDist = global_position.distance_to(body.global_position)
-		if body.global_position.x < global_position.x:
-			body.spawn_side = "left"
+		if body.icon_type == body.icon.ENEMY:
+			GameState.main_state('battle')
+			formation_controller.current_wave = 7
+			formation_controller.timer.start()
 		else:
-			body.spawn_side = "right"
-		emit_signal("stage_item_in_view", body)
+			detected_icons.push_front(body)
+			body.mapDist = global_position.x - body.global_position.x
+	#		body.mapDist = global_position.distance_to(body.global_position)
+			if body.global_position.x < global_position.x:
+				body.spawn_side = "left"
+			else:
+				body.spawn_side = "right"
+			emit_signal("stage_item_in_view", body)
 
 func _on_Area2D_body_exited(body):
 	if "stageObj" in body:

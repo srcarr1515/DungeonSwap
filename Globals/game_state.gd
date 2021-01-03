@@ -38,18 +38,19 @@ func main_state(new_state):
 	prev["main"] = main
 	main = new_state
 	var tween = Tween.new()
+	var battle_ui_nodes = get_tree().get_nodes_in_group("battle_ui")
 	if new_state == "battle":
 		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,1), Color(1,1,1,0), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		add_child(tween)
 		tween.start()
 		parent.set_game_camera()
+		for node in battle_ui_nodes:
+			node.show()
 	elif new_state == "map":
 		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		add_child(tween)
 		tween.start()
 		parent.set_game_camera()
-		
-		var battle_ui_nodes = get_tree().get_nodes_in_group("battle_ui")
 		for node in battle_ui_nodes:
 			node.hide()
 
