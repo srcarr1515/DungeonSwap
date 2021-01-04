@@ -61,6 +61,7 @@ func _ready():
 #			dock.hide()
 #	if current_wave > 0:
 #		timer.start()
+#GameState.main_state('map')
 	
 	for spawn in spawn_points:
 		if "deployment_group" in spawn:
@@ -77,6 +78,10 @@ func _ready():
 #	}
 #	set_spawn_points(args)
 #	reset_timers()
+
+func _process(delta):
+	if GameState.main == "battle" && formation_set.size() < 1:
+		check_enemies_killed()
 
 func spawnEnemy(enemy_name, spawn_side):
 	if enemy_name != null:
@@ -237,3 +242,8 @@ func stage_item_out_view(item):
 		if item.stageInstance != null:
 			print(item)
 			item.stageInstance.queue_free()
+
+func check_enemies_killed():
+	var enemy_ct = get_tree().get_nodes_in_group("enemy")
+	if enemy_ct.size() < 1:
+		GameState.main_state('map')

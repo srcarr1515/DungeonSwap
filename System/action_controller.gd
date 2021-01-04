@@ -131,9 +131,12 @@ func destroy(obj):
 ##				next_action.args.start_position = obj.global_position
 #		set_event_location(obj.action_id, obj.global_position, "on_destroyed")
 #		cue_transition("on_destroyed", obj.action_id)
+	var emit_enemy_signal = false
 	if obj.is_in_group("enemy"):
-		emit_signal("on_enemy_death", obj)
+		emit_enemy_signal = true
 	obj.queue_free()
+	if emit_enemy_signal:
+		emit_signal("on_enemy_death")
 
 func collide(source_obj, collide_obj):
 	pass
