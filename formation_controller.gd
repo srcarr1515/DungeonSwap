@@ -221,6 +221,7 @@ func update_wave_label():
 	wave_ct_label.text = "{current_wave}/{total_waves}".format({"current_wave": current_wave - 6, "total_waves": total_waves - 7})
 
 func stage_item_in_view(item):
+	print('test')
 	if "stageObj" in item:
 		if item.stageObj != null:
 			var stageObj = item.stageObj.instance()

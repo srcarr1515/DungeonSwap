@@ -5,13 +5,13 @@
 [ext_resource path="res://Assets/cross2.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 32, 32 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 112, 64 )
+extents = Vector2( 464, 384 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 12.6491
+radius = 24.0
 
 [node name="player_marker" type="KinematicBody2D"]
 position = Vector2( -120, -48 )
@@ -24,8 +24,8 @@ __meta__ = {
 }
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( -0.515625, -0.515411 )
-scale = Vector2( 0.4, 0.4 )
+position = Vector2( 3.99994, 0 )
+scale = Vector2( 1.68558, 1.10767 )
 texture = ExtResource( 2 )
 color = Color( 5, 5, 5, 0.26 )
 energy = 0.9
@@ -34,17 +34,14 @@ shadow_enabled = true
 [node name="icon" type="Sprite" parent="."]
 modulate = Color( 5.2, 0.23, 0.23, 1 )
 position = Vector2( -0.515137, -0.515259 )
-rotation = -0.0273153
-scale = Vector2( 0.6, 0.6 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 2.86102e-06, 2.86102e-06 )
 shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 524288
 collision_mask = 524288
 

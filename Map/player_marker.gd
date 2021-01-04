@@ -33,6 +33,8 @@ func _ready():
 	floor_scroller = get_tree().get_nodes_in_group("floor").front()
 	parallax_bg_scroller = get_tree().get_nodes_in_group("parallax_bg").front()
 	formation_controller = get_tree().get_nodes_in_group("formation_controller").front()
+	self.connect("stage_item_in_view", formation_controller, "stage_item_in_view")
+	self.connect("stage_item_out_view", formation_controller, "stage_item_out_view")
 
 func move_along_path(delta):
 	if GameState.main == "map":
@@ -96,6 +98,7 @@ func _physics_process(delta):
 	move_along_path(delta)
 
 func _on_Area2D_body_entered(body):
+	print(body.name)
 	## this means it is an icon!
 	if "stageObj" in body:
 		if body.icon_type != body.icon.ENEMY:
@@ -106,6 +109,7 @@ func _on_Area2D_body_entered(body):
 				body.spawn_side = "left"
 			else:
 				body.spawn_side = "right"
+			print('signal')
 			emit_signal("stage_item_in_view", body)
 
 func _on_Area2D_body_exited(body):
