@@ -289,6 +289,44 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="SkipButton" type="TextureButton" parent="." groups=[
+"battle_ui",
+"skip_button",
+]]
+visible = false
+margin_left = 276.0
+margin_top = 4.0
+margin_right = 316.0
+margin_bottom = 44.0
+texture_normal = ExtResource( 18 )
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaveCounter" type="Label" parent="." groups=[
+"battle_ui",
+"wave_counter",
+]]
+visible = false
+margin_left = 248.0
+margin_top = 12.0
+margin_right = 302.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 1 )
+text = "1/2 Waves"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoBox" parent="." groups=[
+"battle_ui",
+"info_box",
+] instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 156, 79 )
+scale = Vector2( 0.5, 0.5 )
+
 [node name="HUD" type="CanvasLayer" parent="."]
 pause_mode = 2
 follow_viewport_enable = true
@@ -298,14 +336,6 @@ follow_viewport_scale = 0.9
 "battle_ui",
 ] instance=ExtResource( 8 )]
 theme = ExtResource( 11 )
-
-[node name="InfoBox" parent="HUD" groups=[
-"battle_ui",
-"info_box",
-] instance=ExtResource( 10 )]
-visible = false
-position = Vector2( 156, 79 )
-scale = Vector2( 0.5, 0.5 )
 
 [node name="PauseButton" type="TextureButton" parent="HUD" groups=[
 "battle_ui",
@@ -330,36 +360,6 @@ margin_right = 64.0
 margin_bottom = 42.0
 texture_normal = ExtResource( 16 )
 script = ExtResource( 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SkipButton" type="TextureButton" parent="HUD" groups=[
-"battle_ui",
-"skip_button",
-]]
-margin_left = 276.0
-margin_top = 4.0
-margin_right = 316.0
-margin_bottom = 44.0
-hint_tooltip = "Skip Tutorial"
-texture_normal = ExtResource( 18 )
-script = ExtResource( 19 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="WaveCounter" type="Label" parent="HUD" groups=[
-"battle_ui",
-"wave_counter",
-]]
-visible = false
-margin_left = 248.0
-margin_top = 12.0
-margin_right = 302.0
-margin_bottom = 32.0
-custom_fonts/font = SubResource( 1 )
-text = "1/2 Waves"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -508,10 +508,10 @@ position = Vector2( 160, 100 )
 position = Vector2( 160, 52 )
 [connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
 [connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
+[connection signal="pressed" from="SkipButton" to="SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="HUD/MuteButton" to="HUD/MuteButton" method="_on_MuteButton_pressed"]
-[connection signal="pressed" from="HUD/SkipButton" to="HUD/SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="update_char_slots" from="slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]
 [connection signal="stage_item_in_view" from="Map/player_marker" to="Level/Player/formation_controller" method="stage_item_in_view"]
 [connection signal="stage_item_out_view" from="Map/player_marker" to="Level/Player/formation_controller" method="stage_item_out_view"]

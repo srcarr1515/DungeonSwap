@@ -10,7 +10,7 @@ var stageInstance
 export var z_placement = "BG" ## BG/FG
 var stageDist
 
-export var icon_value = ""
+export (Array) var icon_value = []
 
 ## may not be needed any longer (but does provide super accurate results)
 var mapDist

@@ -25,22 +25,22 @@ shader_param/flash_modifier = 0.0
 radius = 20.0
 height = 40.0
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 16, 32 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 4, 28 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 28 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 40, 32 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 32, 27.3776 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -93,7 +93,7 @@ tracks/3/keys = {
 "values": [ true, false, false, true ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -133,7 +133,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -194,12 +194,12 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D" parent="AllyDetect" index="0"]
 position = Vector2( 20, -32 )
-shape = SubResource( 11 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="4"]
 visible = true
 position = Vector2( -4, -28 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="SoftCollision" parent="." index="5"]
 visible = false
@@ -207,7 +207,7 @@ visible = false
 [node name="CollisionShape2D" parent="SoftCollision" index="0"]
 visible = false
 position = Vector2( 0, -28 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="HitBox" parent="." index="6"]
 visible = true
@@ -215,20 +215,20 @@ script = null
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2( 32, -32 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 disabled = true
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2( 0, -28 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="Stats" parent="." index="8"]
 max_health = 10
 
 [node name="AnimationPlayer" parent="." index="9"]
-anims/attack = SubResource( 8 )
-anims/idle = SubResource( 9 )
-anims/walk = SubResource( 10 )
+anims/attack = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/walk = SubResource( 11 )
 
 [editable path="DetectionZone"]
 

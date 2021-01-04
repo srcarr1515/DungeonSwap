@@ -165,7 +165,7 @@ anims/idle = SubResource( 5 )
 anims/walk = SubResource( 6 )
 
 [node name="ActPoint" parent="." index="11"]
-position = Vector2( 24, -2 )
+position = Vector2( 8, -2 )
 
 [editable path="DetectionZone"]
 

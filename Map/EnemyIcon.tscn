@@ -4,11 +4,11 @@
 [ext_resource path="res://Assets/Icons/Map/daemon-skull.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 8.0
+radius = 4.0
 
 [node name="EnemyIcon" instance=ExtResource( 1 )]
 icon_type = 3
-icon_value = "3"
+icon_value = [ null ]
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1.2, 0.22, 0.02, 1 )

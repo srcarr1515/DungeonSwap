@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Map/player_marker.gd" type="Script" id=1]
+[ext_resource path="res://Assets/glow.png" type="Texture" id=2]
+[ext_resource path="res://Assets/cross2.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 112, 64 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 12.6491
+
+[node name="player_marker" type="KinematicBody2D"]
+position = Vector2( -120, -48 )
+scale = Vector2( 0.25, 0.25 )
+collision_layer = 524288
+collision_mask = 524288
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -0.515625, -0.515411 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+color = Color( 5, 5, 5, 0.26 )
+energy = 0.9
+shadow_enabled = true
+
+[node name="icon" type="Sprite" parent="."]
+modulate = Color( 5.2, 0.23, 0.23, 1 )
+position = Vector2( -0.515137, -0.515259 )
+rotation = -0.0273153
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 2.86102e-06, 2.86102e-06 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="TouchRadius" type="Area2D" parent="."]
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TouchRadius"]
+shape = SubResource( 3 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="TouchRadius" to="." method="_on_TouchRadius_body_entered"]
+[connection signal="body_exited" from="TouchRadius" to="." method="_on_TouchRadius_body_exited"]

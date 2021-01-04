@@ -32,5 +32,3 @@ func pick_nearest(group, _position):
 func choose(list, how_many=1):
 	var which_index = int(rand_range(0, list.size()))
 	return list[which_index]
-		
-	

@@ -31,6 +31,7 @@ shader = SubResource( 2 )
 shader_param/radius = 0.0
 
 [node name="DoorObj" instance=ExtResource( 1 )]
+collision_layer = 262144
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0.5, -24 )

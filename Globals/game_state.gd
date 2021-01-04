@@ -40,6 +40,12 @@ func main_state(new_state):
 	var tween = Tween.new()
 	var battle_ui_nodes = get_tree().get_nodes_in_group("battle_ui")
 	if new_state == "battle":
+		var playerChars = get_tree().get_nodes_in_group("player_char")
+		for pc in playerChars:
+			pc.state.state_event({"event": "idle"})
+			if pc.slot_assign == 4:
+				pc.toggle_flip(true)
+
 		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,1), Color(1,1,1,0), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		add_child(tween)
 		tween.start()

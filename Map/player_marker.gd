@@ -35,31 +35,32 @@ func _ready():
 	formation_controller = get_tree().get_nodes_in_group("formation_controller").front()
 
 func move_along_path(delta):
-	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	var state_hash = {
-		'-1': "walk",
-		'0': "idle",
-		'1': "walk"
-	}
-	toggle_flip(input_vector.x)
-	if last_state != state_hash[str(input_vector.x)]:
-		update_char_state(state_hash[str(input_vector.x)])
-		last_state = state_hash[str(input_vector.x)]
-	if current_room != null:
-		current_room.path_rider.offset += input_vector.x * delta * 50
-		var unit_offset = current_room.path_rider.get_unit_offset()
-		if unit_offset > 0 && unit_offset < 1:
-			var bg_rect = bg_scroller.get_region_rect()
-			var floor_rect = floor_scroller.get_region_rect()
-			var parallax_rect = parallax_bg_scroller.get_region_rect()
-			bg_rect.position.x += input_vector.x * 1.5 * delta * 50
-			floor_rect.position.x += input_vector.x * 1.5 * delta * 50
-			parallax_rect.position.x += input_vector.x * delta * 5
-			bg_scroller.set_region_rect(bg_rect)
-			floor_scroller.set_region_rect(floor_rect)
-			parallax_bg_scroller.set_region_rect(parallax_rect)
-			move_to_path_rider()
-			update_stage_obj_x(input_vector.x * 1.5 * delta * 50)
+	if GameState.main == "map":
+		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		var state_hash = {
+			'-1': "walk",
+			'0': "idle",
+			'1': "walk"
+		}
+		toggle_flip(input_vector.x)
+		if last_state != state_hash[str(input_vector.x)]:
+			update_char_state(state_hash[str(input_vector.x)])
+			last_state = state_hash[str(input_vector.x)]
+		if current_room != null:
+			current_room.path_rider.offset += input_vector.x * delta * 50
+			var unit_offset = current_room.path_rider.get_unit_offset()
+			if unit_offset > 0 && unit_offset < 1:
+				var bg_rect = bg_scroller.get_region_rect()
+				var floor_rect = floor_scroller.get_region_rect()
+				var parallax_rect = parallax_bg_scroller.get_region_rect()
+				bg_rect.position.x += input_vector.x * 1.5 * delta * 50
+				floor_rect.position.x += input_vector.x * 1.5 * delta * 50
+				parallax_rect.position.x += input_vector.x * delta * 5
+				bg_scroller.set_region_rect(bg_rect)
+				floor_scroller.set_region_rect(floor_rect)
+				parallax_bg_scroller.set_region_rect(parallax_rect)
+				move_to_path_rider()
+				update_stage_obj_x(input_vector.x * 1.5 * delta * 50)
 
 func update_stage_obj_x(input_vector):
 	for icon in detected_icons:
@@ -97,11 +98,7 @@ func _physics_process(delta):
 func _on_Area2D_body_entered(body):
 	## this means it is an icon!
 	if "stageObj" in body:
-		if body.icon_type == body.icon.ENEMY:
-			GameState.main_state('battle')
-			formation_controller.current_wave = 7
-			formation_controller.timer.start()
-		else:
+		if body.icon_type != body.icon.ENEMY:
 			detected_icons.push_front(body)
 			body.mapDist = global_position.x - body.global_position.x
 	#		body.mapDist = global_position.distance_to(body.global_position)
@@ -115,3 +112,13 @@ func _on_Area2D_body_exited(body):
 	if "stageObj" in body:
 		detected_icons.erase(body)
 		emit_signal("stage_item_out_view", body)
+
+
+func _on_TouchRadius_body_entered(body):
+	if "stageObj" in body:
+		if body.icon_type == body.icon.ENEMY:
+			GameState.main_state('battle')
+			formation_controller.start_encounter(body.icon_value)
+
+func _on_TouchRadius_body_exited(body):
+	pass # Replace with function body.
