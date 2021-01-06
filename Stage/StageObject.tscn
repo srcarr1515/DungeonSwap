@@ -26,10 +26,16 @@ resource_local_to_scene = true
 shader = SubResource( 1 )
 shader_param/radius = 0.0
 
-[node name="StageObject" type="StaticBody2D"]
+[node name="StageObject" type="StaticBody2D" groups=[
+"stage_object",
+]]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Highlighter" type="Sprite" parent="." groups=[
+"highlighter",
+]]
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 2 )

@@ -9,6 +9,7 @@ var spawn_side = "right"
 var stageInstance
 export var z_placement = "BG" ## BG/FG
 var stageDist
+export (String) var in_room ## ONLY THE NAME OF THE ROOM!
 
 export (Array) var icon_value = []
 
@@ -21,8 +22,10 @@ func _ready():
 		pass
 
 func set_stage_obj_x(input_vector):
+	if !is_instance_valid(stageInstance):
+		stageInstance = null
 	if stageInstance != null:
-		stageInstance.global_position.x -= input_vector
+			stageInstance.global_position.x -= input_vector
 
 func set_stage_obj_pos(dist):
 	var new_dist = dist * distDiff

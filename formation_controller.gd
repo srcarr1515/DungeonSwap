@@ -221,7 +221,6 @@ func update_wave_label():
 	wave_ct_label.text = "{current_wave}/{total_waves}".format({"current_wave": current_wave - 6, "total_waves": total_waves - 7})
 
 func stage_item_in_view(item):
-	print('test')
 	if "stageObj" in item:
 		if item.stageObj != null:
 			var stageObj = item.stageObj.instance()
@@ -240,8 +239,9 @@ func stage_item_in_view(item):
 
 func stage_item_out_view(item):
 	if "stageInstance" in item:
+		if !is_instance_valid(item.stageInstance):
+			item.stageInstance = null
 		if item.stageInstance != null:
-			print(item)
 			item.stageInstance.queue_free()
 
 func check_enemies_killed():

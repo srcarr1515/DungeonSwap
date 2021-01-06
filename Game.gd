@@ -14,6 +14,10 @@ func _ready():
 	GameState.init_parent(self)
 	set_game_camera()
 	GameState.main_state('map')
+#	var fader = load("res://UI/ScreenFade.tscn")
+#	var screen_fader = fader.instance()
+#	screen_fader.fade_type = screen_fader.fade.IN
+#	camera.add_child(screen_fader)
 	pass # Replace with function body
 # For testing!
 #func _unhandled_input(event):
@@ -36,11 +40,9 @@ func _unhandled_input(event):
 		key_code.push_back('Q')
 	if key_code == ['I', 'I', 'I']:
 		GameState.main_state('map')
-		print(GameState.main)
 		key_code = []
 	if key_code == ['Q', 'Q', 'Q']:
 		GameState.main_state('battle')
-		print(GameState.main)
 		key_code = []
 	if key_code == ['I', 'D', 'D', 'Q', 'D']:
 		if cheat_modes.has("God Mode"):

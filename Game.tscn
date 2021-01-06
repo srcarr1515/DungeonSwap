@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/BG/parrallax_bg_dungeon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tilesets/dungeon_prison_tileset.png" type="Texture" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://Foreground.gd" type="Script" id=23]
 [ext_resource path="res://Assets/BG/scrolling_floor.png" type="Texture" id=24]
 [ext_resource path="res://Minimap.gd" type="Script" id=25]
+[ext_resource path="res://Assets/light-radius-shadow.png" type="Texture" id=26]
+[ext_resource path="res://UI/ScreenFade.tscn" type="PackedScene" id=27]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 20 )
@@ -324,7 +326,6 @@ __meta__ = {
 "battle_ui",
 "info_box",
 ] instance=ExtResource( 10 )]
-visible = false
 position = Vector2( 156, 79 )
 scale = Vector2( 0.5, 0.5 )
 
@@ -434,6 +435,11 @@ position = Vector2( 352, 120 )
 [node name="Timer" parent="Level/Player/formation_controller" index="2"]
 wait_time = 1.5
 
+[node name="light-radius-shadow" type="Sprite" parent="Level/Player"]
+position = Vector2( 162, 100 )
+scale = Vector2( 0.65, 1 )
+texture = ExtResource( 26 )
+
 [node name="slot_controller" type="Node2D" parent="." groups=[
 "slot_controller",
 ]]
@@ -488,7 +494,8 @@ position = Vector2( -1, 20 )
 script = ExtResource( 23 )
 
 [node name="Minimap" type="Node2D" parent="."]
-position = Vector2( 56, -64 )
+position = Vector2( 99, -40 )
+scale = Vector2( 0.7, 0.7 )
 script = ExtResource( 25 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Minimap"]
@@ -509,9 +516,26 @@ render_target_update_mode = 3
 [node name="Map" parent="Minimap/ViewportContainer/Viewport" instance=ExtResource( 21 )]
 position = Vector2( 172, -8 )
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." groups=[
+"main_camera",
+]]
 offset = Vector2( 0, -8 )
 current = true
+
+[node name="ScreenFade" parent="Camera" instance=ExtResource( 27 )]
+margin_left = -160.0
+margin_top = -100.0
+margin_right = -160.0
+margin_bottom = -100.0
+fade_type = 1
+duration = 1.5
+
+[node name="screen" parent="Camera/ScreenFade" index="0"]
+margin_left = -24.0
+margin_top = -2.0
+margin_right = 376.0
+margin_bottom = 198.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
@@ -526,8 +550,8 @@ position = Vector2( 160, 100 )
 
 [node name="camPos_Map" type="Position2D" parent="."]
 position = Vector2( 160, 52 )
-[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
+[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="pressed" from="SkipButton" to="SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]
@@ -535,3 +559,5 @@ position = Vector2( 160, 52 )
 [connection signal="update_char_slots" from="slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]
 
 [editable path="Level/Player/formation_controller"]
+
+[editable path="Camera/ScreenFade"]
