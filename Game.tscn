@@ -527,6 +527,7 @@ margin_left = -160.0
 margin_top = -100.0
 margin_right = -160.0
 margin_bottom = -100.0
+mouse_filter = 2
 fade_type = 1
 duration = 1.5
 
@@ -535,6 +536,7 @@ margin_left = -24.0
 margin_top = -2.0
 margin_right = 376.0
 margin_bottom = 198.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -550,8 +552,8 @@ position = Vector2( 160, 100 )
 
 [node name="camPos_Map" type="Position2D" parent="."]
 position = Vector2( 160, 52 )
-[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
+[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="pressed" from="SkipButton" to="SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]

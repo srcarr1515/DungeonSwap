@@ -10,12 +10,12 @@ extends KinematicBody2D
 var velocity = Vector2.ZERO
 
 ## am I using these?
-export var ACCELERATION = 100
+export var ACCELERATION = 40
 export var MAX_SPEED = 20
 export var FRICTION = 400
 ## 
 
-var scroll_speed = 100
+var scroll_speed = 60
 var stage_spawner_speed = 1.35 ## controls how fast items spawn into stage (doors, boxes, etc)
 ## stage_spawner_speed 1.0 == 1x the normal speed.
 

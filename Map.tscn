@@ -35,7 +35,7 @@ _data = {
 
 [node name="Map" type="Node2D"]
 light_mask = 0
-position = Vector2( 152, 88 )
+position = Vector2( 404, 40 )
 script = ExtResource( 5 )
 
 [node name="BG" type="Sprite" parent="."]
