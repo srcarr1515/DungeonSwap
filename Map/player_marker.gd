@@ -29,6 +29,7 @@ var formation_controller
 var input_vector = Vector2.ZERO
 var last_state
 var changing_rooms = false
+var is_blocked = null
 
 onready var view_area = $Area2D
 onready var raycast = $RayCast2D
@@ -148,7 +149,7 @@ func move_along_path(delta):
 		if last_state != state_hash[str(input_vector.x)]:
 			update_char_state(state_hash[str(input_vector.x)])
 			last_state = state_hash[str(input_vector.x)]
-		if current_room != null:
+		if current_room != null && is_blocked != input_vector.x:
 			current_room.path_rider.offset += input_vector.x * delta * scroll_speed
 			var unit_offset = current_room.path_rider.get_unit_offset()
 			if unit_offset > 0 && unit_offset < 1:
@@ -231,7 +232,6 @@ func _on_Area2D_body_entered(body):
 	## this means it is an icon!
 	if "stageObj" in body && !changing_rooms:
 		if body.in_room == current_room.name:
-			print(body.name)
 			if body.icon_type != body.icon.ENEMY:
 				detected_icons.push_front(body)
 				body.mapDist = global_position.x - body.global_position.x
@@ -250,6 +250,12 @@ func _on_Area2D_body_exited(body):
 
 func _on_TouchRadius_body_entered(body):
 	if "stageObj" in body:
+		if body.is_solid:
+			print(current_room.name)
+			if body.global_position.x > global_position.x:
+				is_blocked = 1
+			else:
+				is_blocked = -1
 		if body.in_room == current_room.name:
 			if body.icon_type == body.icon.ENEMY:
 				GameState.main_state('battle')
@@ -257,4 +263,6 @@ func _on_TouchRadius_body_entered(body):
 				body.queue_free()
 
 func _on_TouchRadius_body_exited(body):
-	pass # Replace with function body.
+	if "stageObj" in body:
+		if body.is_solid:
+			is_blocked = null

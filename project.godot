@@ -143,5 +143,4 @@ ui_ability_slot_3={
 [rendering]
 
 quality/2d/use_pixel_snap=true
-environment/default_clear_color=Color( 0.0705882, 0.0705882, 0.0705882, 1 )
 environment/default_environment="res://default_env.tres"

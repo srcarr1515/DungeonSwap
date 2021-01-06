@@ -12,6 +12,8 @@ var stageDist
 export (String) var in_room ## ONLY THE NAME OF THE ROOM!
 
 export (Array) var icon_value = []
+export var is_solid = false
+onready var touch_shape = $TouchShape
 
 ## may not be needed any longer (but does provide super accurate results)
 var mapDist
