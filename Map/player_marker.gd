@@ -262,9 +262,21 @@ func _on_TouchRadius_body_entered(body):
 					body.stageInstance.get_node("AnimationPlayer").play(body.touch_trigger_anim)
 			if body.touch_trigger == body.trigger.DESTROY:
 				if body.touch_trigger_target != null:
+					## Monkey Patch Until We Make Event System:
+					GameState.main = "event"
+					var map = get_parent()
+					map.camera_speed = 0.02
+					map.camera_target = body.touch_trigger_target
+					yield(map, "camera_move_completed")
+					###
 					body.touch_trigger_target.queue_free()
 					body.touch_trigger_target = null
 					body.touch_trigger = body.trigger.NONE
+					map.camera_speed = 0.0
+					map.camera_target = self
+					yield(get_tree().create_timer(1), "timeout")
+					GameState.main = "map"
+					map.camera_speed = 0.2
 			if body.icon_type == body.icon.ENEMY:
 				GameState.main_state('battle')
 				formation_controller.start_encounter(body.icon_value)

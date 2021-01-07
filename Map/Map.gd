@@ -5,6 +5,7 @@ onready var starting_room = $Room2
 onready var camera = $Camera2D
 onready var camera_target = $player_marker
 var camera_speed = 0.2
+signal camera_move_completed
 
 func _ready():
 	get_node("Room2/Icons/Doors/Door2").icon_value = [{"door": "Door3", "room": "Room1"}]
@@ -30,8 +31,12 @@ func _ready():
 	character.move_to_path_rider()
 
 func _process(delta):
-	if camera.global_position.distance_to(camera_target.global_position) > 2:
+	var cam_dist = camera.global_position.distance_to(camera_target.global_position)
+	if cam_dist > 2:
 		camera.global_position = lerp(camera.global_position, camera_target.global_position, camera_speed)
+	elif cam_dist <= 2 && camera.global_position != camera_target.global_position:
+		camera.global_position = camera_target.global_position
+		emit_signal("camera_move_completed")
 
 func place_map_icon(_room, _icon, _icon_value=null, _args={}):
 	var icon_scene = load("res://Map/{icon}.tscn".format({"icon": _icon}))
