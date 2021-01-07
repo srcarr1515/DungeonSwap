@@ -1,12 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Tilesets/simple_black_tile.png" type="Texture" id=1]
 [ext_resource path="res://Map/player_marker.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Map/Room.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Map/GateIcon.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Map/Map.gd" type="Script" id=5]
 [ext_resource path="res://Map/Door.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Map/EnemyIcon.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -77,15 +75,6 @@ icon_value = [ {
 
 [node name="Enemies" parent="Room1/Icons" index="1"]
 position = Vector2( 152, -168 )
-
-[node name="EnemyIcon" parent="Room1/Icons/Enemies" index="0" instance=ExtResource( 8 )]
-position = Vector2( -336, 180 )
-icon_value = [ "Skeleton_Archer", {
-"delay": 10.0
-}, {
-"enemy": "Wolf",
-"spawn_side": "right"
-}, "Skeleton_Warrior" ]
 
 [node name="Path2D" parent="Room1" index="2"]
 scale = Vector2( 1, 1 )
@@ -177,10 +166,6 @@ in_room = "Room4"
 [node name="Enemies" parent="Room4/Icons" index="1"]
 position = Vector2( 152, -168 )
 
-[node name="GateIcon" parent="Room4/Icons" index="2" instance=ExtResource( 4 )]
-position = Vector2( 436, -69 )
-in_room = "Room4"
-
 [node name="Path2D" parent="Room4" index="2"]
 scale = Vector2( 1, 1 )
 curve = SubResource( 4 )
@@ -213,15 +198,16 @@ curve = SubResource( 5 )
 [node name="path_rider" parent="Room5/Path2D" index="0"]
 position = Vector2( -212, -24 )
 
-[node name="player_marker" parent="." instance=ExtResource( 2 )]
-position = Vector2( -656, -368 )
-
-[node name="Camera2D" type="Camera2D" parent="player_marker"]
-position = Vector2( 120, -64 )
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -626, -384 )
+scale = Vector2( 0.25, 0.25 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
 smoothing_speed = 4.0
+
+[node name="player_marker" parent="." instance=ExtResource( 2 )]
+position = Vector2( -656, -368 )
 
 [editable path="Room1"]
 

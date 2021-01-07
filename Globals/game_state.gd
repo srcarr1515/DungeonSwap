@@ -45,6 +45,8 @@ func main_state(new_state):
 			pc.state.state_event({"event": "idle"})
 			if pc.slot_assign == 4:
 				pc.toggle_flip(true)
+			elif pc.slot_assign == 6:
+				pc.toggle_flip(false)
 
 		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,1), Color(1,1,1,0), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		add_child(tween)

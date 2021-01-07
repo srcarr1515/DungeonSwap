@@ -39,3 +39,5 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

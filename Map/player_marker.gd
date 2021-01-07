@@ -15,7 +15,7 @@ export var MAX_SPEED = 20
 export var FRICTION = 400
 ## 
 
-var scroll_speed = 60
+var scroll_speed = 160
 var stage_spawner_speed = 1.35 ## controls how fast items spawn into stage (doors, boxes, etc)
 ## stage_spawner_speed 1.0 == 1x the normal speed.
 
@@ -126,16 +126,17 @@ func set_raycast_dir(new_dir):
 
 
 func move_raycast():
-	raycast.set_enabled(true)
-	var prev_dir = raycast_dir
-	if Input.is_action_just_pressed("ui_up"):
-		set_raycast_dir("up")
-	elif Input.is_action_just_pressed("ui_down"):
-		set_raycast_dir("down")
-	elif Input.is_action_just_pressed("ui_left"):
-		set_raycast_dir("left")
-	elif Input.is_action_just_pressed("ui_right"):
-		set_raycast_dir("right")
+	if GameState.main != "battle":
+		raycast.set_enabled(true)
+		var prev_dir = raycast_dir
+		if Input.is_action_just_pressed("ui_up"):
+			set_raycast_dir("up")
+		elif Input.is_action_just_pressed("ui_down"):
+			set_raycast_dir("down")
+		elif Input.is_action_just_pressed("ui_left"):
+			set_raycast_dir("left")
+		elif Input.is_action_just_pressed("ui_right"):
+			set_raycast_dir("right")
 
 func move_along_path(delta):
 	if GameState.main == "map":
@@ -250,13 +251,20 @@ func _on_Area2D_body_exited(body):
 
 func _on_TouchRadius_body_entered(body):
 	if "stageObj" in body:
-		if body.is_solid:
-			print(current_room.name)
-			if body.global_position.x > global_position.x:
-				is_blocked = 1
-			else:
-				is_blocked = -1
 		if body.in_room == current_room.name:
+			if body.is_solid:
+				if body.global_position.x > global_position.x:
+					is_blocked = 1
+				else:
+					is_blocked = -1
+			if body.touch_trigger != body.trigger.NONE:
+				if body.touch_trigger_anim != null:
+					body.stageInstance.get_node("AnimationPlayer").play(body.touch_trigger_anim)
+			if body.touch_trigger == body.trigger.DESTROY:
+				if body.touch_trigger_target != null:
+					body.touch_trigger_target.queue_free()
+					body.touch_trigger_target = null
+					body.touch_trigger = body.trigger.NONE
 			if body.icon_type == body.icon.ENEMY:
 				GameState.main_state('battle')
 				formation_controller.start_encounter(body.icon_value)
