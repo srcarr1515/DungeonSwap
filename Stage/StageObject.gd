@@ -42,7 +42,7 @@ func set_focus(is_focus):
 		highlighter.hide()
 
 func _input(event):
-	if Input.is_action_just_pressed("left_mouse"):
+	if Input.is_action_just_pressed("left_mouse") && GameState.main == "map":
 		if map_icon.dist_to_player() < player_range && is_selected:
 			if map_icon.act_trigger != map_icon.trigger.NONE:
 				anim_player.play(map_icon.act_trigger_anim)

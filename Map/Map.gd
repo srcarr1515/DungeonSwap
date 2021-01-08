@@ -17,8 +17,9 @@ func _ready():
 	get_node("Room4/Icons/Doors/Door").icon_value = [{"door": "Door", "room": "Room2"}]
 	get_node("Room5/Icons/Doors/Door").icon_value = [{"door": "Door3", "room": "Room2"}]
 	get_node("Room2/Icons/Doors/Door3").icon_value = [{"door": "Door", "room": "Room5"}]
-	
-#	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
+	var enemy_formation = load("res://Data/enemy_formation.gd").new()
+	enemy_formation.list
+	place_map_icon($Room1, "EnemyIcon", enemy_formation.list[6])
 #	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
 #	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
 	var gate = place_map_icon($Room4, "GateIcon", null, {"unit_offset_range":[0.7, 0.79]})

@@ -54,24 +54,26 @@ func dist_to_player():
 	return global_position.distance_to(player_marker.global_position)
 
 func trigger(_trigger, trigger_target):
-	if _trigger == trigger.DESTROY:
-		if trigger_target != null:
-			## Monkey Patch Until We Make Event System:
-			GameState.main = "event"
-			map.camera_speed = 0.02
-			map.camera_target = trigger_target
-			yield(map, "camera_move_completed")
-			###
-			trigger_target.queue_free()
-#			trigger_target = null
-#			_trigger = trigger.NONE
-			map.camera_speed = 0.0
-			map.camera_target = player_marker
-			yield(get_tree().create_timer(1), "timeout")
-			map.camera_speed = 0.2
-			GameState.main = "map"
-	if _trigger == trigger.DOOR && icon_type == icon.DOOR:
-		use_door()
+	if GameState.main == "map":
+		if _trigger == trigger.DESTROY:
+			if trigger_target != null:
+				## Monkey Patch Until We Make Event System:
+				GameState.main = "event"
+				map.camera_speed = 0.02
+				map.camera_target = trigger_target
+				yield(map, "camera_move_completed")
+				###
+				SFX.create('Shield Metal 1_1.wav', -20.0)
+				trigger_target.queue_free()
+	#			trigger_target = null
+	#			_trigger = trigger.NONE
+				map.camera_speed = 0.0
+				map.camera_target = player_marker
+				yield(get_tree().create_timer(0.5), "timeout")
+				map.camera_speed = 0.2
+				GameState.main = "map"
+		if _trigger == trigger.DOOR && icon_type == icon.DOOR:
+			use_door()
 
 func use_door():
 	var door = self

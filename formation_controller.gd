@@ -85,17 +85,18 @@ func _process(delta):
 
 func spawnEnemy(enemy_name, spawn_side):
 	if enemy_name != null:
-		var actor_path = "res://Actors/Enemy/{enemy_name}.tscn"
-		var enemy = load(actor_path.format({"enemy_name": enemy_name})).instance()
-		enemy.add_to_group(spawn_side)
-
-		if spawn_side == "left_side_enemy":
-			spawn_left.add_child(enemy)
-		else:
-			spawn_right.add_child(enemy)
+		var directory = Directory.new();
+		var actor_path = "res://Actors/Enemy/{enemy_name}.tscn".format({"enemy_name": enemy_name})
+		if directory.file_exists(actor_path) || true:
+			var enemy = load(actor_path).instance()
+			enemy.add_to_group(spawn_side)
+	
+			if spawn_side == "left_side_enemy":
+				spawn_left.add_child(enemy)
+			else:
+				spawn_right.add_child(enemy)
 
 func process_formation_set():
-	timer.set_wait_time(0.1)
 	var spawn_side_hash = {
 		"left": "left_side_enemy",
 		"right": "right_side_enemy"
@@ -104,11 +105,23 @@ func process_formation_set():
 	if "delay" in formation:
 		var delay = float(formation["delay"])
 		timer.set_wait_time(delay)
-	if typeof(formation) == TYPE_STRING:
+		timer.set_paused(true)
+		yield(get_tree().create_timer(delay), "timeout")
+		timer.set_paused(false)
+	
+	var deploy_both = typeof(formation) == TYPE_STRING
+	if "spawn_side" in formation && !deploy_both:
+		deploy_both = formation["spawn_side"] == "both"
+	
+	if deploy_both:
+		var enemy_name = formation
+		if "spawn_side" in formation:
+			enemy_name = formation["enemy"]
 		for side in ["left_side_enemy", "right_side_enemy"]:
-			spawnEnemy(formation, side)
+			spawnEnemy(enemy_name, side)
 		## deploy to both
 	elif "enemy" in formation:
+		print("enemy_name ", formation["enemy"])
 		var spawn_side = "left"
 		if "spawn_side" in formation:
 			spawn_side = formation["spawn_side"]

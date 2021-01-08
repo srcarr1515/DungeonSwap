@@ -542,10 +542,9 @@ color = Color( 0, 0, 0, 1 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 3 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="JukeBox" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
-volume_db = -12.0
-autoplay = true
+volume_db = -24.0
 
 [node name="camPos_Battle" type="Position2D" parent="."]
 position = Vector2( 160, 100 )

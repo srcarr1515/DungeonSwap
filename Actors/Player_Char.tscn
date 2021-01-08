@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Hboxes/HurtBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Actors/Player_Char.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Hboxes/HitBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/HealthDisplay.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/DelayTimer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/UI/exclamation_yellow.png" type="Texture" id=9]
 
 [node name="Player_Char" type="KinematicBody2D" groups=[
 "entity",
@@ -57,6 +58,12 @@ script = ExtResource( 3 )
 [node name="ActPoint" type="Position2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="surprise_icon" type="Sprite" parent="."]
+modulate = Color( 1.5, 1.5, 1.2, 1 )
+position = Vector2( 0, -28 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 9 )
 [connection signal="area_entered" from="DetectionZone" to="DetectionZone" method="_on_DetectionZone_area_entered"]
 [connection signal="area_exited" from="DetectionZone" to="DetectionZone" method="_on_DetectionZone_area_exited"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]

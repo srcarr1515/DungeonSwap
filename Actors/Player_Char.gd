@@ -12,6 +12,8 @@ onready var stats = $Stats
 onready var act_point = $ActPoint
 onready var health_display = $HealthDisplay
 onready var delay_timer = $DelayTimer
+onready var surprise_icon = $surprise_icon
+
 var is_flipped = false
 var atk_power = 1
 var atk_anim = null
@@ -22,6 +24,7 @@ var has_target = false
 
 func _ready():
 	## TODO: Need to verify that we actually use atk_power when resolving damage.
+	surprise_icon.hide()
 	health_display.init()
 	health_display.set_scale(Vector2(0.1, 0.1))
 	health_display.global_position = global_position - Vector2(0,10)

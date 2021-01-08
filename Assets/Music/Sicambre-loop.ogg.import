@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sicambre-loop.ogg-bf79594fb681d7c4a88cbd8c27c3a368.oggstr"
+
+[deps]
+
+source_file="res://Assets/Music/Sicambre-loop.ogg"
+dest_files=[ "res://.import/Sicambre-loop.ogg-bf79594fb681d7c4a88cbd8c27c3a368.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

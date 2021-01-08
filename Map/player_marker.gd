@@ -15,7 +15,7 @@ export var MAX_SPEED = 20
 export var FRICTION = 400
 ## 
 
-var scroll_speed = 160
+var scroll_speed = 60
 var stage_spawner_speed = 1.35 ## controls how fast items spawn into stage (doors, boxes, etc)
 ## stage_spawner_speed 1.0 == 1x the normal speed.
 
@@ -285,6 +285,14 @@ func _on_TouchRadius_body_entered(body):
 #					GameState.main = "map"
 #					map.camera_speed = 0.2
 			if body.icon_type == body.icon.ENEMY:
+#				surprise_icon.hide()
+				GameState.main = "event"
+				for pc in playerChars:
+					pc.state.state_event({"event": "idle"})
+					pc.surprise_icon.show()
+				yield(get_tree().create_timer(0.7), "timeout")
+				for pc in playerChars:
+					pc.surprise_icon.hide()
 				GameState.main_state('battle')
 				formation_controller.start_encounter(body.icon_value)
 				body.queue_free()

@@ -6,7 +6,8 @@ var cheat_modes = []
 onready var camera = $Camera
 onready var battle_cam_pos = $camPos_Battle
 onready var map_cam_pos = $camPos_Map
-onready var map = $Map
+onready var map = $Minimap
+onready var jukebox = $JukeBox
 
 
 signal left_mouse
@@ -14,6 +15,9 @@ func _ready():
 	GameState.init_parent(self)
 	set_game_camera()
 	GameState.main_state('map')
+	var start_msg = start_msg()
+	yield(self, "left_mouse")
+	start_msg.queue_free()
 #	var fader = load("res://UI/ScreenFade.tscn")
 #	var screen_fader = fader.instance()
 #	screen_fader.fade_type = screen_fader.fade.IN
@@ -26,6 +30,25 @@ func _ready():
 #		test_action.start_pos = get_global_mouse_position()
 #		test_action.end_pos = Vector2(3,0)
 #		test_action.spawn()
+
+func start_msg():
+		var msg = load("res://UI/InfoBox.tscn").instance()
+		add_child(msg)
+		msg.global_position = get_viewport_rect().size / 2
+		msg.set_scale(Vector2(0.75,0.75))
+		msg.global_position.y -= 12
+		msg.header.text = "Demo Quest"
+		msg.body.text = "Clear All The Monsters In The Dungeon...\n\n That's it.\n\n"
+		msg.body.text += "If you want something more 'deep' and 'meaningful' go play Disco Elysium."
+		msg.show()
+		return msg
+
+func change_song(song_file, db=-24):
+	var path = "res://Assets/Music/{song_file}"
+	jukebox.stream = load(path.format({"song_file": song_file}))
+	jukebox.set_volume_db(db)
+	jukebox.play()
+
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("left_mouse"):
