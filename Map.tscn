@@ -39,6 +39,7 @@ position = Vector2( 404, 40 )
 script = ExtResource( 5 )
 
 [node name="BG" type="Sprite" parent="."]
+visible = false
 position = Vector2( 842, -54 )
 scale = Vector2( 234.75, 122.25 )
 texture = ExtResource( 1 )
@@ -211,7 +212,7 @@ smoothing_speed = 4.0
 [node name="player_marker" parent="." groups=[
 "player_marker",
 ] instance=ExtResource( 2 )]
-position = Vector2( -656, -368 )
+position = Vector2( -664, -304 )
 
 [editable path="Room1"]
 

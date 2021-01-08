@@ -121,7 +121,6 @@ func process_formation_set():
 			spawnEnemy(enemy_name, side)
 		## deploy to both
 	elif "enemy" in formation:
-		print("enemy_name ", formation["enemy"])
 		var spawn_side = "left"
 		if "spawn_side" in formation:
 			spawn_side = formation["spawn_side"]

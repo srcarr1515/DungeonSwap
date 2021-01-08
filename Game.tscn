@@ -516,9 +516,32 @@ render_target_update_mode = 3
 [node name="Map" parent="Minimap/ViewportContainer/Viewport" instance=ExtResource( 21 )]
 position = Vector2( 172, -8 )
 
+[node name="Zoom In" type="Button" parent="Minimap"]
+margin_left = 176.134
+margin_top = 91.429
+margin_right = 196.134
+margin_bottom = 111.429
+rect_scale = Vector2( 0.5, 0.5 )
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Zoom Out" type="Button" parent="Minimap"]
+margin_left = 188.009
+margin_top = 91.429
+margin_right = 208.009
+margin_bottom = 111.429
+rect_scale = Vector2( 0.5, 0.5 )
+text = "-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Camera" type="Camera2D" parent="." groups=[
 "main_camera",
 ]]
+visible = false
 offset = Vector2( 0, -8 )
 current = true
 
@@ -551,14 +574,18 @@ position = Vector2( 160, 100 )
 
 [node name="camPos_Map" type="Position2D" parent="."]
 position = Vector2( 160, 52 )
-[connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
 [connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
+[connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
 [connection signal="pressed" from="SkipButton" to="SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="HUD/MuteButton" to="HUD/MuteButton" method="_on_MuteButton_pressed"]
 [connection signal="update_char_slots" from="slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]
+[connection signal="button_down" from="Minimap/Zoom In" to="Minimap" method="_on_Zoom_In_button_down"]
+[connection signal="button_down" from="Minimap/Zoom Out" to="Minimap" method="_on_Zoom_Out_button_down"]
 
 [editable path="Level/Player/formation_controller"]
+
+[editable path="Minimap/ViewportContainer/Viewport/Map"]
 
 [editable path="Camera/ScreenFade"]
