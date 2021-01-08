@@ -15,6 +15,8 @@ extents = Vector2( 32, 28 )
 ] instance=ExtResource( 1 )]
 light_mask = 2
 stageObj = ExtResource( 3 )
+act_trigger = 2
+persist_act_trigger = true
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1.08, 0.7, 0.49, 1 )

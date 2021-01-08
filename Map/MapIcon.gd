@@ -18,7 +18,8 @@ var player_marker
 
 enum trigger {
 	NONE,
-	DESTROY
+	DESTROY,
+	DOOR
 }
 export (trigger) var touch_trigger = trigger.NONE
 var touch_trigger_target
@@ -27,6 +28,7 @@ export (String) var touch_trigger_anim
 export (trigger) var act_trigger = trigger.NONE
 var act_trigger_target
 export (String) var act_trigger_anim
+export (bool) var persist_act_trigger
 
 onready var touch_shape = $TouchShape
 
@@ -68,8 +70,18 @@ func trigger(_trigger, trigger_target):
 			yield(get_tree().create_timer(1), "timeout")
 			map.camera_speed = 0.2
 			GameState.main = "map"
+	if _trigger == trigger.DOOR && icon_type == icon.DOOR:
+		use_door()
 
-
+func use_door():
+	var door = self
+	var room = map.get_node(door.icon_value.front().room)
+	var exit_door = room.get_node("Icons/Doors/{door}".format({"door": door.icon_value.front().door}))
+	var room_path = room.get_node("Path2D")
+	## set position of path_rider in new room (to be lined up with you & door)
+	room.path_rider.offset = room_path.curve.get_closest_offset(room.to_local(exit_door.global_position))
+	## set new room (as current room)
+	player_marker.new_room(room)
 
 func set_stage_obj_x(input_vector):
 	if !is_instance_valid(stageInstance):

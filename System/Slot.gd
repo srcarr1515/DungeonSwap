@@ -19,7 +19,7 @@ func _ready():
 
 func _on_slot_input_event(viewport, event, shape_idx):
 	var controller = get_parent()
-	if event is InputEventMouseButton && !controller.swap_in_progress && is_clickable && GameState.sub == 'ready':
+	if event is InputEventMouseButton && !controller.swap_in_progress && is_clickable && GameState.sub == 'ready' && GameState.main == "battle":
 		if event.is_pressed():
 			if controller.selected_slot == 0:
 				controller.selected_slot = slot_num

@@ -117,14 +117,14 @@ func set_raycast_dir(new_dir):
 		var collider = raycast.get_collider()
 		if collider != null:
 			var door = collider.get_parent()
-			var room = get_parent().get_node(door.icon_value.front().room)
-			var exit_door = room.get_node("Icons/Doors/{door}".format({"door": door.icon_value.front().door}))
-			var room_path = room.get_node("Path2D")
-			## set position of path_rider in new room (to be lined up with you & door)
-			room.path_rider.offset = room_path.curve.get_closest_offset(room.to_local(exit_door.global_position))
-			## set new room (as current room)
-			new_room(room)
-
+			door.use_door()
+#			var room = get_parent().get_node(door.icon_value.front().room)
+#			var exit_door = room.get_node("Icons/Doors/{door}".format({"door": door.icon_value.front().door}))
+#			var room_path = room.get_node("Path2D")
+#			## set position of path_rider in new room (to be lined up with you & door)
+#			room.path_rider.offset = room_path.curve.get_closest_offset(room.to_local(exit_door.global_position))
+#			## set new room (as current room)
+#			new_room(room)
 
 func move_raycast():
 	if GameState.main != "battle":
@@ -203,6 +203,7 @@ func move_to_path_rider():
 
 func new_room(room):
 	changing_rooms = true
+	GameState.main = "event"
 	var camera = get_tree().get_nodes_in_group("main_camera").front()
 	var fader = camera.get_node("ScreenFade")
 	fader.fade_type = fader.fade.IN
@@ -220,6 +221,7 @@ func new_room(room):
 	fader.duration = 0.4
 	fader.start_fade()
 	changing_rooms = false
+	GameState.main = "map"
 	
 
 func _input(event):

@@ -47,8 +47,9 @@ func _input(event):
 			if map_icon.act_trigger != map_icon.trigger.NONE:
 				anim_player.play(map_icon.act_trigger_anim)
 				map_icon.trigger(map_icon.act_trigger, map_icon.act_trigger_target)
-				map_icon.act_trigger_target = null
-				map_icon.act_trigger = map_icon.trigger.NONE
+				if !map_icon.persist_act_trigger:
+					map_icon.act_trigger_target = null
+					map_icon.act_trigger = map_icon.trigger.NONE
 			
 func _on_StageObject_mouse_entered():
 	set_focus(true)
