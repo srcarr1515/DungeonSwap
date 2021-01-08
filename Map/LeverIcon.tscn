@@ -12,8 +12,8 @@ extents = Vector2( 20, 16 )
 [node name="LeverIcon" instance=ExtResource( 1 )]
 light_mask = 0
 stageObj = ExtResource( 3 )
-touch_trigger = 1
-touch_trigger_anim = "flip"
+act_trigger = 1
+act_trigger_anim = "flip"
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1.2, 1.1, 1.1, 1 )

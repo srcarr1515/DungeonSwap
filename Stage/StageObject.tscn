@@ -29,6 +29,7 @@ shader_param/radius = 0.0
 [node name="StageObject" type="StaticBody2D" groups=[
 "stage_object",
 ]]
+input_pickable = true
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -41,3 +42,5 @@ script = ExtResource( 2 )
 material = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[connection signal="mouse_entered" from="." to="." method="_on_StageObject_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_StageObject_mouse_exited"]

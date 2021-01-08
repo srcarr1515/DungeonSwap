@@ -13,6 +13,8 @@ export (String) var in_room ## ONLY THE NAME OF THE ROOM!
 
 export (Array) var icon_value = []
 export var is_solid = false
+var map
+var player_marker
 
 enum trigger {
 	NONE,
@@ -22,6 +24,10 @@ export (trigger) var touch_trigger = trigger.NONE
 var touch_trigger_target
 export (String) var touch_trigger_anim
 
+export (trigger) var act_trigger = trigger.NONE
+var act_trigger_target
+export (String) var act_trigger_anim
+
 onready var touch_shape = $TouchShape
 
 
@@ -30,13 +36,40 @@ var mapDist
 var distDiff
 
 func _ready():
+	map = get_tree().get_nodes_in_group("map").front()
+	player_marker = get_tree().get_nodes_in_group("player_marker").front()
 	if icon_type != icon.DOOR:
 		pass
+	if act_trigger != trigger.NONE:
+		add_to_group("selectable_obj")
 #		var room = get_parent().room
 #		var icons_node = room.icons
 #		var unit_offset = room.path_rider.unit_offset_from_position(global_position) ## where on Path2D (between 0 and 1)
 #		icons_node.assigned_unit_offset.push_front(unit_offset)
 #		icons_node.icon_in_unit_offset.push_front(self)
+
+func dist_to_player():
+	return global_position.distance_to(player_marker.global_position)
+
+func trigger(_trigger, trigger_target):
+	if _trigger == trigger.DESTROY:
+		if trigger_target != null:
+			## Monkey Patch Until We Make Event System:
+			GameState.main = "event"
+			map.camera_speed = 0.02
+			map.camera_target = trigger_target
+			yield(map, "camera_move_completed")
+			###
+			trigger_target.queue_free()
+#			trigger_target = null
+#			_trigger = trigger.NONE
+			map.camera_speed = 0.0
+			map.camera_target = player_marker
+			yield(get_tree().create_timer(1), "timeout")
+			map.camera_speed = 0.2
+			GameState.main = "map"
+
+
 
 func set_stage_obj_x(input_vector):
 	if !is_instance_valid(stageInstance):

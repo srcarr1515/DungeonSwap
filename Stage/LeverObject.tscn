@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Stage/StageObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Stage/LeverUpDown.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/select_square.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 12.0
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -59,6 +63,16 @@ tracks/0/keys = {
 }
 
 [node name="LeverObject" instance=ExtResource( 1 )]
+collision_layer = 524288
+collision_mask = 524288
+highlighter_default = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, -4 )
+shape = SubResource( 5 )
+
+[node name="Highlighter" parent="." index="1"]
+position = Vector2( 2, 0 )
 
 [node name="Sprite" parent="." index="2"]
 material = SubResource( 3 )

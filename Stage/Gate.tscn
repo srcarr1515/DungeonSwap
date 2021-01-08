@@ -31,6 +31,7 @@ shader = SubResource( 2 )
 shader_param/radius = 0.0
 
 [node name="Gate" instance=ExtResource( 2 )]
+input_pickable = false
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0, -42 )

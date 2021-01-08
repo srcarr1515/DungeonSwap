@@ -44,13 +44,13 @@ func _on_slot_input_event(viewport, event, shape_idx):
 
 
 func _on_slot_mouse_entered():
-	if !slot_selected:
-		icon.modulate = Color(0,0,0,0.5)
+#	if !slot_selected:
+#		icon.modulate = Color(0,0,0,0.5)
 	mouse_over = true
 	parent.mouse_over_slot = self
 
 func _on_slot_mouse_exited():
-	if !slot_selected:
-		icon.modulate = Color(0,0,0,0)
+#	if !slot_selected:
+#		icon.modulate = Color(0,0,0,0)
 	mouse_over = false
 	parent.mouse_over_slot = null

@@ -225,6 +225,7 @@ func stage_item_in_view(item):
 		if item.stageObj != null:
 			var stageObj = item.stageObj.instance()
 			item.stageInstance = stageObj
+			stageObj.map_icon = item
 			if item.spawn_side == "left":
 				stageObj.global_position = spawn_left.global_position
 			else:

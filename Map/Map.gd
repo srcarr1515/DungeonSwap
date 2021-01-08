@@ -22,9 +22,9 @@ func _ready():
 #	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
 #	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
 	var gate = place_map_icon($Room4, "GateIcon", null, {"unit_offset_range":[0.7, 0.79]})
-	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "touch_trigger_target": gate})
+	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "act_trigger_target": gate})
 	gate = place_map_icon($Room2, "GateIcon", null, {"unit_offset_range":[0.8, 0.89]})
-	place_map_icon($Room4, "LeverIcon", null, {"unit_offset_range":[0.9, 0.99], "touch_trigger_target": gate})
+	place_map_icon($Room4, "LeverIcon", null, {"unit_offset_range":[0.9, 0.99], "act_trigger_target": gate})
 	
 	starting_room.path_rider.offset = starting_room.get_node("Path2D").curve.get_closest_offset(Vector2(276,240))
 	character.current_room = starting_room
