@@ -10,6 +10,7 @@ var stageInstance
 export var z_placement = "BG" ## BG/FG
 var stageDist
 export (String) var in_room ## ONLY THE NAME OF THE ROOM!
+export (bool) var reveal_when_found = true
 
 export (Array) var icon_value = []
 export var is_solid = false
@@ -40,8 +41,8 @@ var distDiff
 func _ready():
 	map = get_tree().get_nodes_in_group("map").front()
 	player_marker = get_tree().get_nodes_in_group("player_marker").front()
-	if icon_type != icon.DOOR:
-		pass
+	if icon_type == icon.ENEMY:
+		hide()
 	if act_trigger != trigger.NONE:
 		add_to_group("selectable_obj")
 #		var room = get_parent().room

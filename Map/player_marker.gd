@@ -235,7 +235,11 @@ func _physics_process(delta):
 func _on_Area2D_body_entered(body):
 	## this means it is an icon!
 	if "stageObj" in body && !changing_rooms:
+		if body.in_room == null:
+			print("room not set!")
 		if body.in_room == current_room.name:
+			if body.reveal_when_found:
+				body.show()
 			if body.icon_type != body.icon.ENEMY:
 				detected_icons.push_front(body)
 				body.mapDist = global_position.x - body.global_position.x

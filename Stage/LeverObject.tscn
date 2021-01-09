@@ -5,10 +5,10 @@
 [ext_resource path="res://Assets/UI/select_square.png" type="Texture" id=3]
 [ext_resource path="res://Assets/SFX/switch_flip.wav" type="AudioStream" id=4]
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=1]
 radius = 12.0
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -29,7 +29,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
-shader = SubResource( 1 )
+shader = SubResource( 2 )
 shader_param/radius = 0.0
 
 [sub_resource type="Animation" id=4]
@@ -69,8 +69,7 @@ tracks/2/keys = {
 "values": [ false, true, false ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "unflip"
+[sub_resource type="Animation" id=5]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -92,7 +91,7 @@ highlighter_default = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0, -4 )
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="Highlighter" parent="." index="1"]
 position = Vector2( 2, 0 )
@@ -108,7 +107,7 @@ frame = 5
 
 [node name="AnimationPlayer" parent="." index="3"]
 anims/flip = SubResource( 4 )
-anims/unflip = SubResource( 2 )
+anims/unflip = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 4 )

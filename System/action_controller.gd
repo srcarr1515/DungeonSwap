@@ -96,6 +96,19 @@ func spawn_action(action_name, args=null):
 	else:
 		print("Action doesnt exist!")
 
+func create_msg(body, header=""):
+	var msg = load("res://UI/InfoBox.tscn").instance()
+	var game = GameState.parent ## << Is the Core Game Node
+	game.add_child(msg)
+	msg.global_position = get_viewport_rect().size / 2
+	msg.set_scale(Vector2(0.75,0.75))
+	msg.global_position.y -= 12
+	msg.header.text = header
+	msg.body.text = body
+	msg.show()
+	yield(game, "left_mouse")
+	msg.queue_free()
+
 func old_spawn_action(action_id, args=null):
 	var action_object = args.action_object
 	## Create an object

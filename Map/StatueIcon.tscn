@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Map/MapIcon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Icons/Map/stone-bust.png" type="Texture" id=2]
+[ext_resource path="res://Stage/StatueObj.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="StatueIcon" instance=ExtResource( 1 )]
+light_mask = 0
+stageObj = ExtResource( 3 )
+act_trigger_anim = "on"
+
+[node name="Sprite" parent="." index="0"]
+modulate = Color( 1.1, 1.1, 1.1, 1 )
+light_mask = 0
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="TouchShape" parent="." index="2"]
+shape = SubResource( 2 )

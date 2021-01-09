@@ -541,7 +541,6 @@ __meta__ = {
 [node name="Camera" type="Camera2D" parent="." groups=[
 "main_camera",
 ]]
-visible = false
 offset = Vector2( 0, -8 )
 current = true
 

@@ -143,3 +143,8 @@ func place_map_enemy(room):
 		room.path_rider.unit_offset = random_offset
 		enemies_node.add_child(enemy_icon)
 		enemy_icon.position = enemies_node.to_local(room.path_rider.global_position)
+
+func reveal_enemy_icons():
+	var enemy_icons = get_tree().get_nodes_in_group("enemy_icon")
+	for icon in enemy_icons:
+		icon.show()

@@ -15,9 +15,13 @@ func _ready():
 	GameState.init_parent(self)
 	set_game_camera()
 	GameState.main_state('map')
-	var start_msg = start_msg()
-	yield(self, "left_mouse")
-	start_msg.queue_free()
+	var body = "Clear All The Monsters In The Dungeon...\n\n That's it.\n\n"
+	body += "If you want something more 'deep' and 'meaningful' go play Disco Elysium."
+	var header = "Demo Quest"
+#	var start_msg = ActionController.create_msg(body, header)
+	ActionController.create_msg(body, header)
+#	yield(self, "left_mouse")
+#	start_msg.queue_free()
 #	var fader = load("res://UI/ScreenFade.tscn")
 #	var screen_fader = fader.instance()
 #	screen_fader.fade_type = screen_fader.fade.IN

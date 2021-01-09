@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Stage/StageObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/Stage/see_enemy_statue.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 21.3333, 53.3333 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float radius = 4.0;
+
+void fragment() {
+	vec4 col = texture(TEXTURE, UV);
+	vec2 ps = TEXTURE_PIXEL_SIZE;
+
+	col += texture(TEXTURE, UV + vec2(0.0, -radius) * ps);
+	col += texture(TEXTURE, UV + vec2(0.0, radius) * ps);
+	col += texture(TEXTURE, UV + vec2(-radius, 0.0) * ps);
+	col += texture(TEXTURE, UV + vec2(radius, 0.0) * ps);
+	col /= 5.0;
+
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/radius = 0.0
+
+[sub_resource type="Animation" id=4]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "reveal_enemy_icons", null ],
+"method": "call_map_method"
+}, {
+"args": [ "create_msg", [ "You May Now See Evil...", "Eerie Statue" ] ],
+"method": "call_action_controller"
+} ]
+}
+
+[node name="StatueObj" instance=ExtResource( 1 )]
+scale = Vector2( 0.75, 0.75 )
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, -53.3333 )
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="2"]
+material = SubResource( 3 )
+position = Vector2( 0, -53.3333 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+vframes = 2
+
+[node name="AnimationPlayer" parent="." index="3"]
+anims/off = SubResource( 4 )
+anims/on = SubResource( 5 )

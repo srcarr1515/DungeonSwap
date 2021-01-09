@@ -6,8 +6,11 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[node name="EnemyIcon" instance=ExtResource( 1 )]
+[node name="EnemyIcon" groups=[
+"enemy_icon",
+] instance=ExtResource( 1 )]
 icon_type = 3
+reveal_when_found = false
 icon_value = [ null ]
 
 [node name="Sprite" parent="." index="0"]

@@ -4,12 +4,15 @@ onready var sprite = $Sprite
 onready var highlighter = $Highlighter
 onready var anim_player = $AnimationPlayer
 export (Texture) var highlighter_default
+export (String) var start_animation
 onready var white_shader = preload("res://Effects/WhiteCover.tres")
 var map_icon
 var is_selected = false
 var player_range =  65
 
 func _ready():
+	if start_animation != null:
+		anim_player.play(start_animation)
 	set_focus(false)
 	highlighter.set_material(white_shader)
 	highlighter.material.set_shader_param("flash_modifier", 1)
@@ -44,8 +47,10 @@ func set_focus(is_focus):
 func _input(event):
 	if Input.is_action_just_pressed("left_mouse") && GameState.main == "map":
 		if map_icon.dist_to_player() < player_range && is_selected:
-			if map_icon.act_trigger != map_icon.trigger.NONE:
+			highlighter.hide()
+			if map_icon.act_trigger_anim != null:
 				anim_player.play(map_icon.act_trigger_anim)
+			if map_icon.act_trigger != map_icon.trigger.NONE:
 				map_icon.trigger(map_icon.act_trigger, map_icon.act_trigger_target)
 				if !map_icon.persist_act_trigger:
 					map_icon.act_trigger_target = null
@@ -64,3 +69,9 @@ func _on_StageObject_mouse_entered():
 func _on_StageObject_mouse_exited():
 	set_focus(false)
 	is_selected = false
+
+func call_map_method(method_name, params=[]):
+	map_icon.map.callv(method_name, params)
+
+func call_action_controller(method_name, params=[]):
+	ActionController.callv(method_name, params)
