@@ -102,34 +102,35 @@ func process_formation_set():
 		"right": "right_side_enemy"
 	}
 	var formation = formation_set.front()
-	if "delay" in formation:
-		var delay = float(formation["delay"])
-		timer.set_wait_time(delay)
-		timer.set_paused(true)
-		yield(get_tree().create_timer(delay), "timeout")
-		timer.set_paused(false)
-	
-	var deploy_both = typeof(formation) == TYPE_STRING
-	if "spawn_side" in formation && !deploy_both:
-		deploy_both = formation["spawn_side"] == "both"
-	
-	if deploy_both:
-		var enemy_name = formation
-		if "spawn_side" in formation:
-			enemy_name = formation["enemy"]
-		for side in ["left_side_enemy", "right_side_enemy"]:
-			spawnEnemy(enemy_name, side)
-		## deploy to both
-	elif "enemy" in formation:
-		var spawn_side = "left"
-		if "spawn_side" in formation:
-			spawn_side = formation["spawn_side"]
-		spawnEnemy(formation["enemy"], spawn_side_hash[spawn_side])
-	formation_set.pop_front()
-	if formation_set.size() > 0:
-		timer.start()
-	else:
-		timer.stop()
+	if formation != null:
+		if "delay" in formation:
+			var delay = float(formation["delay"])
+			timer.set_wait_time(delay)
+			timer.set_paused(true)
+			yield(get_tree().create_timer(delay), "timeout")
+			timer.set_paused(false)
+		
+		var deploy_both = typeof(formation) == TYPE_STRING
+		if "spawn_side" in formation && !deploy_both:
+			deploy_both = formation["spawn_side"] == "both"
+		
+		if deploy_both:
+			var enemy_name = formation
+			if "spawn_side" in formation:
+				enemy_name = formation["enemy"]
+			for side in ["left_side_enemy", "right_side_enemy"]:
+				spawnEnemy(enemy_name, side)
+			## deploy to both
+		elif "enemy" in formation:
+			var spawn_side = "left"
+			if "spawn_side" in formation:
+				spawn_side = formation["spawn_side"]
+			spawnEnemy(formation["enemy"], spawn_side_hash[spawn_side])
+		formation_set.pop_front()
+		if formation_set.size() > 0:
+			timer.start()
+		else:
+			timer.stop()
 
 func start_encounter(_formation_set):
 	formation_set = _formation_set

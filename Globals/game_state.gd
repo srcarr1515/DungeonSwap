@@ -60,10 +60,14 @@ func main_state(new_state):
 		for node in battle_ui_nodes:
 			node.show()
 	elif new_state == "map":
+		var slots = get_tree().get_nodes_in_group("slot")
+		for slot in slots:
+			slot.reset_slot()
+		
 		var summons = get_tree().get_nodes_in_group("player_summon")
 		for summon in summons:
 			summon.queue_free()
-		parent.change_song('Dr-Nomura-loop.ogg')
+		parent.change_song('Dr-Nomura-Loop.ogg')
 		fg.show()
 		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		add_child(tween)

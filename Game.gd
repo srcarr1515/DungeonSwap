@@ -12,6 +12,7 @@ onready var jukebox = $JukeBox
 
 signal left_mouse
 func _ready():
+#	change_song('Dr-Nomura-loop.ogg')
 	GameState.init_parent(self)
 	set_game_camera()
 	GameState.main_state('map')
@@ -47,7 +48,7 @@ func start_msg():
 		msg.show()
 		return msg
 
-func change_song(song_file, db=-24):
+func change_song(song_file, db=-16):
 	var path = "res://Assets/Music/{song_file}"
 	jukebox.stream = load(path.format({"song_file": song_file}))
 	jukebox.set_volume_db(db)

@@ -17,15 +17,27 @@ func _ready():
 	get_node("Room4/Icons/Doors/Door").icon_value = [{"door": "Door", "room": "Room2"}]
 	get_node("Room5/Icons/Doors/Door").icon_value = [{"door": "Door3", "room": "Room2"}]
 	get_node("Room2/Icons/Doors/Door3").icon_value = [{"door": "Door", "room": "Room5"}]
-	var enemy_formation = load("res://Data/enemy_formation.gd").new()
-	enemy_formation.list
-	place_map_icon($Room1, "EnemyIcon", enemy_formation.list[6])
-#	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
-#	place_map_icon($Room1, "EnemyIcon", ["Skeleton_Warrior", "Wolf"])
+
+## I think I will be going for true random encounters.
+#	var enemy_formation = load("res://Data/enemy_formation.gd").new()
+#	for room in [$Room1, $Room2, $Room3, $Room4, $Room5]:
+#		for n in range(3):
+#			var formation_set = int(rand_range(0,enemy_formation.list.size() - 1))
+#			print("formation_set: ", formation_set, "Room: ", room.name)
+#			var unit_offset = [0.0, 1.0]
+#			if room == $Room2:
+#				unit_offset = [0.0, 0.4]
+#			place_map_icon(room, "EnemyIcon", enemy_formation.list[formation_set], {"unit_offset_range":unit_offset})
+	
 	var gate = place_map_icon($Room4, "GateIcon", null, {"unit_offset_range":[0.7, 0.79]})
 	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "act_trigger_target": gate})
 	gate = place_map_icon($Room2, "GateIcon", null, {"unit_offset_range":[0.8, 0.89]})
 	place_map_icon($Room4, "LeverIcon", null, {"unit_offset_range":[0.9, 0.99], "act_trigger_target": gate})
+
+## I'm redesigning the demo quest... No need for this yet.
+#	place_map_icon($Room4, "StatueIcon", null, {"unit_offset_range":[0.0, 0.1]})
+	place_map_icon(Helpers.choose([$Room1, $Room4, $Room3]), "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
+	place_map_icon($Room5, "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
 	
 	starting_room.path_rider.offset = starting_room.get_node("Path2D").curve.get_closest_offset(Vector2(276,240))
 	character.current_room = starting_room

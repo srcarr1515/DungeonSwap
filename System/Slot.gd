@@ -42,6 +42,10 @@ func _on_slot_input_event(viewport, event, shape_idx):
 			## Is button release
 			pass
 
+func reset_slot():
+	get_parent().selected_slot = 0
+	icon.modulate = Color(0,0,0,0)
+	slot_selected = false
 
 func _on_slot_mouse_entered():
 #	if !slot_selected:

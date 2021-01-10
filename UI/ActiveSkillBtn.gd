@@ -124,7 +124,7 @@ func _on_mouse_exited():
 	msg.hide()
 
 func _on_MouseOver_timeout():
-	if !precommitting:
+	if !precommitting && GameState.main == 'battle':
 		var middle_of_screen = get_viewport_rect().size / 2
 		msg.global_position = rect_global_position
 		msg.global_position.y += 12
@@ -132,8 +132,8 @@ func _on_MouseOver_timeout():
 			msg.global_position.x -= 64
 		elif rect_global_position.x < middle_of_screen.x - 40:
 			msg.global_position.x += 64
-		var ui = get_tree().get_nodes_in_group("UI").front()
-		ui.add_child(msg)
+		var ui_node = get_tree().get_nodes_in_group("UI").front()
+		ui_node.add_child(msg)
 		msg.set_scale(Vector2(0.4,0.4))
 		msg.header.text = skill_details["label"]
 		msg.body.text = skill_details["description"]
