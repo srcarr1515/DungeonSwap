@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Tilesets/simple_black_tile.png" type="Texture" id=1]
 [ext_resource path="res://Map/player_marker.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Map/Staircase.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Map/Door.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Map/StatueIcon.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Map/EnemyIcon.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -164,7 +165,6 @@ tile_data = PoolIntArray( -851930, 0, 0, -851929, 0, 1, -851928, 0, 1, -851927, 
 scale = Vector2( 1, 1 )
 
 [node name="FountainIcon" parent="Room4/Icons" index="0" instance=ExtResource( 4 )]
-visible = true
 position = Vector2( 68, -21 )
 in_room = "Room4"
 
@@ -205,6 +205,10 @@ in_room = "Room5"
 
 [node name="Enemies" parent="Room5/Icons" index="1"]
 position = Vector2( 152, -168 )
+
+[node name="EnemyIcon" parent="Room5/Icons/Enemies" index="0" instance=ExtResource( 9 )]
+position = Vector2( 496, -1 )
+in_room = "Room5"
 
 [node name="Staircase" parent="Room5/Icons" index="2" instance=ExtResource( 6 )]
 light_mask = 0

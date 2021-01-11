@@ -8,6 +8,7 @@ onready var battle_cam_pos = $camPos_Battle
 onready var map_cam_pos = $camPos_Map
 onready var map = $Minimap
 onready var jukebox = $JukeBox
+var last_key_code_time
 
 
 signal left_mouse
@@ -60,18 +61,14 @@ func _unhandled_input(event):
 		emit_signal("left_mouse")
 #	if InputEventScreenTouch:
 #		emit_signal("left_mouse")
-	if Input.is_key_pressed(KEY_I):
-		key_code.push_back('I')
-	if Input.is_key_pressed(KEY_D):
-		key_code.push_back('D')
-	if Input.is_key_pressed(KEY_Q):
-		key_code.push_back('Q')
-	if key_code == ['I', 'I', 'I']:
-		GameState.main_state('map')
-		key_code = []
-	if key_code == ['Q', 'Q', 'Q']:
-		GameState.main_state('battle')
-		key_code = []
+	if "scancode" in event:
+		var key_pressed = OS.get_scancode_string(event.scancode)
+		if event.pressed == false && key_pressed.length() < 2:
+			key_code.push_back(key_pressed)
+			last_key_code_time = OS.get_ticks_msec()
+	
+#	print(key_code)
+
 	if key_code == ['I', 'D', 'D', 'Q', 'D']:
 		if cheat_modes.has("God Mode"):
 			OS.alert('God Mode is turned off')
@@ -80,11 +77,27 @@ func _unhandled_input(event):
 			OS.alert('Welcome to God Mode')
 			cheat_modes.push_front("God Mode")
 		key_code = []
+	if key_code == ['I', 'D', 'K', 'F', 'A']:
+		OS.alert('Ah Feeling Refreshed')
+		ActionController.restore_char_cooldowns()
+		ActionController.restore_group_health("player_char")
+		key_code = []
+	if key_code == ['I', 'D', 'S', 'P', 'I', 'S', 'P', 'O', 'P', 'D']:
+		if cheat_modes.has("No Encounters"):
+			OS.alert('Cheat Modes Are Now Turned Off')
+			cheat_modes = []
+		else:
+			OS.alert('Random Encounters Are Turned Off')
+			cheat_modes.push_front("No Encounters")
+			var player = get_tree().get_nodes_in_group("player_marker").front()
+			player.INIT_ENCOUNTER_PERC = 0.0
+			player.ENCOUNTER_PERC = 0.0
+		key_code = []
 
 func _process(delta):
 	if key_code != []:
-		yield(get_tree().create_timer(1), "timeout")
-		key_code = []
+		if OS.get_ticks_msec() - last_key_code_time > 1000:
+			key_code = []
 
 func set_game_camera(smooth=true):
 	var tween = Tween.new()

@@ -41,8 +41,8 @@ var distDiff
 func _ready():
 	map = get_tree().get_nodes_in_group("map").front()
 	player_marker = get_tree().get_nodes_in_group("player_marker").front()
-	if icon_type == icon.ENEMY:
-		hide()
+#	if icon_type == icon.ENEMY:
+#		hide()
 	if act_trigger != trigger.NONE:
 		add_to_group("selectable_obj")
 #		var room = get_parent().room

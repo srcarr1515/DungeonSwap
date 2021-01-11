@@ -70,7 +70,7 @@ tracks/1/keys = {
 "args": [ "reveal_enemy_icons", null ],
 "method": "call_map_method"
 }, {
-"args": [ "create_msg", [ "So the Demo is over... I appreciate you playing it, but this is where we part ways... I would say the whole \"It's not you it's me spiel but.. well, I think we both know that's not true.\" But hey, at least you found this statue that used to serve a purpose in this Demo.", "Eerie Statue" ] ],
+"args": [ "create_msg", [ "It's over? Why Are You Still Here? Alright, alright... Here Are Some Cheat Codes (Enter them at any time):  IDDQD: God Mode, IDKFA: Restore Characters, IDSPISPOPD: No Random Encounters", "Cheat Codes" ] ],
 "method": "call_action_controller"
 } ]
 }
