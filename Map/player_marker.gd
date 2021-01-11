@@ -17,9 +17,10 @@ export var FRICTION = 400
 
 var steps = 0
 export var ENCOUNTER_RATE = 96 ## How many steps do you take before we roll for a battle?
-export var INIT_ENCOUNTER_PERC = 0.15
+export var INIT_ENCOUNTER_PERC = 0.25
 var ENCOUNTER_PERC = INIT_ENCOUNTER_PERC ## What is the percent chance of getting into a battle?
-
+var last_battle_time
+var last_battle_room
 
 var scroll_speed = 60
 var stage_spawner_speed = 1.35 ## controls how fast items spawn into stage (doors, boxes, etc)
@@ -57,8 +58,6 @@ func _ready():
 
 func random_encounter():
 	var enemy_formation = load("res://Data/enemy_formation.gd").new()
-	var formation_set = int(rand_range(0,enemy_formation.list.size() - 1))
-	var formation = enemy_formation.list[formation_set]
 	GameState.main = "event"
 	for pc in playerChars:
 		pc.state.state_event({"event": "idle"})
@@ -66,14 +65,47 @@ func random_encounter():
 	yield(get_tree().create_timer(0.7), "timeout")
 	for pc in playerChars:
 		pc.surprise_icon.hide()
+	
 	GameState.main_state('battle')
-	formation_controller.start_encounter(formation)
+	# Old Code Pre-Wave Based Encounters
+	#	formation_controller.start_encounter(formation)
+	var level = get_tree().get_nodes_in_group("level").front()
+	var wave_ct = Helpers.choose([2,2,2,2,3,3,3,4,4,5]) ## Monkey Patch
+	var formation_set = 0
+	var formation = []
+	level.wave_gauge.init()
+	for w in range(wave_ct):
+		formation_set = int(rand_range(0,enemy_formation.list.size() - 1))
+		formation = enemy_formation.list[formation_set]
+		level.wave_gauge.formation_set.push_back(formation)
+		if w == 0:
+			## First enemy deployment should happen instantly
+			level.wave_gauge.timer_set.push_back(0)
+		else:
+			level.wave_gauge.timer_set.push_back(Helpers.choose([15,30,45]))
+	level.wave_gauge.formation_timer()
+	yield(level.wave_gauge, "battle_finished")
+	last_battle_time = OS.get_ticks_msec()
 
 func roll_for_encounter():
 	var roll = rand_range(0.0, 1.0)
-	if roll <= ENCOUNTER_PERC:
+	var time_check = true
+	var room_check = false
+	if last_battle_time != null:
+		## We don't want to hit you with back-to-back battles...
+		time_check = OS.get_ticks_msec() - last_battle_time > 30000
+	if last_battle_room != null:
+		room_check = last_battle_room != current_room
+	
+	if room_check:
+		## We are not in the same room since the last encounter roll
+		## Increase likelihood of battle
+		ENCOUNTER_PERC += 0.15
+	
+	if roll <= ENCOUNTER_PERC && time_check:
 		ENCOUNTER_PERC = INIT_ENCOUNTER_PERC
 		random_encounter()
+		last_battle_room = current_room
 
 func build_in_view():
 	var icons = view_area.get_overlapping_bodies()

@@ -19,6 +19,11 @@ func start_timer(delay_amt):
 	timer.start()
 	set_process(true)
 
+func stop_timer():
+	set_process(false)
+	timer.stop()
+	ui.value = 0
+
 func _process(delta):
 	ui.value = int((timer.time_left / total_delay) * 100)
 

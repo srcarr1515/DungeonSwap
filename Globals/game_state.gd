@@ -42,9 +42,14 @@ func main_state(new_state):
 	var tween = Tween.new()
 	var battle_ui_nodes = get_tree().get_nodes_in_group("battle_ui")
 	var fg = get_tree().get_nodes_in_group("FG").front()
+	var level = get_tree().get_nodes_in_group("level").front()
+	
 	if new_state == "battle":
 		parent.change_song('Sicambre-loop.ogg')
 		fg.hide()
+		for obj in level.get_children():
+			if obj.is_in_group("stage_object"):
+				obj.hide()
 		var playerChars = get_tree().get_nodes_in_group("player_char")
 		for pc in playerChars:
 			pc.state.state_event({"event": "idle"})
@@ -69,6 +74,9 @@ func main_state(new_state):
 			summon.queue_free()
 		parent.change_song('Dr-Nomura-Loop.ogg')
 		fg.show()
+		for obj in level.get_children():
+			if obj.is_in_group("stage_object"):
+				obj.show()
 		tween.interpolate_property(parent.map, "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.50, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		add_child(tween)
 		tween.start()

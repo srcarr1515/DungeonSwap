@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Assets/BG/parrallax_bg_dungeon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tilesets/dungeon_prison_tileset.png" type="Texture" id=2]
@@ -27,6 +27,10 @@
 [ext_resource path="res://Minimap.gd" type="Script" id=25]
 [ext_resource path="res://Assets/light-radius-shadow.png" type="Texture" id=26]
 [ext_resource path="res://UI/ScreenFade.tscn" type="PackedScene" id=27]
+[ext_resource path="res://UI/DelayTimer.tscn" type="PackedScene" id=28]
+[ext_resource path="res://UI/WaveGauge.gd" type="Script" id=29]
+[ext_resource path="res://Level.gd" type="Script" id=30]
+[ext_resource path="res://Assets/Icons/UI/gold_circle.png" type="Texture" id=31]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 20 )
@@ -278,6 +282,9 @@ font_data = ExtResource( 20 )
 16/shapes = [  ]
 16/z_index = 0
 
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 20 )
+
 [sub_resource type="Environment" id=3]
 background_mode = 4
 glow_enabled = true
@@ -422,6 +429,7 @@ region_rect = Rect2( 0, 0, 354, 78 )
 "level",
 "pausable",
 ]]
+script = ExtResource( 30 )
 
 [node name="Player" type="Node2D" parent="Level"]
 script = ExtResource( 6 )
@@ -443,6 +451,43 @@ wait_time = 1.5
 position = Vector2( 162, 100 )
 scale = Vector2( 0.65, 1 )
 texture = ExtResource( 26 )
+
+[node name="WaveGauge" type="Node2D" parent="Level"]
+position = Vector2( 0, 4 )
+script = ExtResource( 29 )
+
+[node name="DelayTimer" parent="Level/WaveGauge" instance=ExtResource( 28 )]
+position = Vector2( 128, -12 )
+
+[node name="UI" parent="Level/WaveGauge/DelayTimer" index="0"]
+modulate = Color( 0.470588, 0.145098, 0.145098, 1 )
+
+[node name="WaveCtr_BG" type="TextureButton" parent="Level/WaveGauge"]
+modulate = Color( 0.294118, 0.0862745, 0.0862745, 1 )
+margin_left = 127.0
+margin_top = -11.0
+margin_right = 191.0
+margin_bottom = 53.0
+rect_scale = Vector2( 0.65, 0.65 )
+rect_pivot_offset = Vector2( 33.0157, 29.3519 )
+texture_normal = ExtResource( 31 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaveCtr_Label" type="Label" parent="Level/WaveGauge"]
+margin_left = 140.0
+margin_top = 9.0
+margin_right = 180.0
+margin_bottom = 29.0
+rect_pivot_offset = Vector2( 20, 8 )
+custom_fonts/font = SubResource( 4 )
+text = "5"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="slot_controller" type="Node2D" parent="." groups=[
 "slot_controller",
@@ -506,6 +551,7 @@ script = ExtResource( 25 )
 margin_top = 3.0
 margin_right = 200.0
 margin_bottom = 103.0
+mouse_filter = 2
 stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -583,12 +629,14 @@ position = Vector2( 160, 52 )
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="HUD/MuteButton" to="HUD/MuteButton" method="_on_MuteButton_pressed"]
+[connection signal="timeout" from="Level/WaveGauge/DelayTimer/Timer" to="Level/WaveGauge" method="_on_Timer_timeout"]
+[connection signal="pressed" from="Level/WaveGauge/WaveCtr_BG" to="Level/WaveGauge" method="_on_WaveCtr_BG_pressed"]
 [connection signal="update_char_slots" from="slot_controller" to="HUD/UI" method="_on_slot_controller_update_char_slots"]
 [connection signal="button_down" from="Minimap/Zoom In" to="Minimap" method="_on_Zoom_In_button_down"]
 [connection signal="button_down" from="Minimap/Zoom Out" to="Minimap" method="_on_Zoom_Out_button_down"]
 
 [editable path="Level/Player/formation_controller"]
 
-[editable path="Minimap/ViewportContainer/Viewport/Map"]
+[editable path="Level/WaveGauge/DelayTimer"]
 
 [editable path="Camera/ScreenFade"]

@@ -5,7 +5,7 @@
 [ext_resource path="res://Stage/StatueObj.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 20, 20 )
+extents = Vector2( 24, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
