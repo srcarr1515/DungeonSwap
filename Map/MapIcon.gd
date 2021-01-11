@@ -32,7 +32,7 @@ export (String) var act_trigger_anim
 export (bool) var persist_act_trigger
 
 onready var touch_shape = $TouchShape
-
+var override_start_anim
 
 ## may not be needed any longer (but does provide super accurate results)
 var mapDist

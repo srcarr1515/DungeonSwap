@@ -11,6 +11,8 @@ var is_selected = false
 var player_range =  65
 
 func _ready():
+	if map_icon.override_start_anim != null:
+		start_animation = map_icon.override_start_anim
 	if start_animation != null:
 		anim_player.play(start_animation)
 	set_focus(false)
@@ -52,9 +54,10 @@ func _input(event):
 				anim_player.play(map_icon.act_trigger_anim)
 			if map_icon.act_trigger != map_icon.trigger.NONE:
 				map_icon.trigger(map_icon.act_trigger, map_icon.act_trigger_target)
-				if !map_icon.persist_act_trigger:
-					map_icon.act_trigger_target = null
-					map_icon.act_trigger = map_icon.trigger.NONE
+			if !map_icon.persist_act_trigger:
+				map_icon.act_trigger_target = null
+				map_icon.act_trigger_anim = null
+				map_icon.act_trigger = map_icon.trigger.NONE
 			
 func _on_StageObject_mouse_entered():
 	set_focus(true)
@@ -75,3 +78,6 @@ func call_map_method(method_name, params=[]):
 
 func call_action_controller(method_name, params=[]):
 	ActionController.callv(method_name, params)
+
+func set_start_anim(anim):
+	map_icon.override_start_anim = anim

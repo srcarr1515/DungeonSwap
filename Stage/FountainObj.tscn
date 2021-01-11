@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Stage/StageObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Stage/BigProps_FountainBig64x64.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 28, 16 )
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -25,13 +25,12 @@ void fragment() {
 	COLOR = col;
 }"
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
-shader = SubResource( 4 )
+shader = SubResource( 2 )
 shader_param/radius = 0.0
 
-[sub_resource type="Animation" id=2]
-resource_name = "heal"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -51,16 +50,44 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "restore_group_health", [ "player_char" ] ],
 "method": "call_action_controller"
+}, {
+"args": [ "off" ],
+"method": "set_start_anim"
 } ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "start"
+[sub_resource type="Animation" id=6]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=5]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -84,12 +111,13 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="2"]
-material = SubResource( 5 )
+material = SubResource( 3 )
 position = Vector2( 0, -32 )
 texture = ExtResource( 2 )
 hframes = 8
 frame = 6
 
 [node name="AnimationPlayer" parent="." index="3"]
-anims/heal = SubResource( 2 )
-anims/start = SubResource( 3 )
+anims/heal = SubResource( 4 )
+anims/off = SubResource( 6 )
+anims/start = SubResource( 5 )

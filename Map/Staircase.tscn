@@ -1,23 +1,20 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Map/MapIcon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Icons/Map/lever.png" type="Texture" id=2]
-[ext_resource path="res://Stage/LeverObject.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Icons/Map/3d-stairs.png" type="Texture" id=2]
+[ext_resource path="res://Stage/StaircaseObj.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 20, 16 )
+extents = Vector2( 24, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
-[node name="LeverIcon" instance=ExtResource( 1 )]
-light_mask = 0
+[node name="Staircase" instance=ExtResource( 1 )]
 stageObj = ExtResource( 3 )
-z_placement = "level"
-act_trigger = 1
-act_trigger_anim = "flip"
+act_trigger_anim = "use_stairs"
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 1.2, 1.1, 1.1, 1 )
+modulate = Color( 1.05, 1.05, 1.05, 1 )
 light_mask = 0
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )

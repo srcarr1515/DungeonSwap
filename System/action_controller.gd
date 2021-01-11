@@ -3,48 +3,51 @@ extends Node2D
 signal on_enemy_death
 
 func _on_UI_commit_skill(_button, _target):
-	var skill_details = playerVar.skill_list[_button.skill_id]
-	var is_occupied = false
-	if is_occupied:
-		pass
-#		print('occupied!')
-#		GameState.sub_state('ready')
-	else:
-		var char_slot = _button.parent.char_slot
-		var parent = playerVar.party_chars[char_slot]
-		var target_pos = Vector2.ZERO
-		target_pos.x = get_global_mouse_position().x
-		target_pos.y = parent.global_position.y
-		if _button.skill_details["target_type"] == "tile":
-			var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
-			target_pos = slot.global_position
-
-		var args = {
-			"start_pos":parent.global_position, 
-			"slot_pos": target_pos,
-			"action_owner": parent
-			}
-		if get_global_mouse_position().x < parent.position.x:
-			parent.toggle_flip(true)
-			args["is_flipped"] = true
+	if GameState.main == "battle":
+		var skill_details = playerVar.skill_list[_button.skill_id]
+		var is_occupied = false
+		if is_occupied:
+			pass
+	#		print('occupied!')
+	#		GameState.sub_state('ready')
 		else:
-			parent.toggle_flip(false)
-		if "atk_power" in skill_details.keys():
-			args["atk_power"] = skill_details["atk_power"]
-		
-		
-		if _button.skill_charges == null || _button.skill_charges < 2:
-			_button.start_cooldown()
-			if _button.skill_charges != null:
-				_button.skill_charges = skill_details.charges ## It will default to the max
-		elif _button.skill_charges > 1:
-			_button.skill_charges -= 1
+			var char_slot = _button.parent.char_slot
+			var parent = playerVar.party_chars[char_slot]
+			var target_pos = Vector2.ZERO
+			target_pos.x = get_global_mouse_position().x
+			target_pos.y = parent.global_position.y
+			if _button.skill_details["target_type"] == "tile":
+				var slot = Helpers.pick_nearest("slot", get_global_mouse_position())
+				target_pos = slot.global_position
+	
+			var args = {
+				"start_pos":parent.global_position, 
+				"slot_pos": target_pos,
+				"action_owner": parent
+				}
+			if get_global_mouse_position().x < parent.position.x:
+				parent.toggle_flip(true)
+				args["is_flipped"] = true
+			else:
+				parent.toggle_flip(false)
+			if "atk_power" in skill_details.keys():
+				args["atk_power"] = skill_details["atk_power"]
+			
+			
+			if _button.skill_charges == null || _button.skill_charges < 2:
+				_button.start_cooldown()
+				if _button.skill_charges != null:
+					_button.skill_charges = skill_details.charges ## It will default to the max
+			elif _button.skill_charges > 1:
+				_button.skill_charges -= 1
+			GameState.sub_state('ready')
+			if _button.key_down:
+				yield(get_tree().create_timer(0.25), "timeout")
+				_button.activate_skill()
+			
+			spawn_action(skill_details["skill_name"], args)
+	else:
 		GameState.sub_state('ready')
-		if _button.key_down:
-			yield(get_tree().create_timer(0.25), "timeout")
-			_button.activate_skill()
-		
-		spawn_action(skill_details["skill_name"], args)
 
 func execute_action(skill_id, args):
 	pass

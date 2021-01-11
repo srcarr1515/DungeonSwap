@@ -28,7 +28,9 @@ func _ready():
 #			if room == $Room2:
 #				unit_offset = [0.0, 0.4]
 #			place_map_icon(room, "EnemyIcon", enemy_formation.list[formation_set], {"unit_offset_range":unit_offset})
+#	place_map_icon($Room2, "EnemyIcon", enemy_formation.list[0], {"unit_offset_range":[0.0, 1.0]})
 	
+	## Levers and Gates
 	var gate = place_map_icon($Room4, "GateIcon", null, {"unit_offset_range":[0.7, 0.79]})
 	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "act_trigger_target": gate})
 	gate = place_map_icon($Room2, "GateIcon", null, {"unit_offset_range":[0.8, 0.89]})
@@ -36,7 +38,7 @@ func _ready():
 
 ## I'm redesigning the demo quest... No need for this yet.
 #	place_map_icon($Room4, "StatueIcon", null, {"unit_offset_range":[0.0, 0.1]})
-	place_map_icon(Helpers.choose([$Room1, $Room4, $Room3]), "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
+	place_map_icon(Helpers.choose([$Room1]), "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
 	place_map_icon($Room5, "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
 	
 	starting_room.path_rider.offset = starting_room.get_node("Path2D").curve.get_closest_offset(Vector2(276,240))

@@ -15,6 +15,12 @@ export var MAX_SPEED = 20
 export var FRICTION = 400
 ## 
 
+var steps = 0
+export var ENCOUNTER_RATE = 96 ## How many steps do you take before we roll for a battle?
+export var INIT_ENCOUNTER_PERC = 0.15
+var ENCOUNTER_PERC = INIT_ENCOUNTER_PERC ## What is the percent chance of getting into a battle?
+
+
 var scroll_speed = 60
 var stage_spawner_speed = 1.35 ## controls how fast items spawn into stage (doors, boxes, etc)
 ## stage_spawner_speed 1.0 == 1x the normal speed.
@@ -49,11 +55,31 @@ func _ready():
 	self.connect("stage_item_in_view", formation_controller, "stage_item_in_view")
 	self.connect("stage_item_out_view", formation_controller, "stage_item_out_view")
 
+func random_encounter():
+	var enemy_formation = load("res://Data/enemy_formation.gd").new()
+	var formation_set = int(rand_range(0,enemy_formation.list.size() - 1))
+	var formation = enemy_formation.list[formation_set]
+	GameState.main = "event"
+	for pc in playerChars:
+		pc.state.state_event({"event": "idle"})
+		pc.surprise_icon.show()
+	yield(get_tree().create_timer(0.7), "timeout")
+	for pc in playerChars:
+		pc.surprise_icon.hide()
+	GameState.main_state('battle')
+	formation_controller.start_encounter(formation)
+
+func roll_for_encounter():
+	var roll = rand_range(0.0, 1.0)
+	if roll <= ENCOUNTER_PERC:
+		ENCOUNTER_PERC = INIT_ENCOUNTER_PERC
+		random_encounter()
+
 func build_in_view():
 	var icons = view_area.get_overlapping_bodies()
 	for icon in icons:
 #		if abs(icon.global_position.x) - abs(global_position.x) < 50:
-		if icon.is_in_group("door_icon"):
+		if icon.is_in_group("map_icon"):
 			if icon.stageObj != null && icon.in_room == current_room.name:
 #					detected_icons.push_front(icon)
 				var stageObj = icon.stageObj.instance()
@@ -142,30 +168,37 @@ func move_raycast():
 func move_along_path(delta):
 	if GameState.main == "map":
 		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		if input_vector.x != 0:
+			if current_room != null && is_blocked != input_vector.x:
+				current_room.path_rider.offset += input_vector.x * delta * scroll_speed
+				var unit_offset = current_room.path_rider.get_unit_offset()
+				if unit_offset > 0 && unit_offset < 1:
+					## Keep track of steps and checks for encounter every so many steps.
+					steps += 1
+					if steps % ENCOUNTER_RATE == 0:
+						roll_for_encounter()
+					## BG, Floor Elements
+					var bg_rect = bg_scroller.get_region_rect()
+					var floor_rect = floor_scroller.get_region_rect()
+					var parallax_rect = parallax_bg_scroller.get_region_rect()
+					bg_rect.position.x += input_vector.x * stage_spawner_speed * delta * scroll_speed
+					floor_rect.position.x += input_vector.x * stage_spawner_speed * delta * scroll_speed
+					parallax_rect.position.x += input_vector.x * delta * scroll_speed / 10
+					bg_scroller.set_region_rect(bg_rect)
+					floor_scroller.set_region_rect(floor_rect)
+					parallax_bg_scroller.set_region_rect(parallax_rect)
+					move_to_path_rider()
+					update_stage_obj_x(input_vector.x * stage_spawner_speed * delta * scroll_speed)
+
 		var state_hash = {
-			'-1': "walk",
-			'0': "idle",
-			'1': "walk"
-		}
+				'-1': "walk",
+				'0': "idle",
+				'1': "walk"
+			}
 		toggle_flip(input_vector.x)
 		if last_state != state_hash[str(input_vector.x)]:
 			update_char_state(state_hash[str(input_vector.x)])
 			last_state = state_hash[str(input_vector.x)]
-		if current_room != null && is_blocked != input_vector.x:
-			current_room.path_rider.offset += input_vector.x * delta * scroll_speed
-			var unit_offset = current_room.path_rider.get_unit_offset()
-			if unit_offset > 0 && unit_offset < 1:
-				var bg_rect = bg_scroller.get_region_rect()
-				var floor_rect = floor_scroller.get_region_rect()
-				var parallax_rect = parallax_bg_scroller.get_region_rect()
-				bg_rect.position.x += input_vector.x * stage_spawner_speed * delta * scroll_speed
-				floor_rect.position.x += input_vector.x * stage_spawner_speed * delta * scroll_speed
-				parallax_rect.position.x += input_vector.x * delta * scroll_speed / 10
-				bg_scroller.set_region_rect(bg_rect)
-				floor_scroller.set_region_rect(floor_rect)
-				parallax_bg_scroller.set_region_rect(parallax_rect)
-				move_to_path_rider()
-				update_stage_obj_x(input_vector.x * stage_spawner_speed * delta * scroll_speed)
 
 func update_stage_obj_x(input_vector):
 	## old way ... buggy... still may want to go down this path...
@@ -202,6 +235,7 @@ func move_to_path_rider():
 		global_position = current_room.path_rider.global_position
 
 func new_room(room):
+	ENCOUNTER_PERC += 0.05
 	changing_rooms = true
 	GameState.main = "event"
 	var camera = get_tree().get_nodes_in_group("main_camera").front()

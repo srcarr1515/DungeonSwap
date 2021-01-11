@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Stage/StageObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Stage/LeverUpDown.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/select_square.png" type="Texture" id=3]
 [ext_resource path="res://Assets/SFX/switch_flip.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -87,7 +86,6 @@ tracks/0/keys = {
 [node name="LeverObject" instance=ExtResource( 1 )]
 collision_layer = 524288
 collision_mask = 524288
-highlighter_default = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( 0, -4 )

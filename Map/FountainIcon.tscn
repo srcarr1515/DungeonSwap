@@ -12,6 +12,7 @@ extents = Vector2( 20, 20 )
 [node name="FountainIcon" instance=ExtResource( 1 )]
 visible = false
 stageObj = ExtResource( 3 )
+z_placement = "level"
 act_trigger_anim = "heal"
 
 [node name="Sprite" parent="." index="0"]

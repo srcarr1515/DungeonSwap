@@ -10,7 +10,7 @@ var prev = {
 var transition = {
 	'battle': ['ready', 'select_target', 'game over'],
 	'event': ['ready'],
-	'ready': ['battle', 'event']
+	'map': ['battle', 'event', 'select_target']
 }
 var death_ct = 0 setget set_death_ct
 var game_speed = 0.5

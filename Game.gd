@@ -16,7 +16,7 @@ func _ready():
 	GameState.init_parent(self)
 	set_game_camera()
 	GameState.main_state('map')
-	var body = "Clear All The Monsters In The Dungeon...\n\n That's it.\n\n"
+	var body = "Escape The Dungeon...\n\n That's it.\n\n"
 	body += "If you want something more 'deep' and 'meaningful' go play Disco Elysium."
 	var header = "Demo Quest"
 #	var start_msg = ActionController.create_msg(body, header)
