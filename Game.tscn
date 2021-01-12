@@ -282,10 +282,10 @@ font_data = ExtResource( 20 )
 16/shapes = [  ]
 16/z_index = 0
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 20 )
 
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id=4]
 background_mode = 4
 glow_enabled = true
 glow_blend_mode = 0
@@ -482,7 +482,7 @@ margin_top = 9.0
 margin_right = 180.0
 margin_bottom = 29.0
 rect_pivot_offset = Vector2( 20, 8 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "5"
 align = 1
 valign = 1
@@ -613,7 +613,7 @@ mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 3 )
+environment = SubResource( 4 )
 
 [node name="JukeBox" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
@@ -624,8 +624,8 @@ position = Vector2( 160, 100 )
 
 [node name="camPos_Map" type="Position2D" parent="."]
 position = Vector2( 160, 52 )
-[connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
 [connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
+[connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
 [connection signal="pressed" from="SkipButton" to="SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]

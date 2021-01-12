@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 28, 16 )
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -25,9 +25,9 @@ void fragment() {
 	COLOR = col;
 }"
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
-shader = SubResource( 7 )
+shader = SubResource( 2 )
 shader_param/radius = 0.0
 
 [sub_resource type="Animation" id=4]
@@ -64,7 +64,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "off"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -90,7 +90,7 @@ tracks/1/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -114,7 +114,7 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="2"]
-material = SubResource( 8 )
+material = SubResource( 3 )
 position = Vector2( 0, -32 )
 texture = ExtResource( 2 )
 hframes = 8
@@ -122,5 +122,5 @@ frame = 6
 
 [node name="AnimationPlayer" parent="." index="3"]
 anims/heal = SubResource( 4 )
-anims/off = SubResource( 6 )
-anims/start = SubResource( 5 )
+anims/off = SubResource( 5 )
+anims/start = SubResource( 6 )

@@ -45,7 +45,7 @@ func _on_UI_commit_skill(_button, _target):
 				yield(get_tree().create_timer(0.25), "timeout")
 				_button.activate_skill()
 			
-			spawn_action(skill_details["skill_name"], args)
+			spawn_action(skill_details["skill_name"], args, _button)
 	else:
 		GameState.sub_state('ready')
 
@@ -129,15 +129,21 @@ func load_checkpoint():
 	fader.fade_type = fader.fade.OUT
 	fader.duration = 0.4
 	fader.start_fade()
-	
-	
+
+
+func player_char_buff():
+	var chars = get_tree().get_nodes_in_group("player_char")
+	for ch in chars:
+		ch.atk_power += 2
+
+## END MONKEY PATCH
 
 
 func spawn_instance(instance, node_group="action_zone"):
 	var level = get_tree().get_nodes_in_group(node_group).front()
 	level.add_child(instance)
 
-func spawn_action(action_name, args=null):
+func spawn_action(action_name, args=null, button=null):
 	var directory = Directory.new()
 	var file_path = "res://Actions/{action_obj}.tscn".format({"action_obj": action_name})
 	if directory.file_exists(file_path):
@@ -150,8 +156,11 @@ func spawn_action(action_name, args=null):
 		## If action has a delay timer!
 		if action_instance.delay > 0:
 			args.action_owner.delay_timer.start_timer(action_instance.delay)
+			if button != null:
+				button.player_delayed = true
 			yield(args.action_owner.delay_timer.timer, "timeout")
-		
+			if button != null:
+				button.player_delayed = false
 		if slot_controller.assigned_char_slot[5] == in_support_slot:
 			action_instance.spawn()
 	else:

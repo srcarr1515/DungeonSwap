@@ -266,7 +266,7 @@ func stage_item_out_view(item):
 			item.stageInstance.queue_free()
 
 func check_enemies_killed():
-	if is_waiting:
-		return false
+#	if is_waiting:
+#		return false
 	var enemy_ct = get_tree().get_nodes_in_group("enemy")
 	return enemy_ct.size() < 1

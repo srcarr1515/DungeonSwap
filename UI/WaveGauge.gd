@@ -56,6 +56,7 @@ func _process(delta):
 	if GameState.main == "battle" && cur_index >= formation_set.size():
 		var enemies_killed = formation_controller.check_enemies_killed()
 		if enemies_killed:
+			print('battle_finished')
 			emit_signal("battle_finished")
 			GameState.main_state('map')
 

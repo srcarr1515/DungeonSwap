@@ -31,10 +31,10 @@ func _ready():
 #	place_map_icon($Room2, "EnemyIcon", enemy_formation.list[0], {"unit_offset_range":[0.0, 1.0]})
 	
 	## Levers and Gates
-#	var gate = place_map_icon($Room4, "GateIcon", null, {"unit_offset_range":[0.7, 0.79]})
-#	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "act_trigger_target": gate})
-#	gate = place_map_icon($Room2, "GateIcon", null, {"unit_offset_range":[0.8, 0.89]})
-#	place_map_icon($Room4, "LeverIcon", null, {"unit_offset_range":[0.9, 0.99], "act_trigger_target": gate})
+	var gate = place_map_icon($Room4, "GateIcon", null, {"unit_offset_range":[0.7, 0.79]})
+	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "act_trigger_target": gate})
+	gate = place_map_icon($Room2, "GateIcon", null, {"unit_offset_range":[0.8, 0.89]})
+	place_map_icon($Room4, "LeverIcon", null, {"unit_offset_range":[0.9, 0.99], "act_trigger_target": gate})
 	var map_nodes = get_children()
 	for node in map_nodes:
 		if node.is_in_group("room"):

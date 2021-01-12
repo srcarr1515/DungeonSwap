@@ -14,8 +14,8 @@ func _ready():
 	if map_icon.override_start_anim != null:
 		start_animation = map_icon.override_start_anim
 	if start_animation != null:
-		#TODO: Check if you have the animation.
-		anim_player.play(start_animation)
+		if anim_player.has_animation(start_animation):
+			anim_player.play(start_animation)
 	set_focus(false)
 	highlighter.set_material(white_shader)
 	highlighter.material.set_shader_param("flash_modifier", 1)
@@ -53,7 +53,8 @@ func _input(event):
 		if map_icon.dist_to_player() < player_range && is_selected:
 			highlighter.hide()
 			if map_icon.act_trigger_anim != null:
-				anim_player.play(map_icon.act_trigger_anim)
+				if anim_player.has_animation(map_icon.act_trigger_anim):
+					anim_player.play(map_icon.act_trigger_anim)
 			if map_icon.act_trigger != map_icon.trigger.NONE:
 				map_icon.trigger(map_icon.act_trigger, map_icon.act_trigger_target)
 			if !map_icon.persist_act_trigger:

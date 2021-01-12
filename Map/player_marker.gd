@@ -76,13 +76,13 @@ func random_encounter():
 	level.wave_gauge.init()
 	for w in range(wave_ct):
 		formation_set = int(rand_range(0,enemy_formation.list.size() - 1))
-		formation = enemy_formation.list[formation_set]
+		formation = enemy_formation.list[formation_set].duplicate(true)
 		level.wave_gauge.formation_set.push_back(formation)
 		if w == 0:
 			## First enemy deployment should happen instantly
 			level.wave_gauge.timer_set.push_back(0)
 		else:
-			level.wave_gauge.timer_set.push_back(Helpers.choose([15,30,45]))
+			level.wave_gauge.timer_set.push_back(Helpers.choose([10, 10, 20, 30]))
 	level.wave_gauge.formation_timer()
 	yield(level.wave_gauge, "battle_finished")
 	last_battle_time = OS.get_ticks_msec()

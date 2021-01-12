@@ -9,6 +9,7 @@ onready var charges_ui = $Charges/TextureProgress
 onready var mouse_over = $MouseOver
 
 var precommitting = false
+var player_delayed = false
 
 var key_down = false
 
@@ -18,6 +19,7 @@ export (String) var button_key
 export (PackedScene) var msg_box
 onready var msg = msg_box.instance()
 onready var parent = get_parent()
+var last_pressed
 
 signal precommit_skill(_button)
 
@@ -59,9 +61,16 @@ func start_cooldown():
 		set_process(true)
 		$Timer.start()
 
+func check_last_pressed():
+	if last_pressed == null:
+		last_pressed = OS.get_ticks_msec()
+		return true
+	return OS.get_ticks_msec() - last_pressed > 100
+
 func _on_ActiveSkillBtn_pressed():
-	precommitting = true
-	activate_skill()
+	if check_last_pressed():
+		precommitting = true
+		activate_skill()
 #	ActionController.display_info(skill_details.skill_name, skill_details.skill_name, rect_global_position)
 		## TODO: change icon to indicate pre-activated
 
@@ -88,7 +97,7 @@ func activate_skill():
 		if skill_charges < 1:
 			is_ready = false
 	
-	if is_active && is_ready && !disabled:
+	if is_active && is_ready && !disabled && !player_delayed:
 		var skill_buttons = get_tree().get_nodes_in_group("skill_button")
 		for button in skill_buttons:
 			button.is_preactivated = false
