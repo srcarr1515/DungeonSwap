@@ -30,7 +30,7 @@ func _on_health_changed(value):
 		var hit_sounds = [
 			"Blunt Weapon 1_1.wav", 
 			'Shield Metal 1_1.wav', 
-			'Shield Wood 1_1.wav',
+			'Shield Wood 3_1.wav',
 			"Metal Weapon Hit Metal 2_1.wav",
 			"Stab 1_1.wav",
 			"Stab 1_2.wav",

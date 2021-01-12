@@ -35,11 +35,17 @@ func _ready():
 #	place_map_icon($Room3, "LeverIcon", null, {"unit_offset_range":[0, 0.3], "act_trigger_target": gate})
 #	gate = place_map_icon($Room2, "GateIcon", null, {"unit_offset_range":[0.8, 0.89]})
 #	place_map_icon($Room4, "LeverIcon", null, {"unit_offset_range":[0.9, 0.99], "act_trigger_target": gate})
+	var map_nodes = get_children()
+	for node in map_nodes:
+		if node.is_in_group("room"):
+			node.init()
+
 
 ## I'm redesigning the demo quest... No need for this yet.
 #	place_map_icon($Room4, "StatueIcon", null, {"unit_offset_range":[0.0, 0.1]})
 	place_map_icon(Helpers.choose([$Room1]), "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
-	place_map_icon($Room5, "FountainIcon", null, {"unit_offset_range":[0.0, 1.0]})
+	place_map_icon($Room5, "FountainIcon", null, {"unit_offset_range":[0.1, 0.4]})
+	place_map_icon($Room3, "FountainIcon", null, {"unit_offset_range":[0.1, 0.4]})
 	
 	starting_room.path_rider.offset = starting_room.get_node("Path2D").curve.get_closest_offset(Vector2(276,240))
 	character.current_room = starting_room
@@ -52,6 +58,7 @@ func _process(delta):
 	elif cam_dist <= 2 && camera.global_position != camera_target.global_position:
 		camera.global_position = camera_target.global_position
 		emit_signal("camera_move_completed")
+
 
 func place_map_icon(_room, _icon, _icon_value=null, _args={}):
 	var icon_scene = load("res://Map/{icon}.tscn".format({"icon": _icon}))
@@ -87,20 +94,20 @@ func place_map_icon(_room, _icon, _icon_value=null, _args={}):
 	
 	## we do not want to create icons on top of other icons, so keep track...
 	while already_exists:
+		tries += 1
 		if assigned_unit_offset.size() < 1:
 			already_exists = false
 		for _unit_offset in assigned_unit_offset:
-			tries += 1
 			## we dont want icons to be too close so we only care about the tens point
 			## So, .1, .2, .3, etc instead of .141 or .37
 			## This means we can have 10 icons on a line...
 			## TODO: We will need to dynamically shift how many icons based on the length of line.
 			if "%0.1f" % _unit_offset == "%0.1f" % unit_offset:
 				pass
-			elif tries > 3:
-				already_exists = null
 			else:
 				already_exists = false
+		if tries > 3:
+			already_exists = null
 	## If we find that it doesn't already exist at that offset, we can spawn it.
 	if !already_exists:
 		icons_node.assigned_unit_offset.push_front(unit_offset)
@@ -120,43 +127,6 @@ func place_map_icon(_room, _icon, _icon_value=null, _args={}):
 	
 	## We may want to share this icon or its data with other systems or icons.
 	return icon
-	
-
-func place_map_enemy(room):
-	var enemy_icon_scene = load("res://Map/EnemyIcon.tscn")
-	var enemy_icon = enemy_icon_scene.instance()
-	enemy_icon.in_room = room.name
-	enemy_icon.icon_value = ["Wolf"]
-	var enemies_node = room.get_node("Icons/Enemies")
-	var icons_node = room.get_node("Icons")
-	## set the offset (between 0.0 and 1.0) this determines where on the Path2D you spawn.
-	var random_offset = rand_range(0, 1)
-	var already_exists = true
-	var tries = 0
-	var assigned_unit_offset = icons_node.assigned_unit_offset
-	## we do not want to create icons on top of other icons, so keep track...
-	while already_exists:
-		if assigned_unit_offset.size() < 1:
-			already_exists = false
-		for unit_offset in assigned_unit_offset:
-			tries += 1
-			## we dont want icons to be too close so we only care about the tens point
-			## So, .1, .2, .3, etc instead of .141 or .37
-			## This means we can have 10 icons on a line...
-			## TODO: We will need to dynamically shift how many icons based on the length of line.
-			if "%0.1f" % unit_offset == "%0.1f" % random_offset:
-				pass
-			elif tries > 3:
-				already_exists = null
-			else:
-				already_exists = false
-		if already_exists:
-			random_offset = rand_range(0, 1)
-	if !already_exists:
-		icons_node.assigned_unit_offset.push_front(random_offset)
-		room.path_rider.unit_offset = random_offset
-		enemies_node.add_child(enemy_icon)
-		enemy_icon.position = enemies_node.to_local(room.path_rider.global_position)
 
 func reveal_enemy_icons():
 	var enemy_icons = get_tree().get_nodes_in_group("enemy_icon")

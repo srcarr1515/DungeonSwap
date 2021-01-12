@@ -10,7 +10,6 @@ onready var map = $Minimap
 onready var jukebox = $JukeBox
 var last_key_code_time
 
-
 signal left_mouse
 func _ready():
 #	change_song('Dr-Nomura-loop.ogg')
@@ -36,6 +35,7 @@ func _ready():
 #		test_action.start_pos = get_global_mouse_position()
 #		test_action.end_pos = Vector2(3,0)
 #		test_action.spawn()
+
 
 func start_msg():
 		var msg = load("res://UI/InfoBox.tscn").instance()

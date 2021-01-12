@@ -23,6 +23,7 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="DelayTimer" parent="." instance=ExtResource( 8 )]
+visible = false
 position = Vector2( -10, -36 )
 scale = Vector2( 0.3, 0.3 )
 

@@ -288,7 +288,7 @@ func new_room(room):
 	fader.start_fade()
 	changing_rooms = false
 	GameState.main = "map"
-	
+
 
 func _input(event):
 	move_raycast()
@@ -363,28 +363,32 @@ func _on_TouchRadius_body_entered(body):
 				yield(get_tree().create_timer(0.7), "timeout")
 				for pc in playerChars:
 					pc.surprise_icon.hide()
+				
 				## Monkey Patch
 				var text = "Foolish Mortal..."
 				text += "\n\nShane doesn't have time to make you a boss fight, he's got kids son. "
 				text += "Here's a bunch of waves to keep you busy in the mean time."
-#	var start_msg = ActionController.create_msg(body, header)
 				ActionController.create_msg(text)
 				yield(GameState.parent, 'left_mouse')
 				GameState.main_state('battle')
 				var enemy_formation = load("res://Data/enemy_formation.gd").new()
 				var level = get_tree().get_nodes_in_group("level").front()
 				level.wave_gauge.init()
-				for w in range(2):
-					for f in enemy_formation.list.size() - 1:
-						var formation = enemy_formation.list[f]
-						level.wave_gauge.formation_set.push_back(formation)
-						if f == 0:
-							## First enemy deployment should happen instantly
-							level.wave_gauge.timer_set.push_back(0)
-						else:
-							level.wave_gauge.timer_set.push_back(Helpers.choose([10,20,30]))
-						
+				level.wave_gauge.formation_set.push_back(enemy_formation.list[2].duplicate(true))
+				level.wave_gauge.timer_set.push_back(0)
+				
+				for n in range(4):
+					level.wave_gauge.formation_set.push_back(enemy_formation.list[3].duplicate(true))
+					level.wave_gauge.timer_set.push_back(Helpers.choose([10,10,20,30]))
+					level.wave_gauge.formation_set.push_back(enemy_formation.list[6].duplicate(true))
+					level.wave_gauge.timer_set.push_back(Helpers.choose([10,10,20,30]))
+					level.wave_gauge.formation_set.push_back(enemy_formation.list[7].duplicate(true))
+					level.wave_gauge.timer_set.push_back(Helpers.choose([10,10,20,30]))
+				
+
+				
 				level.wave_gauge.formation_timer()
+
 				## old code:
 				# formation_controller.start_encounter(body.icon_value)
 				body.queue_free()

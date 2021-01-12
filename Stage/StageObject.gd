@@ -8,12 +8,13 @@ export (String) var start_animation
 onready var white_shader = preload("res://Effects/WhiteCover.tres")
 var map_icon
 var is_selected = false
-var player_range =  65
+var player_range =  96
 
 func _ready():
 	if map_icon.override_start_anim != null:
 		start_animation = map_icon.override_start_anim
 	if start_animation != null:
+		#TODO: Check if you have the animation.
 		anim_player.play(start_animation)
 	set_focus(false)
 	highlighter.set_material(white_shader)
@@ -47,6 +48,7 @@ func set_focus(is_focus):
 		highlighter.hide()
 
 func _input(event):
+	check_distance()
 	if Input.is_action_just_pressed("left_mouse") && GameState.main == "map":
 		if map_icon.dist_to_player() < player_range && is_selected:
 			highlighter.hide()
@@ -58,15 +60,18 @@ func _input(event):
 				map_icon.act_trigger_target = null
 				map_icon.act_trigger_anim = null
 				map_icon.act_trigger = map_icon.trigger.NONE
-			
-func _on_StageObject_mouse_entered():
-	set_focus(true)
+
+func check_distance():
 	if map_icon.dist_to_player() <= player_range:
 		highlighter.material.set_shader_param("flash_color", Color(1,1,1,1))
 		highlighter.modulate = Color(1,1,1,1)
 	else:
 		highlighter.material.set_shader_param("flash_color", Color(1,0,0,1))
 		highlighter.modulate = Color(1,1,1,0.2)
+
+func _on_StageObject_mouse_entered():
+	set_focus(true)
+	check_distance()
 	is_selected = true
 
 func _on_StageObject_mouse_exited():

@@ -53,6 +53,7 @@ tracks/1/keys = {
 [node name="Enemy" type="KinematicBody2D" groups=[
 "enemy",
 "entity",
+"stage_object",
 "targetable",
 ]]
 collision_layer = 16

@@ -55,6 +55,8 @@ func execute_action(skill_id, args):
 func restore_group_health(group_name):
 	var chars = get_tree().get_nodes_in_group(group_name)
 	for ch in chars:
+		if "state" in ch:
+			ch.state.state_event({"event": "revive"})
 		if "stats" in ch:
 			ch.stats.health = ch.stats.max_health
 
@@ -74,6 +76,62 @@ func display_info(header, body, _position=null, show=true):
 		info_box.show()
 	else:
 		info_box.hide()
+
+### Monkey Patch
+var checkpoint_data = {
+	"enemy_icon": [],
+	"checkpoint_location": {"_position": Vector2.ZERO, "in_room": null}
+}
+func save_checkpoint():
+	var map = get_tree().get_nodes_in_group("map").front()
+	checkpoint_data["checkpoint_location"]["_position"] = map.character.global_position
+	checkpoint_data["checkpoint_location"]["in_room"] = map.character.current_room
+	var enemies = get_tree().get_nodes_in_group("enemy_icon")
+	for enemy in enemies:
+		checkpoint_data["enemy_icon"].push_front({"_position": enemy.global_position, "in_room": enemy.in_room})
+
+func load_checkpoint():
+	var formation_controller = get_tree().get_nodes_in_group("formation_controller").front()
+	formation_controller.stop_encounter()
+	var map = get_tree().get_nodes_in_group("map").front()
+	var enemy_icon = load("res://Map/EnemyIcon.tscn")
+	var enemy_ct = get_tree().get_nodes_in_group("enemy_icon")
+	print(enemy_ct.size() < 1, " ", checkpoint_data["enemy_icon"])
+	if enemy_ct.size() < 1:
+		for enemy in checkpoint_data["enemy_icon"]:
+			var icon_instance = enemy_icon.instance()
+			var room = map.get_node(enemy.in_room)
+			icon_instance.in_room = enemy.in_room
+			room.get_node("Icons/Enemies").add_child(icon_instance)
+			icon_instance.global_position = enemy._position
+	map.character.current_room = checkpoint_data["checkpoint_location"]["in_room"]
+	map.character.global_position = checkpoint_data["checkpoint_location"]["_position"]
+	var path_rider = map.get_node(map.character.current_room.name).path_rider
+	var offset = path_rider.offset_from_position(checkpoint_data["checkpoint_location"]["_position"])
+	
+	var camera = get_tree().get_nodes_in_group("main_camera").front()
+	var fader = camera.get_node("ScreenFade")
+	fader.fade_type = fader.fade.IN
+	fader.duration = 0.5
+	fader.start_fade()
+	yield(fader.tween, "tween_completed")
+	
+	path_rider.offset = offset
+	yield(get_tree().create_timer(0.1), "timeout")
+	
+	var stage_obj = get_tree().get_nodes_in_group("stage_object")
+	for entity in stage_obj:
+		entity.queue_free()
+	restore_group_health("player_char")
+	restore_char_cooldowns()
+	map.character.build_in_view()
+	
+	fader.fade_type = fader.fade.OUT
+	fader.duration = 0.4
+	fader.start_fade()
+	
+	
+
 
 func spawn_instance(instance, node_group="action_zone"):
 	var level = get_tree().get_nodes_in_group(node_group).front()

@@ -34,6 +34,7 @@ func formation_timer():
 		wave_ctr.show()
 		wave_ctr_bg.show()
 		wave_ctr.text = String(formation_set.size() - (cur_index))
+	
 	if cur_index <= formation_set.size() - 1:
 		var timer_amt = timer_set[cur_index]
 		if timer_amt == 0:
@@ -48,6 +49,7 @@ func formation_timer():
 func _on_Timer_timeout():
 	var formation = formation_set[cur_index]
 	formation_controller.start_encounter(formation)
+	yield(get_tree().create_timer(0.1), "timeout")
 	formation_timer()
 
 func _process(delta):
@@ -58,5 +60,6 @@ func _process(delta):
 			GameState.main_state('map')
 
 func _on_WaveCtr_BG_pressed():
-	delay_timer.stop_timer()
-	_on_Timer_timeout()
+	if cur_index <= formation_set.size() - 1:
+		delay_timer.stop_timer()
+		_on_Timer_timeout()

@@ -21,10 +21,14 @@ func init_parent(_parent):
 func set_death_ct(value):
 	death_ct = value
 	if death_ct >= 3:
-		GameState.sub_state('game over')
-		OS.alert('Game Over!')
-		get_tree(). reload_current_scene()
-		GameState.sub_state('ready')
+		## Monkey Patch (checkpoint)
+		if ActionController.checkpoint_data.checkpoint_location.in_room != null:
+			ActionController.load_checkpoint()
+		else:
+			GameState.sub_state('game over')
+			OS.alert('Game Over!')
+			get_tree(). reload_current_scene()
+			GameState.sub_state('ready')
 
 func sub_state(new_state):
 	if new_state == 'ready':

@@ -11,6 +11,7 @@ var formation_set = []
 export var formation_left = 0
 export var formation_right = 0
 var wave_ct_label
+var is_waiting = false
 var formation_list = [
 	[
 		"Skeleton_Warrior"
@@ -97,6 +98,7 @@ func spawnEnemy(enemy_name, spawn_side):
 				spawn_right.add_child(enemy)
 
 func process_formation_set():
+	is_waiting = false
 	var spawn_side_hash = {
 		"left": "left_side_enemy",
 		"right": "right_side_enemy"
@@ -104,6 +106,7 @@ func process_formation_set():
 	var formation = formation_set.front()
 	if formation != null:
 		if "delay" in formation:
+			is_waiting = true
 			var delay = float(formation["delay"])
 			timer.set_wait_time(delay)
 			timer.set_paused(true)
@@ -135,6 +138,10 @@ func process_formation_set():
 func start_encounter(_formation_set):
 	formation_set = _formation_set
 	process_formation_set()
+
+func stop_encounter():
+	formation_set = []
+	timer.stop()
 
 func reset_timers(value=null):
 	if value != null:
@@ -259,5 +266,7 @@ func stage_item_out_view(item):
 			item.stageInstance.queue_free()
 
 func check_enemies_killed():
+	if is_waiting:
+		return false
 	var enemy_ct = get_tree().get_nodes_in_group("enemy")
 	return enemy_ct.size() < 1

@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 28, 16 )
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -25,9 +25,9 @@ void fragment() {
 	COLOR = col;
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=8]
 resource_local_to_scene = true
-shader = SubResource( 2 )
+shader = SubResource( 7 )
 shader_param/radius = 0.0
 
 [sub_resource type="Animation" id=4]
@@ -50,14 +50,17 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [ "restore_group_health", [ "player_char" ] ],
 "method": "call_action_controller"
 }, {
 "args": [ "off" ],
 "method": "set_start_anim"
+}, {
+"args": [ "save_checkpoint", [  ] ],
+"method": "call_action_controller"
 } ]
 }
 
@@ -111,7 +114,7 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="2"]
-material = SubResource( 3 )
+material = SubResource( 8 )
 position = Vector2( 0, -32 )
 texture = ExtResource( 2 )
 hframes = 8

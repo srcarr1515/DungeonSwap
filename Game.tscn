@@ -458,6 +458,7 @@ script = ExtResource( 29 )
 
 [node name="DelayTimer" parent="Level/WaveGauge" instance=ExtResource( 28 )]
 position = Vector2( 128, -12 )
+hide_when_finished = false
 
 [node name="UI" parent="Level/WaveGauge/DelayTimer" index="0"]
 modulate = Color( 0.470588, 0.145098, 0.145098, 1 )
@@ -623,8 +624,8 @@ position = Vector2( 160, 100 )
 
 [node name="camPos_Map" type="Position2D" parent="."]
 position = Vector2( 160, 52 )
-[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="left_mouse" from="." to="Level/Player/formation_controller" method="_on_Game_left_mouse"]
+[connection signal="left_mouse" from="." to="action_controller" method="_on_Game_left_mouse"]
 [connection signal="pressed" from="SkipButton" to="SkipButton" method="_on_SkipButton_pressed"]
 [connection signal="commit_skill" from="HUD/UI" to="action_controller" method="_on_UI_commit_skill"]
 [connection signal="pressed" from="HUD/PauseButton" to="HUD/PauseButton" method="_on_PauseButton_pressed"]
